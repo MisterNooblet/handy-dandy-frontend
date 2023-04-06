@@ -22,7 +22,7 @@ const page = async () => {
   return (
     <div>
       {data.children.map((child: string) => (
-        <div>{child}</div>
+        <div key={child}>{child}</div>
       ))}
     </div>
   );
