@@ -18,7 +18,6 @@ async function testData() {
 
 const page = async () => {
   const data = await testData();
-  console.log(data);
   return (
     <div>
       {data.children.map((child: string) => (
