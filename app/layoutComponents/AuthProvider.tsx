@@ -1,29 +1,21 @@
 import React from 'react';
-import { API_BASE_PATH } from '@/utils/constants';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthState, login, logout, updateUser } from '@/store/authSlice';
 import { RootState } from '@/store/store';
-import axios from 'axios';
-
-const fetchUser = async () => {
-  const result = await axios.get(`${API_BASE_PATH}auth/current-user`, {
-    headers: {
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmM4NTk0MjBjOGEwNTVjZTgwYTc5NCIsImlhdCI6MTY4MDYzOTM4MSwiZXhwIjoxNjgzMjMxMzgxfQ.meu4jb_89ajEGYSIcsiha-Q1mI5Az-BiYW9kftwIWEw',
-    },
-  });
-  console.log(result);
-};
+import { fetchUser } from '@/utils/apiAuth';
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const user = useSelector((state: RootState) => state.auth) as AuthState;
   const dispatch = useDispatch();
-  fetchUser();
+
+  const getUser = async () => {
+    const response = await fetchUser();
+    dispatch.login();
+  };
 
   useEffect(() => {
-    console.log('running');
-    console.log(API_BASE_PATH);
+    getUser();
     // eslint-disable-next-line
   }, []);
 

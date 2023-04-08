@@ -1,1 +1,1 @@
-export const API_BASE_PATH = process.env.REACT_APP_API_PATH;
+export const API_BASE_PATH = 'https://real-cyan-foal-wear.cyclic.app/api/v1/';
