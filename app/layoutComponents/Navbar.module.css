@@ -1,0 +1,63 @@
+.nav {
+  background-color: var(--primary-dark);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  height: 7rem;
+  padding: 0 2rem;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.logoBox {
+  display: flex;
+  align-items: center;
+  color: var(--primary-orange);
+}
+
+.logoImage {
+  background: url('../../public/logo.png') center center/contain no-repeat;
+  width: 7rem;
+  height: 7rem;
+}
+.logoText {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-left: 1rem;
+}
+.logoMoto {
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  text-align: center;
+  font-family: 'Ubuntu Mono', monospace;
+}
+
+.navList {
+  display: flex;
+  flex-grow: 1;
+  padding: 0 2rem;
+}
+.navList li {
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  transition: 0.5s all ease-in-out;
+}
+
+.navList li:hover {
+  background-color: var(--primary-orange);
+  opacity: 0.7;
+  color: var(--primary-dark);
+  background-blend-mode: soft-light;
+}
+
+.listEnd {
+  border-radius: 0 10px 10px 0;
+}
+.listStart {
+  border-radius: 10px 0 0 10px;
+}

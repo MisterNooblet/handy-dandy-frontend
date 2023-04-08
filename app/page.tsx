@@ -1,9 +1,10 @@
+import { API_BASE_PATH } from '@/utils/constants';
 import axios from 'axios';
 import React from 'react';
 
 async function testData() {
   const response = await axios.get(
-    'https://real-cyan-foal-wear.cyclic.app/api/v1/subcategories/642de65687254225aacf39a9',
+    `${API_BASE_PATH}subcategories/642de65687254225aacf39a9`,
     {
       // query URL without using browser cache
       headers: {
@@ -18,7 +19,6 @@ async function testData() {
 
 const page = async () => {
   const data = await testData();
-  console.log(data);
   return (
     <div>
       {data.children.map((child: string) => (
