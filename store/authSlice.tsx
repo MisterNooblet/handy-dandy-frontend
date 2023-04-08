@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { AnyAction, Dispatch, createSlice } from '@reduxjs/toolkit';
 import { User } from '@/utils/models';
 
 export interface AuthState {
@@ -8,6 +8,16 @@ export interface AuthState {
 const initialState = {
   user: {} as User | null,
 };
+
+export interface AuthDispatch extends Dispatch<AnyAction> {
+  login: ({}) => void;
+  logout: () => void;
+  updateUser: () => void;
+  updateTools: () => void;
+  updateMaterials: () => void;
+  setToolBox: () => void;
+  updateUserPfp: () => void;
+}
 
 const authSlice = createSlice({
   name: 'auth',

@@ -2,6 +2,9 @@ import React from 'react';
 import styles from './Navbar.module.css';
 import Link from 'next/link';
 import ProfileBox from './ProfileBox';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { AuthState } from '@/store/authSlice';
 
 const pages = [
   { name: 'Tool-o-Pedia', path: '/wiki' },
@@ -11,6 +14,7 @@ const pages = [
 ];
 
 const Navbar = () => {
+  const user = useSelector((state: RootState) => state.auth) as AuthState;
   return (
     <nav className={styles.nav}>
       <div className={styles.navbar}>
@@ -34,6 +38,11 @@ const Navbar = () => {
               </li>
             </Link>
           ))}
+          {user.user?.role === 'admin' && (
+            <Link href={'/admin'}>
+              <li>Admin</li>
+            </Link>
+          )}
         </ul>
         <ProfileBox />
       </div>

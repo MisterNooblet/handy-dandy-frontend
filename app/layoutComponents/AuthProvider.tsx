@@ -1,17 +1,32 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AuthState, login, logout, updateUser } from '@/store/authSlice';
+import {
+  AuthDispatch,
+  AuthState,
+  login,
+  logout,
+  updateUser,
+} from '@/store/authSlice';
 import { RootState } from '@/store/store';
 import { fetchUser } from '@/utils/apiAuth';
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const user = useSelector((state: RootState) => state.auth) as AuthState;
-  const dispatch = useDispatch();
+  const dispatch: AuthDispatch = useDispatch();
 
   const getUser = async () => {
     const response = await fetchUser();
-    dispatch.login();
+    dispatch(
+      login({
+        id: response.id,
+        toolbox: response.toolbox,
+        fullName: response.fullName,
+        role: response.role,
+        favourites: response.favourites,
+        pfp: response.pfp,
+      })
+    );
   };
 
   useEffect(() => {

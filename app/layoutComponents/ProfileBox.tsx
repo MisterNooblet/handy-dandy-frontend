@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import styles from './ProfileBox.module.css';
 import { BsFillPersonFill } from 'react-icons/Bs';
 import NavList from './NavList';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { AuthState } from '@/store/authSlice';
 const settings = [
   { name: 'Profile', path: '/profile' },
   { name: 'Logout', path: '' },
@@ -14,6 +17,7 @@ const loginSettings = [
 ];
 
 const ProfileBox = () => {
+  const user = useSelector((state: RootState) => state.auth) as AuthState;
   const [listOpen, setListOpen] = useState(false);
 
   const handleOpenList = () => {
@@ -29,7 +33,10 @@ const ProfileBox = () => {
       >
         <BsFillPersonFill />
         {listOpen && (
-          <NavList paths={loginSettings} setListOpen={setListOpen} />
+          <NavList
+            paths={user.user ? settings : loginSettings}
+            setListOpen={setListOpen}
+          />
         )}
       </div>
     </div>
