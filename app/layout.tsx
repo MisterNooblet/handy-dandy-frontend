@@ -1,5 +1,6 @@
 'use client';
 import '../styles/globalstyle.css';
+import Footer from './layoutComponents/Footer';
 import Navbar from './layoutComponents/Navbar';
 import StoreAndAuthProvider from './layoutComponents/StoreAndAuthProvider';
 
@@ -22,6 +23,7 @@ export default function RootLayout({
           <div className="container">
             <section>{children}</section>
           </div>
+          <Footer />
         </StoreAndAuthProvider>
       </body>
     </html>
