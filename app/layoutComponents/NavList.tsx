@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import styles from './NavList.module.css';
 import React, { Dispatch, SetStateAction, useRef, useEffect } from 'react';
+import { removeAuthCookie } from '@/utils/cookieManager';
+import { useDispatch } from 'react-redux';
+import { logout } from '@/store/authSlice';
 
 interface Paths {
   name: string;
@@ -10,12 +13,14 @@ interface Paths {
 const NavList = ({
   paths,
   setListOpen,
+  isLogout,
 }: {
   paths: Paths[];
   setListOpen: Dispatch<SetStateAction<boolean>>;
+  isLogout: boolean;
 }) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -40,6 +45,16 @@ const NavList = ({
           <Link href={item.path}>{item.name}</Link>
         </li>
       ))}
+      {isLogout && (
+        <li
+          onClick={() => {
+            removeAuthCookie();
+            dispatch(logout());
+          }}
+        >
+          Logout
+        </li>
+      )}
     </ul>
   );
 };

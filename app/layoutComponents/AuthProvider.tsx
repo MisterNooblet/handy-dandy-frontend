@@ -10,23 +10,27 @@ import {
 } from '@/store/authSlice';
 import { RootState } from '@/store/store';
 import { fetchUser } from '@/utils/apiAuth';
+import { getAuthCookie } from '@/utils/cookieManager';
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const user = useSelector((state: RootState) => state.auth) as AuthState;
   const dispatch: AuthDispatch = useDispatch();
 
   const getUser = async () => {
-    const response = await fetchUser();
-    dispatch(
-      login({
-        id: response.id,
-        toolbox: response.toolbox,
-        fullName: response.fullName,
-        role: response.role,
-        favourites: response.favourites,
-        pfp: response.pfp,
-      })
-    );
+    const tokenExists = getAuthCookie();
+    if (tokenExists) {
+      const response = await fetchUser();
+      dispatch(
+        login({
+          id: response.id,
+          toolbox: response.toolbox,
+          fullName: response.fullName,
+          role: response.role,
+          favourites: response.favourites,
+          pfp: response.pfp,
+        })
+      );
+    }
   };
 
   useEffect(() => {

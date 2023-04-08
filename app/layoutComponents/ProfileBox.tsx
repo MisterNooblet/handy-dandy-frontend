@@ -6,10 +6,7 @@ import NavList from './NavList';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { AuthState } from '@/store/authSlice';
-const settings = [
-  { name: 'Profile', path: '/profile' },
-  { name: 'Logout', path: '' },
-];
+const settings = [{ name: 'Profile', path: '/profile' }];
 
 const loginSettings = [
   { name: 'Login', path: '/login' },
@@ -34,8 +31,9 @@ const ProfileBox = () => {
         <BsFillPersonFill />
         {listOpen && (
           <NavList
-            paths={user.user ? settings : loginSettings}
+            paths={user.user?.id ? settings : loginSettings}
             setListOpen={setListOpen}
+            isLogout={user.user?.id ? true : false}
           />
         )}
       </div>

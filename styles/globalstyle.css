@@ -10,6 +10,7 @@ html {
   --primary-light: #3d5a68;
   --primary-bg: #5586a6;
   --primary-yellow: #ffb701;
+  --primary-yellow-blur: #ffb70181;
   --primary-orange: #ff9302;
 }
 *,
@@ -62,4 +63,23 @@ a {
 img {
   max-width: 100%;
   height: auto;
+}
+input {
+  background: rgba(0, 0, 0, 0);
+  font-size: 1.4rem;
+  padding: 1rem;
+  font-weight: 700;
+  border: 1px solid var(--primary-yellow-blur);
+  border-radius: 5px;
+}
+input:hover {
+  border: 1px solid var(--primary-yellow);
+}
+input:focus {
+  border: 2px solid var(--primary-yellow);
+  outline: none;
+}
+form {
+  display: flex;
+  flex-direction: column;
 }

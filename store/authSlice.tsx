@@ -1,3 +1,4 @@
+'use client';
 import { AnyAction, Dispatch, createSlice } from '@reduxjs/toolkit';
 import { User } from '@/utils/models';
 
@@ -6,7 +7,7 @@ export interface AuthState {
 }
 
 const initialState = {
-  user: {} as User | null,
+  user: null as User | null,
 };
 
 export interface AuthDispatch extends Dispatch<AnyAction> {
