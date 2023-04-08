@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import styles from './ProfileBox.module.css';
-import { BsFillPersonFill } from 'react-icons/Bs';
+import { BsFillPersonFill } from 'react-icons/bs';
 import NavList from './NavList';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
