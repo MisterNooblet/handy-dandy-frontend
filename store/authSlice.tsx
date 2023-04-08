@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { User } from '@/utils/models';
+
+export interface AuthState {
+  user: User | null;
+}
 
 const initialState = {
-  user: null,
-  userExtras: null,
+  user: {} as User | null,
 };
 
 const authSlice = createSlice({
@@ -14,19 +18,29 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.user = null;
-      state.userExtras = null;
     },
     updateUser: (state, action) => {
-      state.userExtras = action.payload;
+      state.user = action.payload;
     },
-    updateToolbox: (state, action) => {
-      state.userExtras.toolbox.push(action.payload);
+    updateTools: (state, action) => {
+      if (state.user) {
+        state.user.toolbox.tools.push(action.payload);
+      }
+    },
+    updateMaterials: (state, action) => {
+      if (state.user) {
+        state.user.toolbox.materials.push(action.payload);
+      }
     },
     setToolBox: (state, action) => {
-      state.userExtras.toolbox = action.payload;
+      if (state.user) {
+        state.user.toolbox = action.payload;
+      }
     },
     updateUserPfp: (state, action) => {
-      state.user.photoUrl = action.payload;
+      if (state.user) {
+        state.user.pfp = action.payload;
+      }
     },
   },
 });
@@ -35,9 +49,11 @@ export const {
   login,
   logout,
   updateUser,
-  updateToolbox,
+  updateTools,
+  updateMaterials,
   setToolBox,
   updateUserPfp,
 } = authSlice.actions;
-export const selectUser = (state) => state.user.user;
+export const selectUser = (state: { user: AuthState }): User | null =>
+  state.user.user;
 export default authSlice;

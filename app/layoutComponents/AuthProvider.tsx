@@ -1,53 +1,34 @@
 import React from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
+import { API_BASE_PATH } from '@/utils/constants';
 import { useEffect } from 'react';
-import { auth, db } from './fireBaseConfig';
-import { login, logout, updateUser } from '../store/authSlice';
-import { doc, getDoc } from 'firebase/firestore';
 import { useDispatch, useSelector } from 'react-redux';
+import { AuthState, login, logout, updateUser } from '@/store/authSlice';
+import { RootState } from '@/store/store';
+import axios from 'axios';
+
+const fetchUser = async () => {
+  const result = await axios.get(`${API_BASE_PATH}auth/current-user`, {
+    headers: {
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmM4NTk0MjBjOGEwNTVjZTgwYTc5NCIsImlhdCI6MTY4MDYzOTM4MSwiZXhwIjoxNjgzMjMxMzgxfQ.meu4jb_89ajEGYSIcsiha-Q1mI5Az-BiYW9kftwIWEw',
+    },
+  });
+  console.log(result);
+};
+
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const user = useSelector((state) => state.auth);
+  const user = useSelector((state: RootState) => state.auth) as AuthState;
   const dispatch = useDispatch();
+  fetchUser();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (userAuth) => {
-      if (userAuth) {
-        // user is logged in, send the user's details to redux, store the current user in the state
-        dispatch(
-          login({
-            email: userAuth.email,
-            uid: userAuth.uid,
-            displayName: userAuth.displayName,
-            photoUrl: userAuth.photoURL,
-          })
-        );
-      } else {
-        dispatch(logout());
-      }
-    });
+    console.log('running');
+    console.log(API_BASE_PATH);
     // eslint-disable-next-line
   }, []);
 
-  const getUserDetails = async () => {
-    const docRef = doc(db, 'users', user.user.uid);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      dispatch(
-        updateUser({
-          country: docSnap.data().country,
-          isAdmin: docSnap.data().isAdmin,
-          toolbox: docSnap.data().toolbox,
-        })
-      );
-    } else {
-      // doc.data() will be undefined in this case
-      console.log('No such document!');
-    }
-  };
-
   useEffect(() => {
     if (user.user) {
-      getUserDetails();
     }
     // eslint-disable-next-line
   }, [user.user]);

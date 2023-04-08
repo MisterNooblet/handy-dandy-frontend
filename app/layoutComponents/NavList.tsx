@@ -36,7 +36,7 @@ const NavList = ({
   return (
     <ul ref={wrapperRef} className={styles.navList}>
       {paths.map((item) => (
-        <li key={item.name}>
+        <li title={item.name} key={item.name}>
           <Link href={item.path}>{item.name}</Link>
         </li>
       ))}

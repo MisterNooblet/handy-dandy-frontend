@@ -28,7 +28,9 @@ const ProfileBox = () => {
         onClick={handleOpenList}
       >
         <BsFillPersonFill />
-        {listOpen && <NavList paths={settings} setListOpen={setListOpen} />}
+        {listOpen && (
+          <NavList paths={loginSettings} setListOpen={setListOpen} />
+        )}
       </div>
     </div>
   );

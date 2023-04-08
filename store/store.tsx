@@ -8,5 +8,5 @@ const store = configureStore({
     api: apiSlice.reducer,
   },
 });
-
+export type RootState = ReturnType<typeof store.getState>
 export default store;

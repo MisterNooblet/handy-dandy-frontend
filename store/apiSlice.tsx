@@ -1,10 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const initialState = {
+interface ApiState {
+  countries: { label: string }[];
+  isLoading: boolean;
+  error: string | undefined;
+}
+
+const initialState: ApiState = {
   countries: [],
   isLoading: false,
-  error: null,
+  error: undefined,
 };
 
 export const fetchCountries = createAsyncThunk(
@@ -15,9 +21,9 @@ export const fetchCountries = createAsyncThunk(
         (data) => {
           const parsedData = JSON.parse(data);
           const result = parsedData
-            .map((country) => country.name.common)
+            .map((country: any) => country.name.common)
             .sort();
-          const objectArr = result.map((country) => {
+          const objectArr = result.map((country: string[]) => {
             return { label: country };
           });
           return objectArr;
