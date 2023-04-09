@@ -20,3 +20,15 @@ export interface Item {
   description: string;
   type: string;
 }
+
+export interface SignupFormData {
+  fullName: string;
+  email: string;
+  password: string;
+  country: string;
+}
+
+export interface FormError {
+  message: string | null;
+  code: number | null;
+}

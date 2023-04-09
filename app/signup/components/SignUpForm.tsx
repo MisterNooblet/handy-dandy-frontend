@@ -1,57 +1,61 @@
-import { fetchCountries } from '@/store/apiSlice';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+'use client';
+import { signUp } from '@/utils/apiAuth';
+import { validateEmail } from '@/utils/emailValidator';
+import { FormError, SignupFormData } from '@/utils/models';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { FaUserPlus } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
+import AutoComplete from '@/components/AutoComplete';
+import { COUNTRIES } from '@/utils/constants';
 
 const SignUpForm = () => {
-  const [errorMsg, setErroMsg] = React.useState(null);
+  const [errorMsg, setErroMsg] = useState({} as FormError);
 
-  const api = useSelector((state) => state.api);
-  const dispatch = useDispatch();
+  const router = useRouter();
 
-  React.useEffect(() => {
-    dispatch(fetchCountries());
-  }, [dispatch]);
-
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const data = new FormData(event.currentTarget);
-    const firstName = data.get('firstName');
-    const lastName = data.get('lastName');
-    const email = data.get('email');
-    const country = data.get('Country');
-    const password = data.get('password');
-    const password2 = data.get('password2');
-    const invalidMail = validateEmail(email);
+    const firstName = data.get('firstName') as string;
+    const lastName = data.get('lastName') as string;
+    const email = data.get('email') as string;
+    const country = data.get('Country') as string;
+    const password = data.get('password') as string;
+    const password2 = data.get('password2') as string;
+    const validMail = validateEmail(email);
+
     if (
-      !invalidMail &&
+      validMail &&
       password2 === password &&
       password.length >= 8 &&
       password2.length >= 8 &&
       firstName.length > 0 &&
       lastName.length > 0
     ) {
-      const result = await fireBaseAuth.signUp(
-        email,
+      const newUser: SignupFormData = {
+        fullName: `${firstName.trim()} ${lastName.trim()}`,
         password,
-        firstName,
-        lastName,
-        country
-      );
-      if (result.uid !== undefined) {
-        navigate('/login');
-      } else {
+        email,
+        country,
+      };
+      try {
+        await signUp(newUser);
+        router.push('/login');
+      } catch (error) {
         setErroMsg({
           message: 'Email already exists in our database',
           code: 3,
         });
       }
-    } else if (firstName.length === 0) {
+    } else if (firstName && firstName.length === 0) {
       setErroMsg({ message: 'Please enter a first name', code: 1 });
-    } else if (lastName.length === 0) {
+    } else if (lastName && lastName.length === 0) {
       setErroMsg({ message: 'Please enter a last name', code: 2 });
-    } else if (invalidMail) {
+    } else if (!validMail) {
       setErroMsg({ message: 'Please enter a valid email', code: 3 });
-    } else if (password.length <= 8) {
+    } else if (password && password.length <= 8) {
       setErroMsg({
         message: 'Password too short enter atleast 8 characters',
         code: 4,
@@ -62,34 +66,61 @@ const SignUpForm = () => {
   };
 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleSubmit}>
       <div className="formIconBox">
-        <BsPersonFillLock className="formIcon" />
+        <FaUserPlus className="formIcon" />
       </div>
-      <h1>Log In</h1>
+      <h1>{errorMsg.message ? errorMsg.message : 'Sign up'}</h1>
       <label>
-        Email address:
+        First name:
         <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          autoComplete="false"
+          name="firstName"
+          id="firstName"
+          autoFocus
+          title="Please enter your First name"
+          type="text"
         />
       </label>
+      <label>
+        Last name:
+        <input
+          name="lastName"
+          id="lastName"
+          title="Please enter your Last name"
+          type="text"
+        />
+      </label>
+      <label>
+        Email:
+        <input
+          name="email"
+          id="email"
+          title="Please enter a valid Email : example@somedomain.com"
+          type="email"
+        />
+      </label>
+      <AutoComplete array={COUNTRIES} />
       <label>
         Password:
         <input
+          name="password"
+          id="password"
+          title="Please enter a password atleast 8 characters long"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
         />
       </label>
-      <button type="submit">Login</button>
+      <label>
+        Confirm Password:
+        <input
+          name="password2"
+          id="password2"
+          title="Please confirm your password"
+          type="password"
+        />
+      </label>
+      <button type="submit">SIGN UP</button>
       <div>
-        <Link href="/reset-password">Forgot Password?</Link>
-        <Link href="/signup">Don't have an account? Sign Up</Link>
+        <Link href="/login">Already have an account? Sign in</Link>
       </div>
     </form>
   );

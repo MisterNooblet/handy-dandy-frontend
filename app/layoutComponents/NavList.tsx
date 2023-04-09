@@ -41,15 +41,24 @@ const NavList = ({
   return (
     <ul ref={wrapperRef} className={styles.navList}>
       {paths.map((item) => (
-        <li title={item.name} key={item.name}>
-          <Link href={item.path}>{item.name}</Link>
-        </li>
+        <Link href={item.path}>
+          <li
+            onClick={() => {
+              setListOpen(false);
+            }}
+            title={item.name}
+            key={item.name}
+          >
+            {item.name}
+          </li>
+        </Link>
       ))}
       {isLogout && (
         <li
           onClick={() => {
             removeAuthCookie();
             dispatch(logout());
+            setListOpen(false);
           }}
         >
           Logout
