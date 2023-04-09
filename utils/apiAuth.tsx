@@ -1,6 +1,7 @@
 import { API_BASE_PATH } from './constants';
 import axios, { AxiosInstance } from 'axios';
 import { getAuthCookie } from './cookieManager';
+import { SignupFormData } from './models';
 
 const auth: AxiosInstance = axios.create({
   baseURL: `${API_BASE_PATH}auth`,
@@ -28,5 +29,10 @@ export const logIn = async (email: string, password: string) => {
     email,
     password,
   });
+  return result.data.token;
+};
+
+export const signUp = async (user: SignupFormData) => {
+  const result = await axios.post(`${API_BASE_PATH}auth/register`, user);
   return result.data.token;
 };

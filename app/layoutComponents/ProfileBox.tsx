@@ -1,16 +1,16 @@
 'use client';
 import React, { useState } from 'react';
 import styles from './ProfileBox.module.css';
-import { BsFillPersonFill } from 'react-icons/bs';
 import NavList from './NavList';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { AuthState } from '@/store/authSlice';
+import { FaUser } from 'react-icons/fa';
 const settings = [{ name: 'Profile', path: '/profile' }];
 
 const loginSettings = [
   { name: 'Login', path: '/login' },
-  { name: 'Signup', path: '/register' },
+  { name: 'Signup', path: '/signup' },
 ];
 
 const ProfileBox = () => {
@@ -26,9 +26,14 @@ const ProfileBox = () => {
       <div
         title="Open Settings"
         className={styles.pfpBox}
-        onClick={handleOpenList}
+        onClick={() => {
+          !listOpen && handleOpenList();
+        }}
       >
-        <BsFillPersonFill />
+        {!user.user?.id && <FaUser />}
+        {user.user?.fullName &&
+          user.user?.pfp === 'none' &&
+          user.user?.fullName[0]}
         {listOpen && (
           <NavList
             paths={user.user?.id ? settings : loginSettings}

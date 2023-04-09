@@ -1,8 +1,11 @@
 'use client';
+import { Container } from '@mui/material';
 import '../styles/globalstyle.css';
 import Footer from './layoutComponents/Footer';
 import Navbar from './layoutComponents/Navbar';
 import StoreAndAuthProvider from './layoutComponents/StoreAndAuthProvider';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from '@/styles/muiTheme';
 
 export default function RootLayout({
   children,
@@ -18,13 +21,15 @@ export default function RootLayout({
       </head>
       <body>
         <StoreAndAuthProvider>
-          <header>
-            <Navbar />
-          </header>
-          <div className="container">
-            <section>{children}</section>
-          </div>
-          <Footer />
+          <ThemeProvider theme={theme}>
+            <header>
+              <Navbar />
+            </header>
+            <Container sx={{ flexGrow: 1 }}>
+              <section>{children}</section>
+            </Container>
+            <Footer />
+          </ThemeProvider>
         </StoreAndAuthProvider>
       </body>
     </html>
