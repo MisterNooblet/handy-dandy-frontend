@@ -1,11 +1,11 @@
 export interface User {
-  id?: string;
-  fullName?: string;
-  email?: string;
+  id: string;
+  fullName: string;
+  email: string;
   toolbox: Toolbox;
-  role?: string;
-  pfp?: string;
-  favourites?: string[];
+  role: string;
+  pfp: string;
+  favourites: string[];
 }
 
 export interface Toolbox {

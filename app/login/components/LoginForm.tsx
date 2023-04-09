@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { BsPersonFillLock } from 'react-icons/bs';
+import Link from 'next/link';
+
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,12 +41,18 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleLogin}>
+      <div className="formIconBox">
+        <BsPersonFillLock className="formIcon" />
+      </div>
+      <h1>Log In</h1>
       <label>
         Email address:
         <input
-          type="text"
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
+          autoComplete="false"
         />
       </label>
       <label>
@@ -52,9 +61,14 @@ const LoginForm = () => {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
       </label>
       <button type="submit">Login</button>
+      <div>
+        <Link href="/reset-password">Forgot Password?</Link>
+        <Link href="/signup">Don't have an account? Sign Up</Link>
+      </div>
     </form>
   );
 };

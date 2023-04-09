@@ -10,7 +10,7 @@ const settings = [{ name: 'Profile', path: '/profile' }];
 
 const loginSettings = [
   { name: 'Login', path: '/login' },
-  { name: 'Signup', path: '/register' },
+  { name: 'Signup', path: '/signup' },
 ];
 
 const ProfileBox = () => {
@@ -28,7 +28,10 @@ const ProfileBox = () => {
         className={styles.pfpBox}
         onClick={handleOpenList}
       >
-        <BsFillPersonFill />
+        {!user.user?.id && <BsFillPersonFill />}
+        {user.user?.fullName &&
+          user.user?.pfp === 'none' &&
+          user.user?.fullName[0]}
         {listOpen && (
           <NavList
             paths={user.user?.id ? settings : loginSettings}
