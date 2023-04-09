@@ -21,6 +21,7 @@ const NavList = ({
 }) => {
   const wrapperRef = useRef<HTMLUListElement>(null);
   const dispatch = useDispatch();
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -36,18 +37,17 @@ const NavList = ({
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [wrapperRef]);
+  }, [setListOpen, wrapperRef]);
 
   return (
     <ul ref={wrapperRef} className={styles.navList}>
       {paths.map((item) => (
-        <Link href={item.path}>
+        <Link key={item.name} href={item.path}>
           <li
             onClick={() => {
               setListOpen(false);
             }}
             title={item.name}
-            key={item.name}
           >
             {item.name}
           </li>
