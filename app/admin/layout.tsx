@@ -6,7 +6,7 @@ import { Container } from '@mui/material';
 const links = [
   {
     name: 'Articles',
-    path: 'admin/articles',
+    path: '/admin/articles',
   },
   {
     name: 'Users',
