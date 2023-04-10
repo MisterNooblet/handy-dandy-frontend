@@ -85,7 +85,13 @@ const LoginForm = () => {
       <Typography component="h1" variant="h5">
         {errorMsg.code ? errorMsg.message : 'Sign in'}
       </Typography>
-      <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
+      <Box
+        component="form"
+        maxWidth={'400px'}
+        onSubmit={handleLogin}
+        noValidate
+        sx={{ mt: 1 }}
+      >
         {formFields.map((field) => (
           <FormInput
             label={field.label}
