@@ -6,19 +6,19 @@ import { Container } from '@mui/material';
 const links = [
   {
     name: 'Articles',
-    path: '/admin/articles',
+    path: 'admin/articles',
   },
   {
     name: 'Users',
-    path: '/admin/users',
+    path: 'admin/users',
   },
   {
     name: 'Materials',
-    path: '/admin/materials',
+    path: 'admin/materials',
   },
   {
     name: 'Tools',
-    path: '/admin/tools',
+    path: 'admin/tools',
   },
 ];
 

@@ -7,13 +7,13 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const settings = [
-  { name: 'Profile', path: '/profile' },
+  { name: 'Profile', path: 'profile' },
   { name: 'Logout', path: '/' },
 ];
 
 const loginSettings = [
-  { name: 'Login', path: '/login' },
-  { name: 'Signup', path: '/signup' },
+  { name: 'Login', path: 'login' },
+  { name: 'Signup', path: 'signup' },
 ];
 
 const UserMenu = () => {
