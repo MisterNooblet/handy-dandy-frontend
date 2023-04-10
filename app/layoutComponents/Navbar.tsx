@@ -27,7 +27,7 @@ const Navbar = () => {
     setAnchorElNav(null);
   };
   return (
-    <AppBar position="static" sx={{ mb: '10px' }}>
+    <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link href={'/'}>

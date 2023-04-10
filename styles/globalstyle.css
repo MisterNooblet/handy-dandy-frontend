@@ -8,7 +8,7 @@ html {
 :root {
   --primary-dark: #212b2d;
   --primary-light: #3d5a68;
-  --primary-bg: #fff;
+  --primary-bg: #f1f1f1;
   --primary-yellow: #ffb701;
   --primary-yellow-blur: #ffb70181;
   --primary-orange: #ff9302;
@@ -37,7 +37,6 @@ ul {
 /* Set default font size and family */
 body {
   background-color: var(--primary-bg);
-  color: white;
   display: flex;
   flex-direction: column;
   min-height: 100vh;

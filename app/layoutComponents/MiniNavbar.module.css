@@ -1,0 +1,24 @@
+.navMini {
+  background-color: var(--primary-light);
+  padding: 10px 0;
+  width: 100%;
+  left: 0;
+  color: white;
+}
+.navMini ul {
+  max-width: 1500px;
+  padding: 0 10px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 10px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+@media only screen and (max-width: 900px) {
+  .navMini ul {
+    justify-content: center;
+  }
+}

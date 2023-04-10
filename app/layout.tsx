@@ -7,11 +7,7 @@ import StoreAndAuthProvider from './layoutComponents/StoreAndAuthProvider';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '@/styles/muiTheme';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -25,9 +21,7 @@ export default function RootLayout({
             <header>
               <Navbar />
             </header>
-            <Container sx={{ flexGrow: 1 }}>
-              <section>{children}</section>
-            </Container>
+            {children}
             <Footer />
           </ThemeProvider>
         </StoreAndAuthProvider>
