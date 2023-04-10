@@ -6,16 +6,18 @@ const FormInput = ({
   name,
   label,
   title,
-  style,
   setErrorMsg,
   type,
+  errorMsg,
+  fieldIdx,
 }: {
   name: string;
   label: string;
   title: string;
-  style: {};
   setErrorMsg: Dispatch<FormError>;
   type: string;
+  errorMsg: FormError;
+  fieldIdx: number;
 }) => {
   return (
     <TextField
@@ -25,7 +27,7 @@ const FormInput = ({
       fullWidth
       label={label}
       title={title}
-      sx={style}
+      sx={{ backgroundColor: errorMsg.code === fieldIdx ? 'rgba(245, 132, 132, 0.44)' : null }}
       margin="normal"
       onFocus={() => {
         setErrorMsg({ message: null, code: null });

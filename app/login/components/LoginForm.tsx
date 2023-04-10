@@ -9,32 +9,10 @@ import Link from 'next/link';
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
 import { FormError } from '@/utils/models';
 import FormInput from '@/components/FormInput';
+import { loginFormData } from '@/data/formFields';
 
 const LoginForm = () => {
   const [errorMsg, setErrorMsg] = useState<FormError>({} as FormError);
-
-  const formFields = [
-    {
-      title: 'Please enter a valid Email : example@somedomain.com',
-      name: 'email',
-      label: 'Email Address',
-      style: {
-        backgroundColor:
-          errorMsg && errorMsg.code === 1 && 'rgba(245, 132, 132, 0.44)',
-      },
-      type: 'email',
-    },
-    {
-      title: 'Please enter your password.',
-      name: 'password',
-      label: 'Password',
-      style: {
-        backgroundColor:
-          errorMsg && errorMsg.code === 1 && 'rgba(245, 132, 132, 0.44)',
-      },
-      type: 'password',
-    },
-  ];
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -92,13 +70,14 @@ const LoginForm = () => {
         noValidate
         sx={{ mt: 1 }}
       >
-        {formFields.map((field) => (
+        {loginFormData.map((field) => (
           <FormInput
             label={field.label}
             name={field.name}
-            style={field.style}
             title={field.title}
+            fieldIdx={1}
             key={field.name}
+            errorMsg={errorMsg}
             setErrorMsg={setErrorMsg}
             type={field.type}
           />

@@ -1,23 +1,12 @@
 import React from 'react';
-import styles from './Navbar.module.css';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import Link from 'next/link';
 import UserMenu from './UserMenu';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { AuthState } from '@/store/authSlice';
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-} from '@mui/material';
 import Logo from './Logo';
+import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 
 const pages = [
   { name: 'Tool-o-Pedia', path: '/wiki' },
@@ -28,9 +17,7 @@ const pages = [
 
 const Navbar = () => {
   const user = useSelector((state: RootState) => state.auth) as AuthState;
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null
-  );
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -44,9 +31,7 @@ const Navbar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link href={'/'}>
-            <Box
-              sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1, mr: 2 }}
-            >
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1, mr: 2 }}>
               <Logo />
             </Box>
           </Link>
@@ -100,26 +85,21 @@ const Navbar = () => {
             </Menu>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1 }}>
-            <Logo />
+            <Link href={'/'}>
+              <Logo />
+            </Link>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Link key={page.name} href={page.path}>
-                <Button
-                  key={page.name}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
+                <Button key={page.name} onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
                   {page.name}
                 </Button>
               </Link>
             ))}
             {user.user?.role === 'admin' && (
               <Link href={'/admin'}>
-                <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
+                <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
                   {'Admin'}
                 </Button>
               </Link>

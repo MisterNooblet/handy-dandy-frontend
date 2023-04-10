@@ -1,15 +1,7 @@
 import { AuthState, logout } from '@/store/authSlice';
 import { RootState } from '@/store/store';
 import { removeAuthCookie } from '@/utils/cookieManager';
-import {
-  Avatar,
-  Box,
-  IconButton,
-  Menu,
-  MenuItem,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Avatar, Box, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +13,7 @@ const settings = [
 
 const loginSettings = [
   { name: 'Login', path: '/login' },
-  { name: 'Signup', path: '/' },
+  { name: 'Signup', path: '/signup' },
 ];
 
 const UserMenu = () => {
@@ -40,10 +32,7 @@ const UserMenu = () => {
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar
-            alt={user.user ? user.user.fullName : undefined}
-            src={user.user?.pfp && user.user.pfp}
-          />
+          <Avatar alt={user.user ? user.user.fullName : undefined} src={user.user?.pfp && user.user.pfp} />
         </IconButton>
       </Tooltip>
       <Menu
