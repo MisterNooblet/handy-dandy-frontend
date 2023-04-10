@@ -7,11 +7,13 @@ import React, { useState } from 'react';
 import { FaUserPlus } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import AutoComplete from '@/components/AutoComplete';
-import { COUNTRIES } from '@/utils/constants';
+import { COUNTRIES } from '@/data/countries';
+import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { signUpFormData } from '@/data/formFields';
+import FormInput from '@/components/FormInput';
 
 const SignUpForm = () => {
-  const [errorMsg, setErroMsg] = useState({} as FormError);
-
+  const [errorMsg, setErrorMsg] = useState<FormError>({} as FormError);
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -44,85 +46,73 @@ const SignUpForm = () => {
         await signUp(newUser);
         router.push('/login');
       } catch (error) {
-        setErroMsg({
+        setErrorMsg({
           message: 'Email already exists in our database',
           code: 3,
         });
       }
     } else if (firstName && firstName.length === 0) {
-      setErroMsg({ message: 'Please enter a first name', code: 1 });
+      setErrorMsg({ message: 'Please enter a first name', code: 1 });
     } else if (lastName && lastName.length === 0) {
-      setErroMsg({ message: 'Please enter a last name', code: 2 });
+      setErrorMsg({ message: 'Please enter a last name', code: 2 });
     } else if (!validMail) {
-      setErroMsg({ message: 'Please enter a valid email', code: 3 });
+      setErrorMsg({ message: 'Please enter a valid email', code: 3 });
     } else if (password && password.length <= 8) {
-      setErroMsg({
+      setErrorMsg({
         message: 'Password too short enter atleast 8 characters',
         code: 4,
       });
     } else if (password !== password2) {
-      setErroMsg({ message: 'Wrong password confirmation entered', code: 5 });
+      setErrorMsg({ message: 'Wrong password confirmation entered', code: 5 });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="formIconBox">
-        <FaUserPlus className="formIcon" />
-      </div>
-      <h1>{errorMsg.message ? errorMsg.message : 'Sign up'}</h1>
-      <label>
-        First name:
-        <input
-          name="firstName"
-          id="firstName"
-          autoFocus
-          title="Please enter your First name"
-          type="text"
-        />
-      </label>
-      <label>
-        Last name:
-        <input
-          name="lastName"
-          id="lastName"
-          title="Please enter your Last name"
-          type="text"
-        />
-      </label>
-      <label>
-        Email:
-        <input
-          name="email"
-          id="email"
-          title="Please enter a valid Email : example@somedomain.com"
-          type="email"
-        />
-      </label>
-      <AutoComplete array={COUNTRIES} />
-      <label>
-        Password:
-        <input
-          name="password"
-          id="password"
-          title="Please enter a password atleast 8 characters long"
-          type="password"
-        />
-      </label>
-      <label>
-        Confirm Password:
-        <input
-          name="password2"
-          id="password2"
-          title="Please confirm your password"
-          type="password"
-        />
-      </label>
-      <button type="submit">SIGN UP</button>
-      <div>
-        <Link href="/login">Already have an account? Sign in</Link>
-      </div>
-    </form>
+    <Box
+      sx={{
+        marginTop: 8,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <FaUserPlus />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+        {errorMsg ? errorMsg.message : 'Sign up'}
+      </Typography>
+      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, maxWidth: '400px' }}>
+        <Grid container spacing={2}>
+          {signUpFormData.map((field, idx) => (
+            <Grid key={field.name} item xs={12} sm={idx < 2 ? 6 : 12}>
+              <FormInput
+                label={field.label}
+                name={field.name}
+                title={field.title}
+                fieldIdx={idx + 1}
+                errorMsg={errorMsg}
+                setErrorMsg={setErrorMsg}
+                type={field.type}
+              />
+            </Grid>
+          ))}
+          <Grid item xs={12}>
+            <AutoComplete label={'Country'} array={COUNTRIES} />
+          </Grid>
+        </Grid>
+        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          Sign Up
+        </Button>
+        <Grid container justifyContent="flex-end">
+          <Grid item>
+            <Link href={'/login'}>
+              <Typography color={'blue'}>Already have an account? Sign in</Typography>
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
   );
 };
 

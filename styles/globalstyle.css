@@ -8,7 +8,7 @@ html {
 :root {
   --primary-dark: #212b2d;
   --primary-light: #3d5a68;
-  --primary-bg: #5586a6;
+  --primary-bg: #fff;
   --primary-yellow: #ffb701;
   --primary-yellow-blur: #ffb70181;
   --primary-orange: #ff9302;
@@ -36,7 +36,7 @@ ul {
 
 /* Set default font size and family */
 body {
-  background-color: #5586a6;
+  background-color: var(--primary-bg);
   color: white;
   display: flex;
   flex-direction: column;
@@ -60,47 +60,3 @@ img {
   max-width: 100%;
   height: auto;
 }
-
-/* Form CSS */
-/* 
-input {
-  background: rgba(0, 0, 0, 0);
-  font-size: 1.6rem;
-  padding: 1rem;
-  font-weight: 700;
-  border: 1px solid var(--primary-yellow-blur);
-  border-radius: 5px;
-}
-
-input:hover {
-  border: 1px solid var(--primary-yellow);
-}
-
-input:focus {
-  border: 2px solid var(--primary-yellow);
-  outline: none;
-}
-
-label {
-  display: flex;
-  flex-direction: column;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 24px;
-}
-
-.formIconBox {
-  width: 5rem;
-  height: 5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: center;
-  background-color: gray;
-  border-radius: 50px;
-  font-size: 3rem;
-} */

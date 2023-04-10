@@ -1,4 +1,4 @@
-import { API_BASE_PATH } from './constants';
+import { API_BASE_PATH } from '../data/constants';
 import axios, { AxiosInstance } from 'axios';
 import { getAuthCookie } from './cookieManager';
 import { SignupFormData } from './models';

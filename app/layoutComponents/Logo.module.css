@@ -1,0 +1,25 @@
+.logoBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-orange);
+}
+
+.logoImage {
+  background: url('../../public/logo.png') center center/contain no-repeat;
+  width: 50px;
+  height: 50px;
+}
+.logoText {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 10px;
+}
+.logoMoto {
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  font-family: 'Ubuntu Mono', monospace;
+}

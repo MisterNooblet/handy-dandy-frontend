@@ -1,4 +1,4 @@
-import { API_BASE_PATH } from '@/utils/constants';
+import { API_BASE_PATH } from '@/data/constants';
 import axios from 'axios';
 import React from 'react';
 
