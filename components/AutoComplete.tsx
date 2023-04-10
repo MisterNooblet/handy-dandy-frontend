@@ -10,7 +10,7 @@ export default function ComboBox({ array, label }: { array: { label: string }[];
       id="combo-box-demo"
       options={array}
       sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label={label} />}
+      renderInput={(params) => <TextField {...params} label={label} title={label} name={label} />}
     />
   );
 }
