@@ -9,10 +9,10 @@ import Logo from './Logo';
 import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 
 const pages = [
-  { name: 'Tool-o-Pedia', path: '/wiki' },
-  { name: 'The Library', path: '/articles' },
-  { name: 'Toolbox', path: '/toolbox' },
-  { name: 'Community', path: '/community' },
+  { name: 'Tool-o-Pedia', path: 'wiki' },
+  { name: 'The Library', path: 'articles' },
+  { name: 'Toolbox', path: 'toolbox' },
+  { name: 'Community', path: 'community' },
 ];
 
 const Navbar = () => {
