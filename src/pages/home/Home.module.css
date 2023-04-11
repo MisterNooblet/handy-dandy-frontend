@@ -6,8 +6,7 @@
 .homeLogo {
   height: 40vmin;
   width: 100%;
-  background: url('../public/hqlogostroked.svg') center center/contain no-repeat;
-  /* z-index: 2000; */
+  background: url('../../public/hqlogostroked.svg') center center/contain no-repeat;
   margin: 30px 0;
 }
 
