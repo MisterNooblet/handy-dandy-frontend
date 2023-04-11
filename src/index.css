@@ -37,9 +37,11 @@ ul {
 /* Set default font size and family */
 body {
   background-color: var(--primary-bg);
+}
+#root {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 /* Remove list styles */
