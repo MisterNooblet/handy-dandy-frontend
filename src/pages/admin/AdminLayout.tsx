@@ -27,7 +27,7 @@ const AdminLayout = () => {
   return (
     <>
       <MiniNavbar links={links} />
-      <Container maxWidth="xl" sx={{ flexGrow: 1 }}>
+      <Container maxWidth="xl" sx={{ flexGrow: 1, pt: 2 }}>
         <Outlet />
       </Container>
     </>

@@ -41,7 +41,7 @@ export const fetchActiveWarehouse = async () => {
 };
 
 export const advancedRequest = async (path: string, query?: string | undefined) => {
-  const result = await queries.get(`${API_BASE_PATH}${path}${query ? '/' + query : ''}`);
+  const result = await queries.get(`${API_BASE_PATH}${path}${query ? '?' + query : ''}`);
   return result.data.data;
 };
 
