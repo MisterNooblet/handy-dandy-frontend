@@ -6,7 +6,7 @@
 }
 
 .logoImage {
-  background: url('../../public/logo.png') center center/contain no-repeat;
+  background: url('public/logo.png') center center/contain no-repeat;
   width: 50px;
   height: 50px;
 }
