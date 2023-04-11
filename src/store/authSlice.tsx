@@ -1,7 +1,5 @@
-'use client';
-import { AnyAction, Dispatch, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { User } from 'utils/models';
-import { RootState } from './store';
 
 export interface AuthState {
   user: User | null;
@@ -10,20 +8,6 @@ export interface AuthState {
 const initialState = {
   user: null as User | null,
 };
-
-interface LoginAction {
-  payload: {
-    id: string;
-    toolbox: unknown[];
-    fullName: string;
-    email: string;
-    role: 'admin' | 'user' | 'author';
-    favourites: unknown[];
-    country: string;
-    pfp: string;
-  };
-  type: string;
-}
 
 const authSlice = createSlice({
   name: 'auth',

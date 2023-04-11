@@ -7,23 +7,23 @@ import { Outlet } from 'react-router-dom';
 const links = [
   {
     name: 'Articles',
-    path: '/admin/articles',
+    path: 'articles',
   },
   {
     name: 'Users',
-    path: 'admin/users',
+    path: 'users',
   },
   {
     name: 'Materials',
-    path: 'admin/materials',
+    path: 'materials',
   },
   {
     name: 'Tools',
-    path: 'admin/tools',
+    path: 'tools',
   },
 ];
 
-const layout = () => {
+const AdminLayout = () => {
   return (
     <>
       <MiniNavbar links={links} />
@@ -34,4 +34,4 @@ const layout = () => {
   );
 };
 
-export default layout;
+export default AdminLayout;

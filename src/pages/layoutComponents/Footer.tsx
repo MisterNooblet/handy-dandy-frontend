@@ -3,9 +3,9 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-function Copyright(props: any) {
+function Copyright({ sx }: { sx: object }) {
   return (
-    <Typography variant="body2" component="div" color="#fff" sx={{ display: 'inline' }} {...props}>
+    <Typography variant="body2" component="div" color="#fff" sx={{ display: 'inline' }} {...sx}>
       {'Copyright © '}
       <Link to={'/'}>
         <Typography sx={{ display: 'inline' }} color={'#EDF1D6'}>

@@ -11,7 +11,23 @@ const warehouses: AxiosInstance = axios.create({
   },
 });
 
+const queries: AxiosInstance = axios.create({
+  baseURL: `${API_BASE_PATH}`,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 warehouses.interceptors.request.use((config) => {
+  const authToken = getAuthCookie();
+  if (authToken) {
+    config.headers.Authorization = `Bearer ${authToken}`;
+  }
+  return config;
+});
+
+queries.interceptors.request.use((config) => {
   const authToken = getAuthCookie();
   if (authToken) {
     config.headers.Authorization = `Bearer ${authToken}`;
@@ -24,12 +40,9 @@ export const fetchActiveWarehouse = async () => {
   return result.data.data;
 };
 
-export const logIn = async (email: string, password: string) => {
-  const result = await axios.post(`${API_BASE_PATH}auth/login`, {
-    email,
-    password,
-  });
-  return result.data.token;
+export const advancedRequest = async (path: string, query?: string | undefined) => {
+  const result = await queries.get(`${API_BASE_PATH}${path}${query ? '/' + query : ''}`);
+  return result.data.data;
 };
 
 export const signUp = async (user: SignupFormData) => {

@@ -1,13 +1,11 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AuthState, login } from 'store/authSlice';
-import { RootState } from 'store/store';
+import { useDispatch } from 'react-redux';
+import { login } from 'store/authSlice';
 import { fetchUser } from 'utils/apiAuth';
 import { getAuthCookie } from 'utils/cookieManager';
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const user = useSelector((state: RootState) => state.auth) as AuthState;
   const dispatch = useDispatch();
 
   const getUser = async () => {
@@ -31,14 +29,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     getUser();
-    // eslint-disable-next-line
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(() => {
-  //   if (user.user) {
-  //   }
-  //   // eslint-disable-next-line
-  // }, [user.user]);
   return <>{children}</>;
 };
 
