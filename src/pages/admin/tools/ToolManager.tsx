@@ -5,7 +5,7 @@ const ToolManager = () => {
   return (
     <>
       <div>Tool Manager</div>
-      <ManagerPageTable target="tools" />
+      <ManagerPageTable target="items?type=tool" />
     </>
   );
 };

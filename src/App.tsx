@@ -8,6 +8,7 @@ import { AuthState } from 'store/authSlice';
 import {
   ArticleManager,
   LibraryManager,
+  MasterDocManager,
   MaterialManager,
   ToolManager,
   UserManager,
@@ -42,7 +43,10 @@ function App() {
             { path: 'tools', element: <ToolManager /> },
             { path: 'users', element: <UserManager /> },
             { path: 'warehouses', element: <WarehouseManager /> },
+            { path: 'warehouses/:id', element: <MasterDocManager /> },
+
             { path: 'libraries', element: <LibraryManager /> },
+            { path: 'libraries/:id', element: <MasterDocManager /> },
           ],
         },
         // { path: '/profile', element: user.user ? <Profile /> : <Login /> },
