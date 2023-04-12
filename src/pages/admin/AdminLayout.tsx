@@ -7,31 +7,39 @@ import { Outlet } from 'react-router-dom';
 const links = [
   {
     name: 'Articles',
-    path: '/admin/articles',
+    path: 'articles',
   },
   {
     name: 'Users',
-    path: 'admin/users',
+    path: 'users',
   },
   {
     name: 'Materials',
-    path: 'admin/materials',
+    path: 'materials',
   },
   {
     name: 'Tools',
-    path: 'admin/tools',
+    path: 'tools',
+  },
+  {
+    name: 'Warehouse',
+    path: 'warehouses',
+  },
+  {
+    name: 'Library',
+    path: 'libraries',
   },
 ];
 
-const layout = () => {
+const AdminLayout = () => {
   return (
     <>
       <MiniNavbar links={links} />
-      <Container maxWidth="xl" sx={{ flexGrow: 1 }}>
+      <Container maxWidth="xl" sx={{ flexGrow: 1, pt: 2 }}>
         <Outlet />
       </Container>
     </>
   );
 };
 
-export default layout;
+export default AdminLayout;
