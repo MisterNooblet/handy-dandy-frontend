@@ -21,6 +21,14 @@ const links = [
     name: 'Tools',
     path: 'tools',
   },
+  {
+    name: 'Warehouse',
+    path: 'warehouses',
+  },
+  {
+    name: 'Library',
+    path: 'libraries',
+  },
 ];
 
 const AdminLayout = () => {

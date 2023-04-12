@@ -17,7 +17,7 @@ import { Box } from '@mui/system';
 interface MyObject {
   [key: string]: string;
 }
-export default function DataTable({ data }: { data: MyObject[] }) {
+export default function DataTable({ data, source }: { data: MyObject[]; source: string | null }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [columns, setColumns] = useState<never[] | string[]>([]);
@@ -60,7 +60,7 @@ export default function DataTable({ data }: { data: MyObject[] }) {
             if (key === 'id') {
               row.push(
                 <TableCell key={value + Math.random()}>
-                  <Link to={`users/${value}`}>{value}</Link>
+                  <Link to={`${source ? source + '/' : ''}${value}`}>{value}</Link>
                 </TableCell>
               );
             } else {

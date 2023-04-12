@@ -5,7 +5,14 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Error404, Home, RootLayout, Signup, Login, Admin, AdminLayout } from './pages/';
 import { RootState } from 'store/store';
 import { AuthState } from 'store/authSlice';
-import { ArticleManager, MaterialManager, ToolManager, UserManager } from 'pages/admin';
+import {
+  ArticleManager,
+  LibraryManager,
+  MaterialManager,
+  ToolManager,
+  UserManager,
+  WarehouseManager,
+} from 'pages/admin';
 
 function App() {
   const user = useSelector((state: RootState) => state.auth) as AuthState;
@@ -34,6 +41,8 @@ function App() {
             { path: 'materials', element: <MaterialManager /> },
             { path: 'tools', element: <ToolManager /> },
             { path: 'users', element: <UserManager /> },
+            { path: 'warehouses', element: <WarehouseManager /> },
+            { path: 'libraries', element: <LibraryManager /> },
           ],
         },
         // { path: '/profile', element: user.user ? <Profile /> : <Login /> },

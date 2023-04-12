@@ -1,7 +1,13 @@
 import React from 'react';
+import ManagerPageTable from '../components/ManagerPageTable';
 
 const UserManager = () => {
-  return <div></div>;
+  return (
+    <>
+      <div>User Manager</div>
+      <ManagerPageTable target="users" />
+    </>
+  );
 };
 
 export default UserManager;

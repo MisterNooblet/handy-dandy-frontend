@@ -1,7 +1,13 @@
 import React from 'react';
+import ManagerPageTable from '../components/ManagerPageTable';
 
 const MaterialManager = () => {
-  return <div>MaterialManager</div>;
+  return (
+    <>
+      <div>Material Manager</div>
+      <ManagerPageTable target="materials" />
+    </>
+  );
 };
 
 export default MaterialManager;
