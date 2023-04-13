@@ -32,3 +32,6 @@ export interface FormError {
   message: string | null;
   code: number | null;
 }
+export interface MyObject {
+  [key: string]: string;
+}

@@ -5,7 +5,7 @@ const MaterialManager = () => {
   return (
     <>
       <div>Material Manager</div>
-      <ManagerPageTable target="materials" />
+      <ManagerPageTable target="items?type=material" />
     </>
   );
 };

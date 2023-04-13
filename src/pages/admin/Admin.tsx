@@ -1,7 +1,7 @@
 import { AuthState } from 'store/authSlice';
 import { RootState } from 'store/store';
 import greetUser from 'utils/Greet';
-import { advancedRequest, fetchActiveWarehouse } from 'utils/apiData';
+import { advancedRequest } from 'utils/apiData';
 import { Box, MenuItem, Select, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
