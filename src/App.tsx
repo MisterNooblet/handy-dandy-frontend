@@ -16,7 +16,6 @@ import {
   WarehouseManager,
 } from 'pages/admin';
 function App() {
-  console.log(import.meta.env.VITE_API_BASE_PATH);
   const user = useSelector((state: RootState) => state.auth) as AuthState;
   const router = createBrowserRouter([
     {

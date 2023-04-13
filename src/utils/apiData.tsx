@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { getAuthCookie } from './cookieManager';
-import { SignupFormData } from './models';
+import { CategoryForm, SignupFormData } from './models';
 
 const warehouses: AxiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_PATH}warehouses`,
@@ -9,6 +9,22 @@ const warehouses: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+const categories: AxiosInstance = axios.create({
+  baseURL: `${import.meta.env.VITE_API_BASE_PATH}categories`,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+const subCategories: AxiosInstance = axios.create({
+  baseURL: `${import.meta.env.VITE_API_BASE_PATH}subcategories`,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 const libraries: AxiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_PATH}libraries`,
   timeout: 10000,
@@ -33,7 +49,14 @@ queries.interceptors.request.use((config) => {
   return config;
 });
 
-libraries.interceptors.request.use((config) => {
+categories.interceptors.request.use((config) => {
+  const authToken = getAuthCookie();
+  if (authToken) {
+    config.headers.Authorization = `Bearer ${authToken}`;
+  }
+  return config;
+});
+subCategories.interceptors.request.use((config) => {
   const authToken = getAuthCookie();
   if (authToken) {
     config.headers.Authorization = `Bearer ${authToken}`;
@@ -41,13 +64,13 @@ libraries.interceptors.request.use((config) => {
   return config;
 });
 
-// queries.interceptors.request.use((config) => {
-//   const authToken = getAuthCookie();
-//   if (authToken) {
-//     config.headers.Authorization = `Bearer ${authToken}`;
-//   }
-//   return config;
-// });
+libraries.interceptors.request.use((config) => {
+  const authToken = getAuthCookie();
+  if (authToken) {
+    config.headers.Authorization = `Bearer ${authToken}`;
+  }
+  return config;
+});
 
 export const fetchMasterDoc = async (target: string, id: string) => {
   if (target === 'warehouse') {
@@ -61,6 +84,23 @@ export const fetchMasterDoc = async (target: string, id: string) => {
 
 export const advancedRequest = async (path: string, query?: string | undefined) => {
   const result = await queries.get(`${import.meta.env.VITE_API_BASE_PATH}${path}${query ? '?' + query : ''}`);
+  return result.data.data;
+};
+
+export const createCategory = async (category: CategoryForm) => {
+  const result = await categories.post(`/`, category, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return result.data.data;
+};
+export const createSubCategory = async (category: CategoryForm) => {
+  const result = await subCategories.post(`/`, category, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   return result.data.data;
 };
 

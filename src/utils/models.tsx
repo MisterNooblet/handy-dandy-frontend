@@ -35,3 +35,12 @@ export interface FormError {
 export interface MyObject {
   [key: string]: string;
 }
+
+export interface CategoryForm {
+  title: string;
+  description: string;
+  image: File;
+  target: string;
+  parentDoc: string;
+  docModel: string | null;
+}
