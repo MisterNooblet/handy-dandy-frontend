@@ -1,4 +1,4 @@
-import { FormError } from 'utils/models';
+import { FormError, MyObject } from 'utils/models';
 import { TextField } from '@mui/material';
 import React, { Dispatch } from 'react';
 
@@ -16,7 +16,7 @@ const FormInput = ({
   title: string;
   setErrorMsg: Dispatch<FormError>;
   type: string;
-  errorMsg: FormError;
+  errorMsg: FormError | MyObject;
   fieldIdx: number;
 }) => {
   return (

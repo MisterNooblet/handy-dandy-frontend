@@ -5,6 +5,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Error404, Home, RootLayout, Signup, Login, Admin, AdminLayout } from './pages/';
 import { RootState } from 'store/store';
 import { AuthState } from 'store/authSlice';
+
 import {
   ArticleManager,
   LibraryManager,
@@ -14,10 +15,9 @@ import {
   UserManager,
   WarehouseManager,
 } from 'pages/admin';
-
 function App() {
+  console.log(import.meta.env.VITE_API_BASE_PATH);
   const user = useSelector((state: RootState) => state.auth) as AuthState;
-
   const router = createBrowserRouter([
     {
       path: '/',
@@ -43,10 +43,10 @@ function App() {
             { path: 'tools', element: <ToolManager /> },
             { path: 'users', element: <UserManager /> },
             { path: 'warehouses', element: <WarehouseManager /> },
-            { path: 'warehouses/:id', element: <MasterDocManager /> },
+            { path: 'warehouses/:id', element: <MasterDocManager target="warehouse" /> },
 
             { path: 'libraries', element: <LibraryManager /> },
-            { path: 'libraries/:id', element: <MasterDocManager /> },
+            { path: 'libraries/:id', element: <MasterDocManager target="library" /> },
           ],
         },
         // { path: '/profile', element: user.user ? <Profile /> : <Login /> },

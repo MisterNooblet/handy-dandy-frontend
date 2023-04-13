@@ -1,10 +1,9 @@
-import { API_BASE_PATH } from 'data/constants';
 import axios, { AxiosInstance } from 'axios';
 import { getAuthCookie } from './cookieManager';
 import { SignupFormData } from './models';
 
 const auth: AxiosInstance = axios.create({
-  baseURL: `${API_BASE_PATH}auth`,
+  baseURL: `${import.meta.env.VITE_API_BASE_PATH}auth`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -25,7 +24,7 @@ export const fetchUser = async () => {
 };
 
 export const logIn = async (email: string, password: string) => {
-  const result = await axios.post(`${API_BASE_PATH}auth/login`, {
+  const result = await axios.post(`${import.meta.env.VITE_API_BASE_PATH}auth/login`, {
     email,
     password,
   });
@@ -33,6 +32,6 @@ export const logIn = async (email: string, password: string) => {
 };
 
 export const signUp = async (user: SignupFormData) => {
-  const result = await axios.post(`${API_BASE_PATH}auth/register`, user);
+  const result = await axios.post(`${import.meta.env.VITE_API_BASE_PATH}auth/register`, user);
   return result.data.token;
 };
