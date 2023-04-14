@@ -4,20 +4,26 @@ import FormInput from 'components/FormInput';
 import { CategoryForm, FormError, MyObject } from 'utils/models';
 import { useParams } from 'react-router-dom';
 import { createCategory, createSubCategory } from 'utils/apiData';
+import SimpleBackdrop from '../../../components/Backdrop';
+import CustomizedSnackbar from 'components/AlertSnackbar';
 
 const NewCategory = ({
   categoryTargets,
   docModel,
   selectedCategory,
+  fetchDoc,
 }: {
   categoryTargets: string[];
   docModel: string | null;
   selectedCategory: string | null;
+  fetchDoc: () => void;
 }) => {
   const [errorMsg, setErrorMsg] = useState<FormError | MyObject>({} as FormError);
   const [file, setFile] = useState<null | File>(null);
   const [selectedTarget, setSelectedTarget] = useState<string>('');
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [alertOpen, setAlertOpen] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string>('');
   const { id } = useParams();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +37,6 @@ const NewCategory = ({
     const data = new FormData(event.currentTarget);
     const categoryTitle = data.get('categoryTitle') as string;
     const categoryDescription = data.get('categoryDescription') as string;
-    console.log(categoryDescription.length > 20 && categoryTitle.length > 0 && file && id);
     if (categoryDescription.length > 20 && categoryTitle.length > 0 && file && id) {
       const newCategory: CategoryForm = {
         title: categoryTitle,
@@ -42,22 +47,52 @@ const NewCategory = ({
         image: file,
       };
       if (docModel && selectedTarget) {
-        const response = await createCategory(newCategory);
-        console.log(response);
+        try {
+          setIsLoading(true);
+          const response = await createCategory(newCategory);
+          setSuccessMessage(`Category: ${response.title} created successfully with id: ${response.id}`);
+          setAlertOpen(true);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsLoading(false);
+          setFile(null);
+          fetchDoc();
+        }
       } else if (!docModel) {
-        const response = await createSubCategory(newCategory);
-        console.log(response);
+        try {
+          setIsLoading(true);
+          const response = await createSubCategory(newCategory);
+          setSuccessMessage(`SubCategory :${response.title} created successfully with id: ${response.id}`);
+          setAlertOpen(true);
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIsLoading(false);
+          setFile(null);
+          fetchDoc();
+        }
       }
-    } else if (!selectedTarget) {
+    } else if (!selectedTarget && docModel) {
       setErrorMsg({ message: 'Please select a target', code: 3 });
-    } else if (categoryDescription.length < 20) {
-      setErrorMsg({ message: 'Please provide a category description 20chars long', code: 2 });
+      setAlertOpen(true);
     } else if (categoryTitle.length === 0) {
       setErrorMsg({ message: 'Please provide a category title', code: 1 });
+      setAlertOpen(true);
+    } else if (categoryDescription.length < 20) {
+      setErrorMsg({ message: 'Please provide a category description atleast 20chars long', code: 2 });
+      setAlertOpen(true);
     }
   };
   return (
     <>
+      {errorMsg.message && (
+        <CustomizedSnackbar open={alertOpen} setOpen={setAlertOpen} message={errorMsg.message} severity="error" />
+      )}
+      {successMessage && (
+        <CustomizedSnackbar open={alertOpen} setOpen={setAlertOpen} message={successMessage} severity="success" />
+      )}
+      <SimpleBackdrop open={isLoading} />
       <Typography mt={2} component="h1" variant="h5">
         {errorMsg.code ? errorMsg.message : `${docModel ? 'Create Category to:' : 'Create SubCategory'}`}
       </Typography>

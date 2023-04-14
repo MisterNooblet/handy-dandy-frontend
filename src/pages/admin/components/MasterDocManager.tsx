@@ -19,24 +19,26 @@ const MasterDocManager = ({ target }: { target: string }) => {
   const [categoryTargets, setCategoryTargets] = useState<string[]>([]);
   const { id } = useParams();
 
-  useEffect(() => {
-    const fetchDoc = async () => {
-      if (id) {
-        const tempVariants = [];
-        const tempTargets = [];
-        const response = await fetchMasterDoc(target, id);
-        setData(response);
-        for (const [key, value] of Object.entries(response)) {
-          if (typeof value === 'object') {
-            tempVariants.push({ [key]: response[key] });
-            tempTargets.push(key);
-          }
+  const fetchDoc = async () => {
+    if (id) {
+      const tempVariants = [];
+      const tempTargets = [];
+      const response = await fetchMasterDoc(target, id);
+      setData(response);
+      for (const [key, value] of Object.entries(response)) {
+        if (typeof value === 'object') {
+          tempVariants.push({ [key]: response[key] });
+          tempTargets.push(key);
         }
-        setCategoryTargets(tempTargets);
-        setVariants(tempVariants);
       }
-    };
+      setCategoryTargets(tempTargets);
+      setVariants(tempVariants);
+    }
+  };
+
+  useEffect(() => {
     fetchDoc();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, target]);
 
   return (
@@ -51,13 +53,19 @@ const MasterDocManager = ({ target }: { target: string }) => {
         />
         {selectedCategory.length === 0 && (
           <NewCategory
+            fetchDoc={fetchDoc}
             selectedCategory={null}
             categoryTargets={categoryTargets}
             docModel={target.charAt(0).toUpperCase() + target.slice(1)}
           />
         )}
         {selectedCategory.length !== 0 && (
-          <NewCategory selectedCategory={selectedCategory} categoryTargets={categoryTargets} docModel={null} />
+          <NewCategory
+            fetchDoc={fetchDoc}
+            selectedCategory={selectedCategory}
+            categoryTargets={categoryTargets}
+            docModel={null}
+          />
         )}
       </Box>
     </>
