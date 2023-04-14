@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { CategorySelect } from 'utils/models';
 import ManagerPageTable from '../components/ManagerPageTable';
+import SubcategorySelector from '../components/SubcategorySelector';
 
 const ArticleManager = () => {
+  const [selectedCategory, setSelectedCategory] = useState<CategorySelect | string>('');
   return (
     <>
       <div>Article Manager</div>
-      <ManagerPageTable target="articles" />
+      <SubcategorySelector
+        target="subcategories"
+        query="type=articles"
+        setSelectedCategory={setSelectedCategory}
+        selectedCategory={selectedCategory}
+      />
+      {typeof selectedCategory !== 'string' ? (
+        <ManagerPageTable target="articles" query={`parentDoc=${selectedCategory.id}`} />
+      ) : (
+        <ManagerPageTable target="articles" />
+      )}
     </>
   );
 };
