@@ -16,7 +16,7 @@ import {
   WarehouseManager,
 } from 'pages/admin';
 function App() {
-  const user = useSelector((state: RootState) => state.auth) as AuthState;
+  const { user } = useSelector((state: RootState) => state.auth) as AuthState;
   const router = createBrowserRouter([
     {
       path: '/',
@@ -34,7 +34,7 @@ function App() {
         { path: 'login', element: <Login /> },
         {
           path: 'admin',
-          element: user.user?.role === 'admin' ? <AdminLayout /> : <Error404 />,
+          element: user?.role === 'admin' ? <AdminLayout /> : <Error404 />,
           children: [
             { path: '', element: <Admin /> },
             { path: 'articles', element: <ArticleManager /> },
@@ -48,7 +48,7 @@ function App() {
             { path: 'libraries/:id', element: <MasterDocManager target="library" /> },
           ],
         },
-        // { path: '/profile', element: user.user ? <Profile /> : <Login /> },
+        // { path: '/profile', element: user ? <Profile /> : <Login /> },
       ],
     },
   ]);

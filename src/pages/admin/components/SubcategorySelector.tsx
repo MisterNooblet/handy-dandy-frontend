@@ -21,7 +21,6 @@ const SubcategorySelector = ({
     const selection: CategorySelect | undefined = categories.find((category) => category.id === event.target.value);
     if (selection) {
       setSelectedCategory(selection);
-      console.log(selection);
     } else {
       setSelectedCategory('');
     }

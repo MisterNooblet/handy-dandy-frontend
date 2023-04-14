@@ -16,7 +16,7 @@ const pages = [
 ];
 
 const Navbar = () => {
-  const user = useSelector((state: RootState) => state.auth) as AuthState;
+  const { user } = useSelector((state: RootState) => state.auth) as AuthState;
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -73,7 +73,7 @@ const Navbar = () => {
                   </MenuItem>
                 </Link>
               ))}
-              {user.user?.role === 'admin' && (
+              {user?.role === 'admin' && (
                 <Link to={'/admin'}>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center" color={'black'}>
@@ -97,7 +97,7 @@ const Navbar = () => {
                 </Button>
               </Link>
             ))}
-            {user.user?.role === 'admin' && (
+            {user?.role === 'admin' && (
               <Link to={'/admin'}>
                 <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
                   {'Admin'}
