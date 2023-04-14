@@ -16,22 +16,24 @@ const MasterDocManager = ({ target }: { target: string }) => {
   const [data, setData] = useState<MyObject>({});
   const [variants, setVariants] = useState<Variant[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [categoryTargets, setCategoryTargets] = useState<string[]>([]);
   const { id } = useParams();
 
   useEffect(() => {
     const fetchDoc = async () => {
       if (id) {
         const tempVariants = [];
+        const tempTargets = [];
         const response = await fetchMasterDoc(target, id);
         setData(response);
         for (const [key, value] of Object.entries(response)) {
           if (typeof value === 'object') {
             tempVariants.push({ [key]: response[key] });
+            tempTargets.push(key);
           }
         }
-
+        setCategoryTargets(tempTargets);
         setVariants(tempVariants);
-        console.log(tempVariants);
       }
     };
     fetchDoc();
@@ -47,7 +49,16 @@ const MasterDocManager = ({ target }: { target: string }) => {
           setSelectedCategory={setSelectedCategory}
           variants={variants}
         />
-        {selectedCategory.length === 0 && <NewCategory />}
+        {selectedCategory.length === 0 && (
+          <NewCategory
+            selectedCategory={null}
+            categoryTargets={categoryTargets}
+            docModel={target.charAt(0).toUpperCase() + target.slice(1)}
+          />
+        )}
+        {selectedCategory.length !== 0 && (
+          <NewCategory selectedCategory={selectedCategory} categoryTargets={categoryTargets} docModel={null} />
+        )}
       </Box>
     </>
   );

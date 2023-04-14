@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import FormInput from 'components/FormInput';
-import { FormError, MyObject } from 'utils/models';
+import { CategoryForm, FormError, MyObject } from 'utils/models';
+import { useParams } from 'react-router-dom';
+import { createCategory, createSubCategory } from 'utils/apiData';
 
-const NewCategory = () => {
+const NewCategory = ({
+  categoryTargets,
+  docModel,
+  selectedCategory,
+}: {
+  categoryTargets: string[];
+  docModel: string | null;
+  selectedCategory: string | null;
+}) => {
   const [errorMsg, setErrorMsg] = useState<FormError | MyObject>({} as FormError);
   const [file, setFile] = useState<null | File>(null);
+  const [selectedTarget, setSelectedTarget] = useState<string>('');
+
+  const { id } = useParams();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
@@ -13,24 +26,40 @@ const NewCategory = () => {
     setFile(file);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const categoryTitle = data.get('categoryTitle') as string;
     const categoryDescription = data.get('categoryDescription') as string;
-
-    if (categoryDescription.length > 20 && categoryTitle.length > 0) {
-      console.log(categoryTitle, categoryDescription);
-    } else if (categoryTitle.length === 0) {
-      setErrorMsg({ message: 'Please provide a category title', code: 1 });
+    console.log(categoryDescription.length > 20 && categoryTitle.length > 0 && file && id);
+    if (categoryDescription.length > 20 && categoryTitle.length > 0 && file && id) {
+      const newCategory: CategoryForm = {
+        title: categoryTitle,
+        description: categoryDescription,
+        target: selectedTarget,
+        docModel: docModel,
+        parentDoc: selectedCategory ? selectedCategory : id,
+        image: file,
+      };
+      if (docModel && selectedTarget) {
+        const response = await createCategory(newCategory);
+        console.log(response);
+      } else if (!docModel) {
+        const response = await createSubCategory(newCategory);
+        console.log(response);
+      }
+    } else if (!selectedTarget) {
+      setErrorMsg({ message: 'Please select a target', code: 3 });
     } else if (categoryDescription.length < 20) {
       setErrorMsg({ message: 'Please provide a category description 20chars long', code: 2 });
+    } else if (categoryTitle.length === 0) {
+      setErrorMsg({ message: 'Please provide a category title', code: 1 });
     }
   };
   return (
     <>
-      <Typography component="h1" variant="h5">
-        {errorMsg.code ? errorMsg.message : 'Submit a new category'}
+      <Typography mt={2} component="h1" variant="h5">
+        {errorMsg.code ? errorMsg.message : `${docModel ? 'Create Category to:' : 'Create SubCategory'}`}
       </Typography>
       <Box
         onFocus={() => {
@@ -40,8 +69,28 @@ const NewCategory = () => {
         maxWidth={'400px'}
         onSubmit={handleSubmit}
         noValidate
-        sx={{ mt: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, mt: 2 }}
       >
+        {docModel && (
+          <FormControl fullWidth>
+            <InputLabel id="target">Target :</InputLabel>
+            <Select
+              labelId="target"
+              id="demo-simple-select"
+              value={selectedTarget}
+              label="target"
+              sx={{ backgroundColor: errorMsg.code === 3 ? 'rgba(245, 132, 132, 0.44)' : null }}
+              onChange={(event) => setSelectedTarget(event.target.value as string)}
+            >
+              <MenuItem value={''}>Select Target</MenuItem>
+              {categoryTargets.map((target) => (
+                <MenuItem key={target} value={target}>
+                  {target}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
         <FormInput
           label={'Category Title'}
           name={'categoryTitle'}
