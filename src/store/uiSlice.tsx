@@ -1,14 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { FormError } from 'utils/models';
+import { UiMessage } from 'utils/models';
 
 export interface UiState {
   isLoading: boolean;
-  errorMessage: FormError | null;
+  message: UiMessage | null;
+  alertOpen: boolean;
 }
 
 const initialState = {
   isLoading: false,
-  errorMessage: null,
+  message: null,
+  alertOpen: false,
 };
 
 const uiSlice = createSlice({
@@ -18,15 +20,19 @@ const uiSlice = createSlice({
     setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
-    clearErrorMessage: (state) => {
-      state.errorMessage = null;
+    clearMessage: (state) => {
+      state.message = null;
     },
-    setErrorMessage: (state, action) => {
-      state.errorMessage = action.payload;
+    setMessage: (state, action) => {
+      state.message = action.payload;
+      state.alertOpen = true;
+    },
+    setAlertOpen: (state, action) => {
+      state.alertOpen = action.payload;
     },
   },
 });
 
-export const { setLoading, clearErrorMessage, setErrorMessage } = uiSlice.actions;
+export const { setLoading, clearMessage, setMessage, setAlertOpen } = uiSlice.actions;
 export const selectUser = (state: { ui: UiState }) => state.ui;
 export default uiSlice;

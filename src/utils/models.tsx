@@ -28,9 +28,10 @@ export interface SignupFormData {
   country: string;
 }
 
-export interface FormError {
+export interface UiMessage {
   message: string | null;
   code: number | null;
+  severity: 'success' | 'error' | 'info' | 'warning';
 }
 export interface MyObject {
   [key: string]: string;
