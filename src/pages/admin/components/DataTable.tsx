@@ -58,9 +58,11 @@ export default function DataTable({ data, source }: { data: MyObject[]; source: 
         for (const [key, value] of Object.entries(sortedObj)) {
           if (filteredKeys.includes(key.toUpperCase())) {
             if (key === 'id') {
+              console.log(source);
               row.push(
                 <TableCell key={value + Math.random()}>
-                  <Link to={`${source ? source + '/' : ''}${value}`}>{value}</Link>
+                  {source?.includes('items') && <Link to={`${'/admin/items/'}${value}`}>{value}</Link>}
+                  {!source?.includes('items') && <Link to={`${source ? source + '/' : ''}${value}`}>{value}</Link>}
                 </TableCell>
               );
             } else if (key === 'image') {

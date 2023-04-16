@@ -138,7 +138,7 @@ const Toolbox = () => {
                         edge="end"
                         aria-label="comments"
                         onClick={() => {
-                          setMoreInfo(user?.toolbox.tools[idx]);
+                          setMoreInfo(user?.toolbox.materials[idx]);
                           setListHeight('40%');
                         }}
                       >
