@@ -7,7 +7,18 @@ export interface User {
   pfp: string;
   favourites: string[];
 }
-
+export interface UserExtended {
+  id: string;
+  fullName: string;
+  email: string;
+  role: string;
+  pfp: string;
+  favourites: string[];
+  toolbox: {
+    materials: Item[];
+    tools: Item[];
+  };
+}
 export interface Toolbox {
   materials: string[];
   tools: string[];

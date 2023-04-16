@@ -22,6 +22,10 @@ export const fetchUser = async () => {
   const result = await auth.get(`/current-user`);
   return result.data.data;
 };
+export const fetchUserExtended = async () => {
+  const result = await auth.get(`/current-user-extended`);
+  return result.data.data;
+};
 
 export const logIn = async (email: string, password: string) => {
   const result = await axios.post(`${import.meta.env.VITE_API_BASE_PATH}auth/login`, {

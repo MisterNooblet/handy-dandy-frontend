@@ -8,5 +8,5 @@ import ErrorAPI from './Error404/ErrorApi';
 import AdminLayout from './admin/AdminLayout';
 import Wiki from './wiki/wiki';
 import Item from './item/Item';
-
-export { Admin, Wiki, Error404, Home, RootLayout, Login, Signup, AdminLayout, Item, ErrorAPI };
+import Toolbox from './toolbox/ToolBox';
+export { Admin, Wiki, Error404, Home, RootLayout, Login, Signup, AdminLayout, Item, ErrorAPI, Toolbox };

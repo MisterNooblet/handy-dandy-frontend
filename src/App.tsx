@@ -2,7 +2,7 @@ import React from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { createBrowserRouter } from 'react-router-dom';
-import { Error404, Home, RootLayout, Signup, Login, Admin, AdminLayout, Wiki, Item } from './pages/';
+import { Error404, Toolbox, Home, RootLayout, Signup, Login, Admin, AdminLayout, Wiki, Item } from './pages/';
 import { RootState } from 'store/store';
 import { AuthState } from 'store/authSlice';
 
@@ -28,7 +28,7 @@ function App() {
         { path: '/wiki/:type/c/:category', element: <Wiki /> },
         { path: '/wiki/:type/c/:category/items/:subCategory', element: <Wiki /> },
         { path: '/wiki/:type/c/:category/items/:subCategory/item/:id', element: <Item /> },
-        // { path: '/toolbox', element: <Toolbox /> },
+        { path: '/toolbox', element: <Toolbox /> },
         { path: 'signup', element: <Signup /> },
         { path: 'login', element: <Login /> },
         {
