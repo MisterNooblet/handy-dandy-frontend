@@ -1,9 +1,16 @@
 import axios, { AxiosInstance } from 'axios';
 import { getAuthCookie } from './cookieManager';
-import { CategoryForm, SignupFormData } from './models';
+import { CategoryForm, ItemForm, SignupFormData } from './models';
 
 const warehouses: AxiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_PATH}warehouses`,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+const items: AxiosInstance = axios.create({
+  baseURL: `${import.meta.env.VITE_API_BASE_PATH}items`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -42,6 +49,13 @@ const queries: AxiosInstance = axios.create({
 });
 
 queries.interceptors.request.use((config) => {
+  const authToken = getAuthCookie();
+  if (authToken) {
+    config.headers.Authorization = `Bearer ${authToken}`;
+  }
+  return config;
+});
+items.interceptors.request.use((config) => {
   const authToken = getAuthCookie();
   if (authToken) {
     config.headers.Authorization = `Bearer ${authToken}`;
@@ -89,6 +103,14 @@ export const advancedRequest = async (path: string, query?: string | undefined) 
 
 export const createCategory = async (category: CategoryForm) => {
   const result = await categories.post(`/`, category, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return result.data.data;
+};
+export const createItem = async (item: ItemForm) => {
+  const result = await items.post(`/`, item, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

@@ -10,8 +10,7 @@ import {
   ArticleManager,
   LibraryManager,
   MasterDocManager,
-  MaterialManager,
-  ToolManager,
+  ItemManager,
   UserManager,
   WarehouseManager,
 } from 'pages/admin';
@@ -38,8 +37,8 @@ function App() {
           children: [
             { path: '', element: <Admin /> },
             { path: 'articles', element: <ArticleManager /> },
-            { path: 'materials', element: <MaterialManager /> },
-            { path: 'tools', element: <ToolManager /> },
+            { path: 'materials', element: <ItemManager type="material" /> },
+            { path: 'tools', element: <ItemManager type="tool" /> },
             { path: 'users', element: <UserManager /> },
             { path: 'warehouses', element: <WarehouseManager /> },
             { path: 'warehouses/:id', element: <MasterDocManager target="warehouse" /> },

@@ -45,6 +45,14 @@ export interface CategoryForm {
   parentDoc: string;
   docModel: string | null;
 }
+export interface ItemForm {
+  title: string;
+  description: string;
+  image: File;
+  properties: string[];
+  parentDoc: string;
+  type: string;
+}
 
 export interface CategorySelect {
   id: string;

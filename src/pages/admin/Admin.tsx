@@ -8,7 +8,14 @@ import { useSelector } from 'react-redux';
 import DataTable from './components/DataTable';
 import { useState } from 'react';
 
-const options = ['Articles', 'Materials', 'Users', 'Tools', 'Warehouses', 'Libraries'];
+const options = [
+  { name: 'Articles', value: 'articles' },
+  { name: 'Materials', value: 'items?type=material' },
+  { name: 'Users', value: 'users' },
+  { name: 'Tools', value: 'items?type=tool' },
+  { name: 'Warehouses', value: 'warehouses' },
+  { name: 'Libraries', value: 'libraries' },
+];
 
 const Admin = () => {
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
@@ -46,8 +53,8 @@ const Admin = () => {
       <Select value={searchTarget} onChange={handleSelectChange} label="Select Category">
         <MenuItem value="">Select Category</MenuItem>
         {options.map((option) => (
-          <MenuItem key={option} value={option.toLowerCase()}>
-            {option}
+          <MenuItem key={option.name} value={option.value}>
+            {option.name}
           </MenuItem>
         ))}
       </Select>

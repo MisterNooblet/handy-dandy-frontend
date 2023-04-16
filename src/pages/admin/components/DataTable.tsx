@@ -63,6 +63,12 @@ export default function DataTable({ data, source }: { data: MyObject[]; source: 
                   <Link to={`${source ? source + '/' : ''}${value}`}>{value}</Link>
                 </TableCell>
               );
+            } else if (key === 'image') {
+              row.push(
+                <TableCell key={value + Math.random()}>
+                  <img src={value} alt={value} style={{ width: '100px', height: '100px' }} />
+                </TableCell>
+              );
             } else {
               row.push(<TableCell key={value + Math.random()}>{value}</TableCell>);
             }
@@ -73,9 +79,11 @@ export default function DataTable({ data, source }: { data: MyObject[]; source: 
 
       setRows(filteredRows);
       setIsLoading(false);
+    } else {
+      setRows([]);
     }
     setIsLoading(false);
-  }, [data]);
+  }, [data, source]);
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
