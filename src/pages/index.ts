@@ -9,4 +9,6 @@ import AdminLayout from './admin/AdminLayout';
 import Wiki from './wiki/wiki';
 import Item from './item/Item';
 import Toolbox from './toolbox/ToolBox';
-export { Admin, Wiki, Error404, Home, RootLayout, Login, Signup, AdminLayout, Item, ErrorAPI, Toolbox };
+import Profile from './profile/Profile';
+
+export { Admin, Wiki, Error404, Home, RootLayout, Login, Signup, AdminLayout, Item, ErrorAPI, Toolbox, Profile };
