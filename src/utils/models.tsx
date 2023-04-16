@@ -7,18 +7,21 @@ export interface User {
   pfp: string;
   favourites: string[];
 }
-
-export interface Toolbox {
-  materials: Item[];
-  tools: Item[];
-}
-
-export interface Item {
+export interface UserExtended {
   id: string;
-  title: string;
-  image: string;
-  description: string;
-  type: string;
+  fullName: string;
+  email: string;
+  role: string;
+  pfp: string;
+  favourites: string[];
+  toolbox: {
+    materials: Item[];
+    tools: Item[];
+  };
+}
+export interface Toolbox {
+  materials: string[];
+  tools: string[];
 }
 
 export interface SignupFormData {
@@ -28,9 +31,10 @@ export interface SignupFormData {
   country: string;
 }
 
-export interface FormError {
+export interface UiMessage {
   message: string | null;
   code: number | null;
+  severity: 'success' | 'error' | 'info' | 'warning';
 }
 export interface MyObject {
   [key: string]: string;
@@ -43,4 +47,26 @@ export interface CategoryForm {
   target: string;
   parentDoc: string;
   docModel: string | null;
+}
+export interface ItemForm {
+  title: string;
+  description: string;
+  image: File;
+  properties: string[];
+  parentDoc: string;
+  type: string;
+}
+export interface Item {
+  id: string;
+  title: string;
+  image: string;
+  description: string;
+  properties: string[];
+  type: string;
+  parentDoc: string;
+}
+
+export interface CategorySelect {
+  id: string;
+  title: string;
 }

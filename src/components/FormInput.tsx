@@ -1,24 +1,28 @@
-import { FormError, MyObject } from 'utils/models';
 import { TextField } from '@mui/material';
-import React, { Dispatch } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setMessage, UiState } from 'store/uiSlice';
+import { RootState } from 'store/store';
 
 const FormInput = ({
   name,
   label,
   title,
-  setErrorMsg,
   type,
-  errorMsg,
   fieldIdx,
 }: {
   name: string;
   label: string;
   title: string;
-  setErrorMsg: Dispatch<FormError>;
   type: string;
-  errorMsg: FormError | MyObject;
   fieldIdx: number;
 }) => {
+  const dispatch = useDispatch();
+  const { message } = useSelector((state: RootState) => state.ui) as UiState;
+
+  useEffect(() => {
+    dispatch(setMessage(null));
+  }, [dispatch]);
   return (
     <TextField
       type={type}
@@ -27,10 +31,10 @@ const FormInput = ({
       fullWidth
       label={label}
       title={title}
-      sx={{ backgroundColor: errorMsg.code === fieldIdx ? 'rgba(245, 132, 132, 0.44)' : null }}
+      sx={{ backgroundColor: message?.code === fieldIdx ? 'rgba(245, 132, 132, 0.44)' : null }}
       margin="normal"
       onFocus={() => {
-        setErrorMsg({ message: null, code: null });
+        dispatch(setMessage(null));
       }}
     ></TextField>
   );

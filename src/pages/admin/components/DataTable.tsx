@@ -58,9 +58,17 @@ export default function DataTable({ data, source }: { data: MyObject[]; source: 
         for (const [key, value] of Object.entries(sortedObj)) {
           if (filteredKeys.includes(key.toUpperCase())) {
             if (key === 'id') {
+              console.log(source);
               row.push(
                 <TableCell key={value + Math.random()}>
-                  <Link to={`${source ? source + '/' : ''}${value}`}>{value}</Link>
+                  {source?.includes('items') && <Link to={`${'/admin/items/'}${value}`}>{value}</Link>}
+                  {!source?.includes('items') && <Link to={`${source ? source + '/' : ''}${value}`}>{value}</Link>}
+                </TableCell>
+              );
+            } else if (key === 'image') {
+              row.push(
+                <TableCell key={value + Math.random()}>
+                  <img src={value} alt={value} style={{ width: '100px', height: '100px' }} />
                 </TableCell>
               );
             } else {
@@ -73,9 +81,11 @@ export default function DataTable({ data, source }: { data: MyObject[]; source: 
 
       setRows(filteredRows);
       setIsLoading(false);
+    } else {
+      setRows([]);
     }
     setIsLoading(false);
-  }, [data]);
+  }, [data, source]);
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>

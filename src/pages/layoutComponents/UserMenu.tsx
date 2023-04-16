@@ -17,7 +17,7 @@ const loginSettings = [
 ];
 
 const UserMenu = () => {
-  const user = useSelector((state: RootState) => state.auth) as AuthState;
+  const { user } = useSelector((state: RootState) => state.auth) as AuthState;
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const dispatch = useDispatch();
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -32,7 +32,7 @@ const UserMenu = () => {
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt={user.user ? user.user.fullName : undefined} src={user.user?.pfp && user.user.pfp} />
+          <Avatar alt={user ? user.fullName : undefined} src={user?.pfp && user.pfp} />
         </IconButton>
       </Tooltip>
       <Menu
@@ -51,7 +51,7 @@ const UserMenu = () => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {!user.user
+        {!user
           ? loginSettings.map((setting) => (
               <Link key={setting.name} to={setting.path}>
                 <MenuItem key={setting.name} onClick={handleCloseUserMenu}>

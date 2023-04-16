@@ -1,19 +1,23 @@
 'use client';
 import { signUp } from 'utils/apiAuth';
 import { validateEmail } from 'utils/emailValidator';
-import { FormError, SignupFormData } from 'utils/models';
+import { SignupFormData } from 'utils/models';
 import { Link, useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React from 'react';
 import { FaUserPlus } from 'react-icons/fa';
 import AutoComplete from 'components/AutoComplete';
 import { COUNTRIES } from 'data/countries';
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
 import { signUpFormData } from 'data/formFields';
 import FormInput from 'components/FormInput';
+import { setMessage, UiState } from 'store/uiSlice';
+import { RootState } from 'store/store';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SignUpForm = () => {
-  const [errorMsg, setErrorMsg] = useState<FormError>({} as FormError);
   const navigate = useNavigate();
+  const { message } = useSelector((state: RootState) => state.ui) as UiState;
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,24 +49,54 @@ const SignUpForm = () => {
         await signUp(newUser);
         navigate('/login');
       } catch (error) {
-        setErrorMsg({
-          message: 'Email already exists in our database',
-          code: 3,
-        });
+        dispatch(
+          setMessage({
+            message: 'Email already exists in our database',
+            code: 3,
+            severity: 'error',
+          })
+        );
       }
     } else if (firstName && firstName.length === 0) {
-      setErrorMsg({ message: 'Please enter a first name', code: 1 });
+      dispatch(
+        setMessage({
+          message: 'Please enter a first name',
+          code: 1,
+          severity: 'error',
+        })
+      );
     } else if (lastName && lastName.length === 0) {
-      setErrorMsg({ message: 'Please enter a last name', code: 2 });
+      dispatch(
+        setMessage({
+          message: 'Please enter a last name',
+          code: 2,
+          severity: 'error',
+        })
+      );
     } else if (!validMail) {
-      setErrorMsg({ message: 'Please enter a valid email', code: 3 });
+      dispatch(
+        setMessage({
+          message: 'Please enter a valid email',
+          code: 3,
+          severity: 'error',
+        })
+      );
     } else if (password && password.length <= 8) {
-      setErrorMsg({
-        message: 'Password too short enter atleast 8 characters',
-        code: 4,
-      });
+      dispatch(
+        setMessage({
+          message: 'Password too short enter atleast 8 characters',
+          code: 4,
+          severity: 'error',
+        })
+      );
     } else if (password !== password2) {
-      setErrorMsg({ message: 'Wrong password confirmation entered', code: 5 });
+      dispatch(
+        setMessage({
+          message: 'Wrong password confirmation entered',
+          code: 5,
+          severity: 'error',
+        })
+      );
     }
   };
 
@@ -79,7 +113,7 @@ const SignUpForm = () => {
         <FaUserPlus />
       </Avatar>
       <Typography component="h1" variant="h5">
-        {errorMsg ? errorMsg.message : 'Sign up'}
+        {message ? message.message : 'Sign up'}
       </Typography>
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3, maxWidth: '400px' }}>
         <Grid container spacing={2}>
@@ -90,8 +124,6 @@ const SignUpForm = () => {
                 name={field.name}
                 title={field.title}
                 fieldIdx={idx + 1}
-                errorMsg={errorMsg}
-                setErrorMsg={setErrorMsg}
                 type={field.type}
               />
             </Grid>

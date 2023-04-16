@@ -1,18 +1,18 @@
 import { login } from 'store/authSlice';
 import { fetchUser, logIn } from 'utils/apiAuth';
 import { setAuthCookie } from 'utils/cookieManager';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaUserLock } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
-import { FormError } from 'utils/models';
 import FormInput from 'components/FormInput';
 import { loginFormData } from 'data/formFields';
+import { setMessage, UiState } from 'store/uiSlice';
+import { RootState } from 'store/store';
 
 const LoginForm = () => {
-  const [errorMsg, setErrorMsg] = useState<FormError>({} as FormError);
-
+  const { message } = useSelector((state: RootState) => state.ui) as UiState;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -40,13 +40,9 @@ const LoginForm = () => {
 
       navigate('/');
     } catch (error) {
-      setErrorMsg({
-        message: 'Wrong credentials',
-        code: 1,
-      });
+      dispatch(setMessage({ message: 'Wrong credentials', code: 1, severity: 'error' }));
     }
   };
-
   return (
     <Box
       sx={{
@@ -60,7 +56,7 @@ const LoginForm = () => {
         <FaUserLock />
       </Avatar>
       <Typography component="h1" variant="h5">
-        {errorMsg.code ? errorMsg.message : 'Sign in'}
+        {message ? message.message : 'Sign in'}
       </Typography>
       <Box component="form" maxWidth={'400px'} onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
         {loginFormData.map((field) => (
@@ -70,8 +66,6 @@ const LoginForm = () => {
             title={field.title}
             fieldIdx={1}
             key={field.name}
-            errorMsg={errorMsg}
-            setErrorMsg={setErrorMsg}
             type={field.type}
           />
         ))}

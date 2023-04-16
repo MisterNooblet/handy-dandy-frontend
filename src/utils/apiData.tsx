@@ -1,9 +1,16 @@
 import axios, { AxiosInstance } from 'axios';
 import { getAuthCookie } from './cookieManager';
-import { CategoryForm, SignupFormData } from './models';
+import { CategoryForm, ItemForm, SignupFormData } from './models';
 
 const warehouses: AxiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_PATH}warehouses`,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+const items: AxiosInstance = axios.create({
+  baseURL: `${import.meta.env.VITE_API_BASE_PATH}items`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -42,6 +49,13 @@ const queries: AxiosInstance = axios.create({
 });
 
 queries.interceptors.request.use((config) => {
+  const authToken = getAuthCookie();
+  if (authToken) {
+    config.headers.Authorization = `Bearer ${authToken}`;
+  }
+  return config;
+});
+items.interceptors.request.use((config) => {
   const authToken = getAuthCookie();
   if (authToken) {
     config.headers.Authorization = `Bearer ${authToken}`;
@@ -95,6 +109,14 @@ export const createCategory = async (category: CategoryForm) => {
   });
   return result.data.data;
 };
+export const createItem = async (item: ItemForm) => {
+  const result = await items.post(`/`, item, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return result.data.data;
+};
 export const createSubCategory = async (category: CategoryForm) => {
   const result = await subCategories.post(`/`, category, {
     headers: {
@@ -103,7 +125,22 @@ export const createSubCategory = async (category: CategoryForm) => {
   });
   return result.data.data;
 };
-
+export const getCategories = async (type: string) => {
+  const result = await categories.get(`/?type=${type}`);
+  return result.data.data;
+};
+export const getSubCategories = async (parentDoc: string) => {
+  const result = await subCategories.get(`/?parentDoc=${parentDoc}`);
+  return result.data.data;
+};
+export const getItems = async (parentDoc: string) => {
+  const result = await items.get(`/?parentDoc=${parentDoc}`);
+  return result.data.data;
+};
+export const getItem = async (id: string) => {
+  const result = await items.get(`/${id}`);
+  return result.data.data;
+};
 export const signUp = async (user: SignupFormData) => {
   const result = await axios.post(`${import.meta.env.VITE_API_BASE_PATH}auth/register`, user);
   return result.data.token;
