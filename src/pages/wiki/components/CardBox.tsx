@@ -83,7 +83,7 @@ const CardBox = ({ params, array }: { params?: Readonly<Params<string>>; array?:
               <Typography gutterBottom variant="h5" component="h2">
                 {card.title}
               </Typography>
-              <Typography>{card.description}</Typography>
+              <Typography sx={{ overflowY: 'scroll', maxHeight: '150px' }}>{card.description}</Typography>
             </CardContent>
             <CardActions>
               <Link

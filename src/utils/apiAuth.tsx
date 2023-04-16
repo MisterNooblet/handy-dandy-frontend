@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { getAuthCookie } from './cookieManager';
+import { getAuthCookie, setAuthCookie } from './cookieManager';
 import { SignupFormData } from './models';
 
 const auth: AxiosInstance = axios.create({
@@ -39,6 +39,8 @@ interface UserUpdateDetails {
   fullName?: string;
   email?: string;
   pfp?: string;
+  currentPassword?: string;
+  newPassword?: string;
   toolbox?: {
     materials?: string[];
     tools?: string[];
@@ -48,6 +50,11 @@ interface UserUpdateDetails {
 export const updateUserData = async (data: UserUpdateDetails) => {
   const result = await auth.put(`/update-details`, data);
   return result.data.data;
+};
+export const updateUserPassword = async (data: UserUpdateDetails) => {
+  const result = await auth.put(`/update-password`, data);
+  setAuthCookie(result.data.token);
+  return result.data.token;
 };
 
 export const signUp = async (user: SignupFormData) => {

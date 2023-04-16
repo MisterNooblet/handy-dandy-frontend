@@ -27,7 +27,6 @@ const FormInput = ({
     <TextField
       type={type}
       name={name}
-      required
       fullWidth
       label={label}
       title={title}
