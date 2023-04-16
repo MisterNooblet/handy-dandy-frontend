@@ -31,6 +31,21 @@ export const logIn = async (email: string, password: string) => {
   return result.data.token;
 };
 
+interface UserUpdateDetails {
+  fullName?: string;
+  email?: string;
+  pfp?: string;
+  toolbox?: {
+    materials?: string[];
+    tools?: string[];
+  };
+}
+
+export const updateUserData = async (data: UserUpdateDetails) => {
+  const result = await auth.put(`/update-details`, data);
+  return result.data.data;
+};
+
 export const signUp = async (user: SignupFormData) => {
   const result = await axios.post(`${import.meta.env.VITE_API_BASE_PATH}auth/register`, user);
   return result.data.token;

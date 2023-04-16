@@ -9,16 +9,8 @@ export interface User {
 }
 
 export interface Toolbox {
-  materials: Item[];
-  tools: Item[];
-}
-
-export interface Item {
-  id: string;
-  title: string;
-  image: string;
-  description: string;
-  type: string;
+  materials: string[];
+  tools: string[];
 }
 
 export interface SignupFormData {
@@ -52,6 +44,15 @@ export interface ItemForm {
   properties: string[];
   parentDoc: string;
   type: string;
+}
+export interface Item {
+  id: string;
+  title: string;
+  image: string;
+  description: string;
+  properties: string[];
+  type: string;
+  parentDoc: string;
 }
 
 export interface CategorySelect {

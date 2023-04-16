@@ -125,7 +125,22 @@ export const createSubCategory = async (category: CategoryForm) => {
   });
   return result.data.data;
 };
-
+export const getCategories = async (type: string) => {
+  const result = await categories.get(`/?type=${type}`);
+  return result.data.data;
+};
+export const getSubCategories = async (parentDoc: string) => {
+  const result = await subCategories.get(`/?parentDoc=${parentDoc}`);
+  return result.data.data;
+};
+export const getItems = async (parentDoc: string) => {
+  const result = await items.get(`/?parentDoc=${parentDoc}`);
+  return result.data.data;
+};
+export const getItem = async (id: string) => {
+  const result = await items.get(`/${id}`);
+  return result.data.data;
+};
 export const signUp = async (user: SignupFormData) => {
   const result = await axios.post(`${import.meta.env.VITE_API_BASE_PATH}auth/register`, user);
   return result.data.token;

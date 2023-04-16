@@ -22,16 +22,6 @@ const authSlice = createSlice({
     updateUser: (state, action) => {
       state.user = action.payload;
     },
-    updateTools: (state, action) => {
-      if (state.user) {
-        state.user.toolbox.tools.push(action.payload);
-      }
-    },
-    updateMaterials: (state, action) => {
-      if (state.user) {
-        state.user.toolbox.materials.push(action.payload);
-      }
-    },
     setToolBox: (state, action) => {
       if (state.user) {
         state.user.toolbox = action.payload;
@@ -45,6 +35,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { login, logout, updateUser, updateTools, updateMaterials, setToolBox, updateUserPfp } = authSlice.actions;
+export const { login, logout, updateUser, setToolBox, updateUserPfp } = authSlice.actions;
 export const selectUser = (state: { user: AuthState }): User | null => state.user.user;
 export default authSlice;
