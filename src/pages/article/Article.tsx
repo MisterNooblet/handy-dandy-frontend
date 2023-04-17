@@ -8,7 +8,7 @@ import { RootState } from 'store/store';
 import { getArticle } from 'utils/apiData';
 import { ArticleResponse, Item } from 'utils/models';
 import ArticleHead from './components/ArticleHead';
-// import ItemPopup from './ItemPopup';
+import ItemPopup from './ItemPopup';
 
 const Article = () => {
   const params = useParams();
@@ -17,7 +17,7 @@ const Article = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [currentItem, setCurrentItem] = useState<Item | null>(null);
   const [currentType, setCurrentType] = useState('');
-  const [hasItem, setHasItem] = useState<boolean | null>(null);
+  const [hasItem, setHasItem] = useState<boolean>(false);
 
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
 
@@ -178,14 +178,16 @@ const Article = () => {
         }}
       >
         <Card sx={{ bgcolor: 'background.default' }}>
-          {/* <ItemPopup
-            open={open}
-            setOpen={setOpen}
-            item={currentItem}
-            type={currentType}
-            hasItem={hasItem}
-            setHasItem={setHasItem}
-        /> */}
+          {currentItem && (
+            <ItemPopup
+              open={open}
+              setOpen={setOpen}
+              item={currentItem}
+              type={currentType}
+              hasItem={hasItem}
+              setHasItem={setHasItem}
+            />
+          )}
         </Card>
       </Box>
     </>

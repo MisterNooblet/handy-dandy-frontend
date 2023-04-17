@@ -72,7 +72,11 @@ export default function DataTable({ data, source }: { data: MyObject[]; source: 
                 </TableCell>
               );
             } else {
-              row.push(<TableCell key={value + Math.random()}>{value}</TableCell>);
+              row.push(
+                <TableCell key={value + Math.random()}>
+                  {value.length > 50 ? value.substring(0, 50) + '...' : value}
+                </TableCell>
+              );
             }
           }
         }
