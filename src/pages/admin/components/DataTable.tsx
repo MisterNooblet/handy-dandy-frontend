@@ -61,8 +61,8 @@ export default function DataTable({ data, source }: { data: MyObject[]; source: 
               console.log(source);
               row.push(
                 <TableCell key={value + Math.random()}>
-                  {source?.includes('items') && <Link to={`${'/admin/items/'}${value}`}>{value}</Link>}
-                  {!source?.includes('items') && <Link to={`${source ? source + '/' : ''}${value}`}>{value}</Link>}
+                  {/* {source?.includes('items') && <Link to={`${'/admin/items/'}${value}`}>{value}</Link>} */}
+                  <Link to={`${source ? source + '/' : ''}${value}`}>{value}</Link>
                 </TableCell>
               );
             } else if (key === 'image') {
