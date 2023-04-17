@@ -169,6 +169,10 @@ export const getItem = async (id: string) => {
   const result = await items.get(`/${id}`);
   return result.data.data;
 };
+export const getArticle = async (id: string) => {
+  const result = await articles.get(`/${id}`);
+  return result.data.data;
+};
 export const signUp = async (user: SignupFormData) => {
   const result = await axios.post(`${import.meta.env.VITE_API_BASE_PATH}auth/register`, user);
   return result.data.token;

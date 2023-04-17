@@ -83,3 +83,17 @@ export interface ArticleForm {
   parentDoc: string;
   image: File;
 }
+export interface ArticleResponse {
+  id: string;
+  title: string;
+  articleBody: string;
+  summary: string;
+  author: UserExtended;
+  toolbox: {
+    materials: Item[];
+    tools: Item[];
+  };
+  parentDoc: CategoryForm;
+  image: string;
+  updatedAt: string;
+}
