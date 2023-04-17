@@ -10,5 +10,20 @@ import Wiki from './wiki/wiki';
 import Item from './item/Item';
 import Toolbox from './toolbox/ToolBox';
 import Profile from './profile/Profile';
+import Article from './article/Article';
 
-export { Admin, Wiki, Error404, Home, RootLayout, Login, Signup, AdminLayout, Item, ErrorAPI, Toolbox, Profile };
+export {
+  Admin,
+  Wiki,
+  Error404,
+  Home,
+  RootLayout,
+  Login,
+  Signup,
+  AdminLayout,
+  Item,
+  ErrorAPI,
+  Toolbox,
+  Profile,
+  Article,
+};

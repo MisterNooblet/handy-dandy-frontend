@@ -161,6 +161,10 @@ export const getItems = async (parentDoc: string) => {
   const result = await items.get(`/?parentDoc=${parentDoc}`);
   return result.data.data;
 };
+export const getArticles = async (parentDoc: string) => {
+  const result = await articles.get(`/?parentDoc=${parentDoc}`);
+  return result.data.data;
+};
 export const getItem = async (id: string) => {
   const result = await items.get(`/${id}`);
   return result.data.data;

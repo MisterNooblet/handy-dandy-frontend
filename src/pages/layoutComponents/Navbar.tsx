@@ -10,7 +10,7 @@ import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Ty
 
 const pages = [
   { name: 'Tool-o-Pedia', path: 'wiki' },
-  { name: 'The Library', path: 'articles' },
+  { name: 'The Library', path: 'library/articles' },
   { name: 'Toolbox', path: 'toolbox' },
   { name: 'Community', path: 'community' },
 ];
