@@ -70,3 +70,16 @@ export interface CategorySelect {
   id: string;
   title: string;
 }
+
+export interface ArticleForm {
+  title: string;
+  articleBody: string;
+  summary: string;
+  author: string;
+  toolbox: {
+    materials: string[];
+    tools: string[];
+  };
+  parentDoc: string;
+  image: File;
+}

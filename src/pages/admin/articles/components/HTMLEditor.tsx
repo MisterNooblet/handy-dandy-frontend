@@ -8,8 +8,6 @@ const HTMLEditor = ({ setValue }: { setValue: React.Dispatch<SetStateAction<stri
     <>
       <CKEditor
         onReady={(editor) => {
-          console.log('Editor is ready to use!', editor);
-
           // Insert the toolbar before the editable area.
           const editableElement = editor.ui.getEditableElement();
           const toolbarElement = editor.ui.view.toolbar.element;
@@ -18,7 +16,7 @@ const HTMLEditor = ({ setValue }: { setValue: React.Dispatch<SetStateAction<stri
             // @ts-ignore: Object is possibly 'null'.
             editableElement.parentElement.insertBefore(toolbarElement, editableElement);
             // @ts-ignore: Object is possibly 'null'.
-            this.editor = editor;
+            // this.editor = editor;
           }
         }}
         onError={(error, { willEditorRestart }) => {
@@ -33,7 +31,6 @@ const HTMLEditor = ({ setValue }: { setValue: React.Dispatch<SetStateAction<stri
         }}
         onChange={(event, editor) => {
           const data = editor.getData();
-          console.log({ event, editor, data });
           setValue(data);
         }}
         editor={DecoupledEditor}
