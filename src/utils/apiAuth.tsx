@@ -45,6 +45,7 @@ interface UserUpdateDetails {
     materials?: string[];
     tools?: string[];
   };
+  favourites?: string[];
 }
 
 export const updateUserData = async (data: UserUpdateDetails) => {

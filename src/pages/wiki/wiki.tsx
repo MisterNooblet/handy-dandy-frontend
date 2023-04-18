@@ -29,7 +29,6 @@ export default function Wiki() {
   const params: Readonly<Params<string>> = useParams();
   return (
     <>
-      <CssBaseline />
       {/* Hero unit */}
       <Box
         sx={{

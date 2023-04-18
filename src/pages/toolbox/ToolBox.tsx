@@ -88,7 +88,7 @@ const Toolbox = () => {
                 width: { xs: '100%', md: '360px' },
                 height: '100%',
                 overflowY: 'scroll',
-                bgcolor: 'background.paper',
+                bgcolor: 'backgroud.paper',
               }}
             >
               {user?.toolbox.tools.map((value, idx) => {

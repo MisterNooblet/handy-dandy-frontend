@@ -70,7 +70,13 @@ export default function ResponsiveDialog({
 
   return (
     <div>
-      <Dialog fullScreen={fullScreen} open={open} onClose={handleClose} aria-labelledby="responsive-dialog-title">
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+        sx={{ background: 'rgba(255, 255, 255, 0.5)' }}
+      >
         <DialogTitle id="responsive-dialog-title">{item && item.title}</DialogTitle>
         <DialogContent>
           <>
@@ -80,7 +86,7 @@ export default function ResponsiveDialog({
           </>
         </DialogContent>
         <DialogActions>
-          <Button sx={{ color: 'white' }} autoFocus onClick={handleClose}>
+          <Button autoFocus onClick={handleClose}>
             Close
           </Button>
           <Link
@@ -94,7 +100,6 @@ export default function ResponsiveDialog({
             target="_blank"
           >
             <Button
-              sx={{ color: 'white' }}
               onClick={() => {
                 handleClose();
               }}
@@ -105,7 +110,6 @@ export default function ResponsiveDialog({
           </Link>
           {user && (
             <Button
-              sx={{ color: 'white' }}
               onClick={() => {
                 setHasItem((prev) => (prev = !prev));
                 addNewItemToToolbox();

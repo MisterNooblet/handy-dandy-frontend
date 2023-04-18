@@ -1,14 +1,17 @@
 import { Typography, Card, Box, CardMedia, List, ListItem, Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import InfoIcon from '@mui/icons-material/Info';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { AuthState } from 'store/authSlice';
+import { AuthState, updateUser } from 'store/authSlice';
 import { RootState } from 'store/store';
-import { getArticle } from 'utils/apiData';
+import { getArticle, setUpvotes } from 'utils/apiData';
 import { ArticleResponse, Item } from 'utils/models';
 import ArticleHead from './components/ArticleHead';
 import ItemPopup from './ItemPopup';
+import { FcLike } from 'react-icons/fc';
+import { AiFillStar } from 'react-icons/ai';
+import { updateUserData } from 'utils/apiAuth';
 
 const Article = () => {
   const params = useParams();
@@ -18,6 +21,9 @@ const Article = () => {
   const [currentItem, setCurrentItem] = useState<Item | null>(null);
   const [currentType, setCurrentType] = useState('');
   const [hasItem, setHasItem] = useState<boolean>(false);
+  const [faved, setFaved] = useState<boolean>(false);
+  const [upvoted, setUpvoted] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
 
@@ -43,6 +49,40 @@ const Article = () => {
     return false;
   };
 
+  const handleEngage = async (type: string) => {
+    if (type === 'favourite') {
+      if (faved && user) {
+        const newFavs = user.favourites.filter((fav) => fav !== article?.id);
+        const updatedUser = await updateUserData({ favourites: newFavs });
+        dispatch(updateUser(updatedUser));
+      } else if (!faved && user && article) {
+        const newFavs = [...user.favourites, article.id];
+        const updatedUser = await updateUserData({ favourites: newFavs });
+        dispatch(updateUser(updatedUser));
+      }
+      setFaved(!faved);
+    } else if (type === 'upvote') {
+      if (upvoted && user && article) {
+        const newUpvotes = article.upvotes.filter((upvote) => upvote !== user.id);
+        try {
+          await setUpvotes({ userId: user.id, articleId: article.id });
+          setArticle({ ...article, upvotes: newUpvotes });
+          setUpvoted(!upvoted);
+        } catch (error) {
+          console.log(error);
+        }
+      } else if (!upvoted && user && article) {
+        const newUpvotes = [...article.upvotes, user.id];
+        try {
+          await setUpvotes({ userId: user.id, articleId: article.id });
+          setArticle({ ...article, upvotes: newUpvotes });
+          setUpvoted(!upvoted);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+  };
   useEffect(() => {
     const fetchArticle = async () => {
       if (params.id) {
@@ -55,10 +95,68 @@ const Article = () => {
         setArticle(result);
       }
     };
-    fetchArticle();
-  }, [params]);
+    const checkFavs = () => {
+      if (user && article) {
+        const fav = user.favourites.find((fav) => fav === article.id);
+        if (fav) {
+          setFaved(true);
+        }
+        const upvoted = article.upvotes.find((upvote) => upvote === user.id);
+        if (upvoted) {
+          setUpvoted(true);
+        }
+      }
+    };
+    if (!article) {
+      fetchArticle();
+    }
+    checkFavs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [article, user]);
   return (
     <>
+      <Box
+        sx={{
+          position: 'sticky',
+          top: '0',
+          bottom: { lg: '', xs: '0' },
+          display: 'flex',
+          justifyContent: 'right',
+          zIndex: '5',
+        }}
+      >
+        <Box
+          onClick={() => {
+            handleEngage('upvote');
+          }}
+          title="Upvote"
+          sx={{
+            transition: 'all ease-in-out 0.5s',
+            opacity: !upvoted ? '0.5' : '1',
+            position: 'relative',
+            ':after': {
+              content: `"${article?.upvotes.length}"`,
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              cursor: 'pointer',
+            },
+          }}
+        >
+          <FcLike fontSize={'40px'} cursor="pointer" />
+        </Box>
+        <Box title="Add to favourites" sx={{ transition: 'all ease-in-out 0.5s', opacity: !faved ? '0.5' : '1' }}>
+          <AiFillStar
+            fontSize={'40px'}
+            cursor="pointer"
+            color="orange"
+            onClick={() => {
+              handleEngage('favourite');
+            }}
+          />
+        </Box>
+      </Box>
       <Container maxWidth="xl" sx={{ flexGrow: 1, pt: 8, pb: 8 }}>
         <Box
           sx={{

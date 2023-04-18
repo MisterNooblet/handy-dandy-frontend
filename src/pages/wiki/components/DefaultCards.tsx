@@ -13,6 +13,7 @@ const DefaultCards = ({ array }: { array: CardProps[] }) => {
               height: '100%',
               display: 'flex',
               flexDirection: 'column',
+              backgroundColor: 'rgba(255, 255, 255, 0.5)',
             }}
           >
             <CardMedia

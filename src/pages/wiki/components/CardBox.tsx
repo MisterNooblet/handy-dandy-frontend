@@ -73,6 +73,7 @@ const CardBox = ({ params, array }: { params?: Readonly<Params<string>>; array?:
               height: '100%',
               display: 'flex',
               flexDirection: 'column',
+              backgroundColor: 'rgba(255, 255, 255, 0.5)',
             }}
           >
             <CardMedia
@@ -88,7 +89,7 @@ const CardBox = ({ params, array }: { params?: Readonly<Params<string>>; array?:
               <Typography gutterBottom variant="h5" component="h2">
                 {card.title}
               </Typography>
-              <Typography sx={{ overflowY: 'scroll', maxHeight: '150px' }}>{card.description}</Typography>
+              <Typography sx={{ maxHeight: '150px' }}>{card.description}</Typography>
             </CardContent>
             <CardActions>
               <Link

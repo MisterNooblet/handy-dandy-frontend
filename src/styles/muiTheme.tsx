@@ -1,6 +1,16 @@
 import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
+  components: {
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: 'rgba(255, 255, 255, 1)',
+        },
+      },
+    },
+  },
+
   palette: {
     mode: 'light',
     primary: {
@@ -10,8 +20,8 @@ export const theme = createTheme({
       main: '#f50057',
     },
     background: {
-      default: '#5586a6',
-      paper: '#ffb701',
+      default: '#rgba(255, 255, 255, 0.5)',
+      paper: '#f1f1f1',
     },
     text: {
       primary: '#000',
