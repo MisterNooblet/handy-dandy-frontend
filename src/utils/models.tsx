@@ -47,6 +47,7 @@ export interface CategoryForm {
   target: string;
   parentDoc: string;
   docModel: string | null;
+  id?: string;
 }
 export interface ItemForm {
   title: string;
@@ -97,4 +98,5 @@ export interface ArticleResponse {
   upvotes: string[];
   image: string;
   updatedAt: string;
+  createdAt: string;
 }

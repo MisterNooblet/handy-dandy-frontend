@@ -12,6 +12,7 @@ import ItemPopup from './ItemPopup';
 import { FcLike } from 'react-icons/fc';
 import { AiFillStar } from 'react-icons/ai';
 import { updateUserData } from 'utils/apiAuth';
+import formatDate from 'utils/formatDate';
 
 const Article = () => {
   const params = useParams();
@@ -87,11 +88,8 @@ const Article = () => {
     const fetchArticle = async () => {
       if (params.id) {
         const result: ArticleResponse = await getArticle(params.id);
-        const date = new Date(result.updatedAt);
-        const options = { month: 'long', day: 'numeric', year: `numeric` } as const;
-        const formatter = new Intl.DateTimeFormat('en-US', options);
-        const formattedDate = formatter.format(date).toUpperCase();
-        setArticleDate(formattedDate);
+        const date = formatDate(result.updatedAt);
+        setArticleDate(date);
         setArticle(result);
       }
     };
@@ -146,11 +144,13 @@ const Article = () => {
         >
           <FcLike fontSize={'40px'} cursor="pointer" />
         </Box>
-        <Box title="Add to favourites" sx={{ transition: 'all ease-in-out 0.5s', opacity: !faved ? '0.5' : '1' }}>
+        <Box
+          title="Add to favourites"
+          sx={{ transition: 'all ease-in-out 0.5s', color: !faved ? 'grey' : 'secondary.main' }}
+        >
           <AiFillStar
             fontSize={'40px'}
             cursor="pointer"
-            color="orange"
             onClick={() => {
               handleEngage('favourite');
             }}

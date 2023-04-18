@@ -13,6 +13,8 @@ const pages = [
   { name: 'The Library', path: 'library/articles' },
   { name: 'Toolbox', path: 'toolbox' },
   { name: 'Community', path: 'community' },
+  { name: 'Author', path: 'author' },
+  { name: 'Favorites', path: 'favorites' },
 ];
 
 const Navbar = () => {

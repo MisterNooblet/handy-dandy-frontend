@@ -1,33 +1,90 @@
-import React from 'react';
-import styles from './Home.module.css';
+import { Box, Container } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import React, { useState, useEffect } from 'react';
+import { getTopArticles } from 'utils/apiData';
+import { ArticleResponse } from 'utils/models';
+import ArticleCard from './components/ArticleCard';
 
 const Home = () => {
+  const [topArticles, setTopArticles] = useState<ArticleResponse[]>([]);
+  const [latestArticles, setLatestArticles] = useState<ArticleResponse[]>([]);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const response = await getTopArticles();
+      setTopArticles(response.top);
+      setLatestArticles(response.latest);
+      console.log(response);
+    };
+    fetchArticles();
+  }, []);
+
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.homeLogo}></div>
-        <p className={styles.aboutParagraph}>
-          If you&apos;re considering hanging an object on a wall or attempting to change an oil filter in your car
-          without prior experience or uncertainty about the necessary tools, you can rest easy knowing that we&apos;re
-          here to assist you.
-          <br />
-          Our collection of articles covers a range of do-it-yourself tasks both indoors and outdoors, making it easy
-          for you to find the information you need to complete your project.
-          <br />
-          Feel free to browse our selection of articles by clicking the link at the top of the page.
-          <br />
-          The Handy Dandy website is a useful resource for anyone looking to take on do-it-yourself projects.
-          <br />
-          It provides a range of articles that cover a variety of tasks, from basic home repairs to more advanced
-          outdoor projects.
-          <br />
-          The Website is designed for you to have a smooth experience, making it simple for users to find the
-          information they need.
-          <br />
-          Whether you&apos;re a seasoned DIY enthusiast or just starting out, the Handy Dandy website is an excellent
-          resource to have at your fingertips.
-        </p>
-      </div>
+      <Container maxWidth="xl" sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', pt: 8, pb: 8 }}>
+        <Box sx={{ width: { xs: '100%', md: '50%' } }}>
+          <Typography variant="h4" fontWeight={700}>
+            You&apos;ve Got A Project In Mind, We Hold The Knowledge!
+          </Typography>
+          <Typography color={'#CF7500'} variant="h5" fontWeight={700}>
+            The information you need is just a click away.
+          </Typography>
+        </Box>
+
+        <Typography
+          sx={{ textUnderlinePosition: 'under', textDecoration: 'underline' }}
+          color={'text.secondary'}
+          mt={10}
+          textAlign={'center'}
+          variant="h4"
+          fontWeight={700}
+        >
+          Community favourites
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            flexDirection: { xs: 'column', md: 'row' },
+            rowGap: 4,
+            columnGap: 10,
+            mt: 10,
+          }}
+        >
+          {topArticles.length > 0 &&
+            topArticles.map((article) => {
+              return <ArticleCard key={article.title} article={article} />;
+            })}
+        </Box>
+        <Typography
+          sx={{ textUnderlinePosition: 'under', textDecoration: 'underline' }}
+          color={'text.secondary'}
+          mt={10}
+          textAlign={'center'}
+          variant="h4"
+          fontWeight={700}
+        >
+          Latest In
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            flexWrap: 1,
+            flexDirection: { xs: 'column', md: 'row' },
+            rowGap: 4,
+            mt: 10,
+          }}
+        >
+          {latestArticles.length > 0 &&
+            latestArticles.map((article) => {
+              return <ArticleCard key={article.title} article={article} />;
+            })}
+        </Box>
+      </Container>
     </>
   );
 };

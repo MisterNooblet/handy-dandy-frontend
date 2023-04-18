@@ -15,6 +15,7 @@ import {
   Item,
   Profile,
   Article,
+  Favorites,
 } from './pages/';
 import { RootState } from 'store/store';
 import { AuthState } from 'store/authSlice';
@@ -48,6 +49,11 @@ function App() {
         { path: '/toolbox', element: <Toolbox /> },
         { path: 'signup', element: <Signup /> },
         { path: 'login', element: <Login /> },
+        { path: 'favorites', element: <Favorites /> },
+        {
+          path: 'author',
+          element: user?.role === 'admin' || user?.role === 'author' ? <ArticleManager /> : <Error404 />,
+        },
         {
           path: 'admin',
           element: user?.role === 'admin' ? <AdminLayout /> : <Error404 />,
