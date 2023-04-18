@@ -31,15 +31,7 @@ const ArticleForm = ({ target }: { target: CategorySelect }) => {
     const image = file;
     const tools = neededTools.map((tool) => tool.id);
     const materials = neededMaterials.map((material) => material.id);
-    if (
-      title?.length > 0 &&
-      image &&
-      value.length > 0 &&
-      user?.id &&
-      tools.length > 0 &&
-      materials.length > 0 &&
-      summary?.length > 0
-    ) {
+    if (title?.length > 0 && image && value.length > 0 && user?.id && summary?.length > 0) {
       const payload: ArticleData = {
         title: title,
         image: image,
