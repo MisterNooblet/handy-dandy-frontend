@@ -177,3 +177,7 @@ export const signUp = async (user: SignupFormData) => {
   const result = await axios.post(`${import.meta.env.VITE_API_BASE_PATH}auth/register`, user);
   return result.data.token;
 };
+export const setUpvotes = async (data: { userId: string; articleId: string }) => {
+  const result = await articles.put('/', data);
+  return result.data.data;
+};

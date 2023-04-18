@@ -94,6 +94,7 @@ export interface ArticleResponse {
     tools: Item[];
   };
   parentDoc: CategoryForm;
+  upvotes: string[];
   image: string;
   updatedAt: string;
 }

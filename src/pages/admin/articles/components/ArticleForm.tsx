@@ -61,25 +61,31 @@ const ArticleForm = ({ target }: { target: CategorySelect }) => {
 
   return (
     <>
-      <Box component={'form'} sx={{ display: 'flex', flexDirection: 'column', rowGap: 2 }} onSubmit={handleSubmit}>
+      <Box
+        component={'form'}
+        sx={{ display: 'flex', flexDirection: 'column', rowGap: 2, background: '#f0f0f0f0' }}
+        onSubmit={handleSubmit}
+      >
         <FormInput name={'title'} label={'Article Title'} type="text" title="Article Title" fieldIdx={1} />
         <Typography variant="h6">Article Image</Typography>
         <FileUpload setFileState={setFile} />
         <HTMLEditor setValue={setValue} />
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-around' }}>
+          <RequirementManager target="tools" setNeededTools={setNeededTools} setNeededMaterials={setNeededMaterials} />
+          <RequirementManager
+            target="materials"
+            setNeededTools={setNeededTools}
+            setNeededMaterials={setNeededMaterials}
+          />
+        </Box>
         <TextField
           id="outlined-multiline-static"
           label="Article Summary"
           title="Provide a short Summary of the Article"
           multiline
           rows={4}
-          defaultValue="..."
+          placeholder="Provide a short Summary of the Article"
           name="summary"
-        />
-        <RequirementManager target="tools" setNeededTools={setNeededTools} setNeededMaterials={setNeededMaterials} />
-        <RequirementManager
-          target="materials"
-          setNeededTools={setNeededTools}
-          setNeededMaterials={setNeededMaterials}
         />
         <Button type="submit" variant="contained">
           Submit

@@ -46,7 +46,7 @@ const ItemCard = ({ item }: { item: Item }) => {
   }, [user, item.title, item.type, item.id]);
 
   return (
-    <Card sx={{ maxHeight: '100%', display: 'flex' }}>
+    <Card sx={{ maxHeight: '100%', display: 'flex', background: 'rgba(255, 255, 255, 0.5)' }}>
       <Box p={4} sx={{ display: 'flex' }}>
         <CardMedia sx={{ maxHeight: '50vh', objectFit: 'contain' }} component={'img'} image={item.image} />
       </Box>
