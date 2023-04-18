@@ -12,8 +12,8 @@ const pages = [
   { name: 'Tool-o-Pedia', path: 'wiki' },
   { name: 'The Library', path: 'library/articles' },
   { name: 'Toolbox', path: 'toolbox' },
-  { name: 'Community', path: 'community' },
-  { name: 'Author', path: 'author' },
+  // { name: 'Community', path: 'community' },
+  // { name: 'Author', path: 'author' },
   { name: 'Favorites', path: 'favorites' },
 ];
 
@@ -75,6 +75,15 @@ const Navbar = () => {
                   </MenuItem>
                 </Link>
               ))}
+              {user?.role !== 'user' && (
+                <Link to={'/author'}>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center" color={'black'}>
+                      {'Author'}
+                    </Typography>
+                  </MenuItem>
+                </Link>
+              )}
               {user?.role === 'admin' && (
                 <Link to={'/admin'}>
                   <MenuItem onClick={handleCloseNavMenu}>
@@ -99,6 +108,13 @@ const Navbar = () => {
                 </Button>
               </Link>
             ))}
+            {user?.role !== 'user' && (
+              <Link to={'/author'}>
+                <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
+                  {'Author'}
+                </Button>
+              </Link>
+            )}
             {user?.role === 'admin' && (
               <Link to={'/admin'}>
                 <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>

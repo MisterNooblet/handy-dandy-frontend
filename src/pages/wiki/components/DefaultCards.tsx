@@ -29,7 +29,7 @@ const DefaultCards = ({ array }: { array: CardProps[] }) => {
               <Typography gutterBottom variant="h5" component="h2">
                 {card.title}
               </Typography>
-              <Typography>{card.description}</Typography>
+              <Typography>{card.description.substring(0, 150) + '...'}</Typography>
             </CardContent>
             <CardActions>
               <Link to={`${card.title.toLowerCase()}`}>

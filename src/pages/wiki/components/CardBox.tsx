@@ -94,7 +94,9 @@ const CardBox = ({ params, array }: { params?: Readonly<Params<string>>; array?:
               <Typography gutterBottom variant="h5" component="h2">
                 {card.title}
               </Typography>
-              <Typography sx={{ maxHeight: '150px' }}>{card.description}</Typography>
+              <Typography sx={{ maxHeight: '150px' }}>
+                {card.description && card.description.substring(0, 150) + '...'}
+              </Typography>
             </CardContent>
             <CardActions>
               <Link

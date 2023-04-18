@@ -16,6 +16,7 @@ import {
   Profile,
   Article,
   Favorites,
+  Author,
 } from './pages/';
 import { RootState } from 'store/store';
 import { AuthState } from 'store/authSlice';
@@ -52,7 +53,7 @@ function App() {
         { path: 'favorites', element: <Favorites /> },
         {
           path: 'author',
-          element: user?.role === 'admin' || user?.role === 'author' ? <ArticleManager /> : <Error404 />,
+          element: user?.role === 'admin' || user?.role === 'author' ? <Author /> : <Error404 />,
         },
         {
           path: 'admin',

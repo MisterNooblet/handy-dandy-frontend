@@ -55,12 +55,27 @@ const ArticleForm = ({ target }: { target: CategorySelect }) => {
     <>
       <Box
         component={'form'}
-        sx={{ display: 'flex', flexDirection: 'column', rowGap: 2, background: '#f0f0f0f0' }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          rowGap: 2,
+          background: '#f0f0f0f0',
+          boxShadow: 4,
+          borderRadius: 2,
+          padding: 2,
+          mt: 2,
+          mb: 2,
+        }}
         onSubmit={handleSubmit}
       >
-        <FormInput name={'title'} label={'Article Title'} type="text" title="Article Title" fieldIdx={1} />
-        <Typography variant="h6">Article Image</Typography>
-        <FileUpload setFileState={setFile} />
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 4 }}>
+          <FormInput name={'title'} label={'Article Title'} type="text" title="Article Title" fieldIdx={1} />
+
+          <Box>
+            <Typography variant="h6">Article Image</Typography>
+            <FileUpload setFileState={setFile} />
+          </Box>
+        </Box>
         <HTMLEditor setValue={setValue} />
         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-around' }}>
           <RequirementManager target="tools" setNeededTools={setNeededTools} setNeededMaterials={setNeededMaterials} />

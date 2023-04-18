@@ -7,7 +7,7 @@ import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 const HTMLEditor = ({ setValue }: { setValue: React.Dispatch<SetStateAction<string>> }) => {
   return (
     <>
-      <Box sx={{ background: 'grey' }}>
+      <Box sx={{ border: '1px solid black', borderRadius: '5px 5px 0  0 ', boxShadow: 4 }}>
         <CKEditor
           onReady={(editor) => {
             // Insert the toolbar before the editable area.

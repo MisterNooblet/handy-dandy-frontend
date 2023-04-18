@@ -12,6 +12,7 @@ import Toolbox from './toolbox/ToolBox';
 import Profile from './profile/Profile';
 import Article from './article/Article';
 import Favorites from './favorites/Favorites';
+import Author from './author/Author';
 
 export {
   Admin,
@@ -28,4 +29,5 @@ export {
   Profile,
   Article,
   Favorites,
+  Author,
 };

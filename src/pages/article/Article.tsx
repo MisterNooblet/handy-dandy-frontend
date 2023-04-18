@@ -176,7 +176,7 @@ const Article = () => {
               <CardMedia component={'img'} src={article?.author.pfp} sx={{ borderRadius: '50px', width: 50 }} />
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography>{article?.author.fullName} </Typography>{' '}
-                <Typography>LAST UPDATED:{articleDate} </Typography>{' '}
+                <Typography sx={{ fontSize: 14, color: '#cf7500' }}>LAST UPDATED: {articleDate} </Typography>{' '}
               </Box>
             </Box>
 
