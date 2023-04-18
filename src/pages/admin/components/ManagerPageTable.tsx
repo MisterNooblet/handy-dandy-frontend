@@ -19,7 +19,7 @@ const ManagerPageTable = ({ target, query }: { target: string; query?: string })
   }, [query, target]);
   return (
     <>
-      <DataTable data={items} source={'items'} />
+      <DataTable data={items} source={null} />
     </>
   );
 };

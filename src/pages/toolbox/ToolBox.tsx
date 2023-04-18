@@ -51,7 +51,6 @@ const Toolbox = () => {
   };
 
   const handleUpdateToolbox = async () => {
-    console.log(checked);
     if (user) {
       let newToolBox = null;
 

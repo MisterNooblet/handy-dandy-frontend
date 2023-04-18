@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { getAuthCookie } from './cookieManager';
-import { CategoryForm, ItemForm, SignupFormData } from './models';
+import { ArticleForm, CategoryForm, ItemForm, SignupFormData } from './models';
 
 const warehouses: AxiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_PATH}warehouses`,
@@ -24,6 +24,15 @@ const categories: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+const articles: AxiosInstance = axios.create({
+  baseURL: `${import.meta.env.VITE_API_BASE_PATH}articles`,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 const subCategories: AxiosInstance = axios.create({
   baseURL: `${import.meta.env.VITE_API_BASE_PATH}subcategories`,
   timeout: 10000,
@@ -49,6 +58,13 @@ const queries: AxiosInstance = axios.create({
 });
 
 queries.interceptors.request.use((config) => {
+  const authToken = getAuthCookie();
+  if (authToken) {
+    config.headers.Authorization = `Bearer ${authToken}`;
+  }
+  return config;
+});
+articles.interceptors.request.use((config) => {
   const authToken = getAuthCookie();
   if (authToken) {
     config.headers.Authorization = `Bearer ${authToken}`;
@@ -117,6 +133,14 @@ export const createItem = async (item: ItemForm) => {
   });
   return result.data.data;
 };
+export const createArticle = async (item: ArticleForm) => {
+  const result = await articles.post(`/`, item, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return result.data.data;
+};
 export const createSubCategory = async (category: CategoryForm) => {
   const result = await subCategories.post(`/`, category, {
     headers: {
@@ -137,8 +161,16 @@ export const getItems = async (parentDoc: string) => {
   const result = await items.get(`/?parentDoc=${parentDoc}`);
   return result.data.data;
 };
+export const getArticles = async (parentDoc: string) => {
+  const result = await articles.get(`/?parentDoc=${parentDoc}`);
+  return result.data.data;
+};
 export const getItem = async (id: string) => {
   const result = await items.get(`/${id}`);
+  return result.data.data;
+};
+export const getArticle = async (id: string) => {
+  const result = await articles.get(`/${id}`);
   return result.data.data;
 };
 export const signUp = async (user: SignupFormData) => {

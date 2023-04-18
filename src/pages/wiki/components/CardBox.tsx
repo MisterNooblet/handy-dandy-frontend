@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 
 import React, { useEffect, useState } from 'react';
 import { Link, Params, useNavigate } from 'react-router-dom';
-import { getCategories, getItems, getSubCategories } from 'utils/apiData';
+import { getArticles, getCategories, getItems, getSubCategories } from 'utils/apiData';
 import DefaultCards from './DefaultCards';
 export interface CardProps {
   title: string;
@@ -27,8 +27,13 @@ const CardBox = ({ params, array }: { params?: Readonly<Params<string>>; array?:
   };
 
   const fetchItems = async (parentDoc: string) => {
-    const result = await getItems(parentDoc);
-    setResults(result);
+    if (params?.type === 'articles') {
+      const result = await getArticles(parentDoc);
+      setResults(result);
+    } else {
+      const result = await getItems(parentDoc);
+      setResults(result);
+    }
   };
 
   useEffect(() => {

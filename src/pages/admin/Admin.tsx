@@ -22,10 +22,16 @@ const Admin = () => {
   const [data, setData] = useState([]);
   const [searchTarget, setSearchTarget] = useState('');
   const [searchQuery, setSeachQuery] = useState('');
-  //   const [warehouse, setWarehouse] = useState();
-
+  const [itemUrl, setItemUrl] = useState('');
   const handleSelectChange = (event: { target: { value: React.SetStateAction<string> } }) => {
     setSearchTarget(event.target.value);
+    if (!options) {
+      return;
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: Object is possibly 'null'.
+    const url = options.find((item) => item.value === event.target.value).name.toLowerCase() ?? searchTarget;
+    setItemUrl(url);
   };
 
   const fetchData = async () => {
@@ -58,7 +64,7 @@ const Admin = () => {
           </MenuItem>
         ))}
       </Select>
-      <DataTable data={data} source={searchTarget} />
+      <DataTable data={data} source={itemUrl ? itemUrl : searchTarget} />
     </Box>
   );
 };
