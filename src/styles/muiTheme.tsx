@@ -14,18 +14,18 @@ export const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#212b2d',
+      main: '#1A1C20',
     },
     secondary: {
-      main: '#f50057',
+      main: '#F0A500',
     },
     background: {
-      default: '#rgba(255, 255, 255, 0.5)',
+      default: '#F4F4F4',
       paper: '#f1f1f1',
     },
     text: {
       primary: '#000',
-      secondary: '#000',
+      secondary: '#666666',
     },
   },
 });

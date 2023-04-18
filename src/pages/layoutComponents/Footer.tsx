@@ -22,7 +22,7 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        background: '#212b2d',
+        backgroundColor: 'primary.main',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

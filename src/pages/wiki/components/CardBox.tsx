@@ -13,6 +13,7 @@ export interface CardProps {
 }
 const CardBox = ({ params, array }: { params?: Readonly<Params<string>>; array?: CardProps[] }) => {
   const [results, setResults] = useState<CardProps[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   const fetchCategories = async (location: string) => {
@@ -26,33 +27,37 @@ const CardBox = ({ params, array }: { params?: Readonly<Params<string>>; array?:
     setResults(result);
   };
 
-  const fetchItems = async (parentDoc: string) => {
-    if (params?.type === 'articles') {
-      const result = await getArticles(parentDoc);
-      setResults(result);
-    } else {
-      const result = await getItems(parentDoc);
-      setResults(result);
-    }
-  };
-
   useEffect(() => {
+    setIsLoading(true);
     setResults([]);
-    console.log(params);
-    if (params && params.type && !params.category) {
-      fetchCategories(params.type);
-    } else if (params && params.type && params.category && !params.subCategory) {
-      getItemSubCategories(params.category);
-    } else if (params && params.type && params.category && params.subCategory) {
-      fetchItems(params.subCategory);
-    }
+    const fetchItems = async (parentDoc: string) => {
+      if (params?.type === 'articles') {
+        const result = await getArticles(parentDoc);
+        setResults(result);
+      } else {
+        const result = await getItems(parentDoc);
+        setResults(result);
+      }
+    };
+
+    const fetchCats = async () => {
+      if (params && params.type && !params.category) {
+        await fetchCategories(params.type);
+      } else if (params && params.type && params.category && !params.subCategory) {
+        await getItemSubCategories(params.category);
+      } else if (params && params.type && params.category && params.subCategory) {
+        await fetchItems(params.subCategory);
+      }
+      setIsLoading(false);
+    };
+    fetchCats();
   }, [params]);
 
   return (
     <>
       {params === undefined && array ? <DefaultCards array={array} /> : null}
 
-      {params && results.length === 0 && (
+      {params && results.length === 0 && !isLoading && (
         <Box>
           <Typography component={'h3'} variant={'h3'}>
             No data yet..

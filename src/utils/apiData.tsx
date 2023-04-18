@@ -173,6 +173,10 @@ export const getArticle = async (id: string) => {
   const result = await articles.get(`/${id}`);
   return result.data.data;
 };
+export const getTopArticles = async () => {
+  const result = await articles.get(`/top`);
+  return result.data.data;
+};
 export const signUp = async (user: SignupFormData) => {
   const result = await axios.post(`${import.meta.env.VITE_API_BASE_PATH}auth/register`, user);
   return result.data.token;

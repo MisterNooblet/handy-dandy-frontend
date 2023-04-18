@@ -11,6 +11,7 @@ import Item from './item/Item';
 import Toolbox from './toolbox/ToolBox';
 import Profile from './profile/Profile';
 import Article from './article/Article';
+import Favorites from './favorites/Favorites';
 
 export {
   Admin,
@@ -26,4 +27,5 @@ export {
   Toolbox,
   Profile,
   Article,
+  Favorites,
 };

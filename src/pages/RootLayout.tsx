@@ -6,6 +6,7 @@ import StoreAndAuthProvider from './layoutComponents/StoreAndAuthProvider';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../styles/muiTheme';
 import CustomizedSnackbar from 'components/AlertSnackbar';
+import ScrollToTopButton from 'components/ScrollToTopButton';
 
 export default function RootLayout() {
   return (
@@ -15,6 +16,7 @@ export default function RootLayout() {
           <Navbar />
         </header>
         <Outlet />
+        <ScrollToTopButton />
         <CustomizedSnackbar />
         <Footer />
       </ThemeProvider>
