@@ -73,9 +73,10 @@ const Home = () => {
             display: 'flex',
             justifyContent: 'space-around',
             alignItems: 'center',
-            flexWrap: 1,
+            flexWrap: 'wrap',
             flexDirection: { xs: 'column', md: 'row' },
             rowGap: 4,
+            columnGap: 10,
             mt: 10,
           }}
         >
