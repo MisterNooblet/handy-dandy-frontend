@@ -39,7 +39,7 @@ const Home = () => {
           variant="h4"
           fontWeight={700}
         >
-          Community favourites
+          Community favorites
         </Typography>
         <Box
           sx={{

@@ -33,7 +33,7 @@ const Favorites = () => {
         variant="h4"
         fontWeight={700}
       >
-        Your favourites
+        Your favorites
       </Typography>
       <Box
         sx={{
