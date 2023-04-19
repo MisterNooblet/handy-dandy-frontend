@@ -75,7 +75,7 @@ const Navbar = () => {
                   </MenuItem>
                 </Link>
               ))}
-              {user?.role !== 'user' && (
+              {user && user?.role !== 'user' && (
                 <Link to={'/author'}>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center" color={'black'}>
@@ -108,7 +108,7 @@ const Navbar = () => {
                 </Button>
               </Link>
             ))}
-            {user?.role !== 'user' && (
+            {user && user?.role !== 'user' && (
               <Link to={'/author'}>
                 <Button onClick={handleCloseNavMenu} sx={{ my: 2, color: 'white', display: 'block' }}>
                   {'Author'}
