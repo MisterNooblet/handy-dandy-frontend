@@ -9,33 +9,37 @@ export default defineConfig({
     react(),
     tsconfigPaths(),
     VitePWA({
+      injectRegister: 'auto',
       registerType: 'autoUpdate',
+
+      workbox: {
+        globPatterns: ['**/*.{js,jsx,css,html,ico,png,svg}'],
+        cleanupOutdatedCaches: true,
+      },
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.png'],
       manifest: {
-        name: 'Handy Dandy',
+        name: 'Handy Dandy DIY Knowledge Base',
         short_name: 'Handy Dandy',
-        description: 'Handy Dandy is a wiki for the modern age.',
-        theme_color: '#ffffff',
+        description: 'You have the power to fix anything!',
+        theme_color: '#fff',
         icons: [
           {
-            src: '/icon-192x192.png',
+            src: 'icon-192x192.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: '/icon-512x512.png',
+            src: 'icon-512x512.png',
             sizes: '512x512',
             type: 'image/png',
           },
           {
-            src: '/icon-512x512.png',
+            src: 'icon-512x512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable',
           },
         ],
-      },
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,png,jpg,jpeg,svg,woff,woff2,ttf,otf}'],
       },
     }),
   ],
