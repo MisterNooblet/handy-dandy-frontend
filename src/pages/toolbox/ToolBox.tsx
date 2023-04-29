@@ -8,6 +8,7 @@ import { RootState } from 'store/store';
 import { fetchUserExtended } from 'utils/apiAuth';
 import { Item, UserExtended } from 'utils/models';
 import ItemList from './components/ItemList';
+import { Container } from '@mui/material';
 
 const Toolbox = () => {
   const [moreInfo, setMoreInfo] = useState<Item | null>(null);
@@ -25,7 +26,7 @@ const Toolbox = () => {
   }, [authUser]);
 
   return (
-    <Box sx={{ pt: 6, pb: 6, flexGrow: 1 }}>
+    <Container maxWidth="xl" sx={{ flexGrow: 1, pt: 6, pb: 6 }}>
       {!authUser && <div>Please login to use this feature.</div>}
 
       {user && user?.toolbox.tools.length === 0 && user.toolbox.materials.length === 0 ? (
@@ -36,7 +37,7 @@ const Toolbox = () => {
           {moreInfo && <ItemInfo item={moreInfo} />}
         </Box>
       ) : null}
-    </Box>
+    </Container>
   );
 };
 
