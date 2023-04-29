@@ -4,6 +4,7 @@ import DataTable from './DataTable';
 
 const ManagerPageTable = ({ target, query }: { target: string; query?: string }) => {
   const [items, setItems] = useState([]);
+
   useEffect(() => {
     const getItems = async () => {
       if (query) {
@@ -17,6 +18,7 @@ const ManagerPageTable = ({ target, query }: { target: string; query?: string })
 
     getItems();
   }, [query, target]);
+
   return (
     <>
       <DataTable data={items} source={null} />

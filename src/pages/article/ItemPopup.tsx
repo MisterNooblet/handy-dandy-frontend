@@ -105,7 +105,7 @@ export default function ResponsiveDialog({
               }}
               autoFocus
             >
-              Read more in Tool-O-Pedia
+              Read more
             </Button>
           </Link>
           {user && (

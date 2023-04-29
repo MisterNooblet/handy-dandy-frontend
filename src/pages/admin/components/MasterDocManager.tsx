@@ -24,13 +24,16 @@ const MasterDocManager = ({ target }: { target: string }) => {
       const tempVariants = [];
       const tempTargets = [];
       const response = await fetchMasterDoc(target, id);
+
       setData(response);
+
       for (const [key, value] of Object.entries(response)) {
         if (typeof value === 'object') {
           tempVariants.push({ [key]: response[key] });
           tempTargets.push(key);
         }
       }
+
       setCategoryTargets(tempTargets);
       setVariants(tempVariants);
     }

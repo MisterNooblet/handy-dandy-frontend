@@ -39,6 +39,7 @@ const ItemForm = ({ target, type }: { target: CategorySelect; type: string }) =>
     const newProps = properties.filter((value) => value !== propValue);
     setProperties(newProps);
   };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -92,7 +93,6 @@ const ItemForm = ({ target, type }: { target: CategorySelect; type: string }) =>
       );
     }
   };
-  console.log(target);
   return (
     <Box
       onFocus={() => {

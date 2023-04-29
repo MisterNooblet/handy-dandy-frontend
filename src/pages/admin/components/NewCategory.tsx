@@ -31,9 +31,11 @@ const NewCategory = ({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const data = new FormData(event.currentTarget);
     const categoryTitle = data.get('categoryTitle') as string;
     const categoryDescription = data.get('categoryDescription') as string;
+
     if (categoryDescription.length > 20 && categoryTitle.length > 0 && file && id) {
       const newCategory: CategoryForm = {
         title: categoryTitle,
@@ -43,6 +45,7 @@ const NewCategory = ({
         parentDoc: selectedCategory ? selectedCategory : id,
         image: file,
       };
+
       if (docModel && selectedTarget) {
         try {
           setIsLoading(true);

@@ -79,7 +79,7 @@ const LoginForm = () => {
             </Link>
           </Grid>
           <Grid item>
-            <Link to={'/register'}>
+            <Link to={'/signup'}>
               <Typography sx={{ color: 'blue' }}>{"Don't have an account? Sign Up"}</Typography>
             </Link>
           </Grid>

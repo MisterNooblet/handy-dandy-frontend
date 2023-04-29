@@ -48,7 +48,6 @@ const ArticleForm = ({ target }: { target: CategorySelect }) => {
       const response = await createArticle(payload);
       console.log(payload, response);
     }
-    // handle form submission here
   };
 
   return (
