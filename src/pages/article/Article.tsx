@@ -209,56 +209,60 @@ const Article = () => {
                   alignSelf: 'center',
                 }}
               >
-                <Card sx={{ background: '#fff', mb: 4 }}>
-                  <Typography>Materials Required:</Typography>
-                  <List>
-                    {article?.toolbox.materials.map((item) => {
-                      return (
-                        <ListItem
-                          onClick={() => handleOpenPopup(item, 'material', userHasTool(item))}
-                          sx={
-                            user && {
-                              color: userHasTool(item) ? 'green' : 'red',
-                              cursor: 'pointer',
-                              display: 'flex',
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
+                {article?.toolbox.materials.length ? (
+                  <Card sx={{ background: '#fff', mb: 4 }}>
+                    <Typography>Materials Required:</Typography>
+                    <List>
+                      {article?.toolbox.materials.map((item) => {
+                        return (
+                          <ListItem
+                            onClick={() => handleOpenPopup(item, 'material', userHasTool(item))}
+                            sx={
+                              user && {
+                                color: userHasTool(item) ? 'green' : 'red',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                              }
                             }
-                          }
-                          key={item.title}
-                        >
-                          {item.title}
-                          <InfoIcon />
-                        </ListItem>
-                      );
-                    })}
-                  </List>
-                </Card>
-                <Card sx={{ background: '#fff', mb: 4 }}>
-                  <Typography>Tools Required:</Typography>
-                  <List>
-                    {article?.toolbox.tools.map((item) => {
-                      return (
-                        <ListItem
-                          onClick={() => handleOpenPopup(item, 'tool', userHasTool(item))}
-                          sx={
-                            user && {
-                              color: userHasTool(item) ? 'green' : 'red',
-                              cursor: 'pointer',
-                              display: 'flex',
-                              flexDirection: 'row',
-                              justifyContent: 'space-between',
+                            key={item.title}
+                          >
+                            {item.title}
+                            <InfoIcon />
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                  </Card>
+                ) : null}
+                {article?.toolbox.tools.length ? (
+                  <Card sx={{ background: '#fff', mb: 4 }}>
+                    <Typography>Tools Required:</Typography>
+                    <List>
+                      {article?.toolbox.tools.map((item) => {
+                        return (
+                          <ListItem
+                            onClick={() => handleOpenPopup(item, 'tool', userHasTool(item))}
+                            sx={
+                              user && {
+                                color: userHasTool(item) ? 'green' : 'red',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                              }
                             }
-                          }
-                          key={item.title}
-                        >
-                          {item.title}
-                          <InfoIcon />
-                        </ListItem>
-                      );
-                    })}
-                  </List>
-                </Card>
+                            key={item.title}
+                          >
+                            {item.title}
+                            <InfoIcon />
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                  </Card>
+                ) : null}
               </Box>
             </Box>
           </Box>

@@ -1,6 +1,6 @@
 import { login } from 'store/authSlice';
 import { fetchUser, logIn } from 'utils/apiAuth';
-import { setAuthCookie } from 'utils/cookieManager';
+// import { setAuthCookie } from 'utils/cookieManager';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaUserLock } from 'react-icons/fa';
@@ -23,7 +23,7 @@ const LoginForm = () => {
     const password = data.get('password') as string;
     try {
       const response = await logIn(email, password);
-      setAuthCookie(response);
+      // setAuthCookie(response);
       const user = await fetchUser();
 
       dispatch(
@@ -79,7 +79,7 @@ const LoginForm = () => {
             </Link>
           </Grid>
           <Grid item>
-            <Link to={'/register'}>
+            <Link to={'/signup'}>
               <Typography sx={{ color: 'blue' }}>{"Don't have an account? Sign Up"}</Typography>
             </Link>
           </Grid>

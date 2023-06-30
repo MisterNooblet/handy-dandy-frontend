@@ -5,14 +5,17 @@ import { RootState } from 'store/store';
 import { AuthState } from 'store/authSlice';
 import AccordionPiece from './AccordionPiece';
 import PasswordForm from './PasswordForm';
+import NameForm from './NameForm';
+import ProfilePictureForm from './ProfilePictureForm';
+import EmailForm from './EmailForm';
 
 export default function ControlledAccordions() {
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
 
   const ACCORDION_DATA = [
-    { key: 'Full Name', value: user?.fullName, summary: <Typography>Were working on it....</Typography> },
-    { key: 'Photo', value: 'Update Photo', summary: <Typography>Were working on it....</Typography> },
-    { key: 'Email', value: user?.email, summary: <Typography>Were working on it....</Typography> },
+    { key: 'Full Name', value: user?.fullName, summary: <NameForm /> },
+    { key: 'Photo', value: 'Update Photo', summary: <ProfilePictureForm /> },
+    { key: 'Email', value: user?.email, summary: <EmailForm /> },
     { key: 'Password', value: 'Update Password', summary: <PasswordForm /> },
   ];
   return (

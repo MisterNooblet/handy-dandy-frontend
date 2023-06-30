@@ -1,6 +1,6 @@
 import { AuthState, logout } from 'store/authSlice';
 import { RootState } from 'store/store';
-import { removeAuthCookie } from 'utils/cookieManager';
+// import { removeAuthCookie } from 'utils/cookieManager';
 import { Avatar, Box, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
@@ -67,7 +67,7 @@ const UserMenu = () => {
                   key={setting.name}
                   onClick={() => {
                     if (setting.name === 'Logout') {
-                      removeAuthCookie();
+                      // removeAuthCookie();
                       dispatch(logout());
                       handleCloseUserMenu();
                     } else {

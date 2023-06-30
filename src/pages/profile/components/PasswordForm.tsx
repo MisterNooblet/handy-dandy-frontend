@@ -69,7 +69,7 @@ const PasswordForm = () => {
           fieldIdx={idx + 1}
         />
       ))}
-      <Button type={'submit'} variant={'contained'}>
+      <Button type={'submit'} variant={'contained'} fullWidth>
         Submit
       </Button>
     </Box>

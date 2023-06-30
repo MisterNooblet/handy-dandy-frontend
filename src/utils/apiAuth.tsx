@@ -1,34 +1,17 @@
-import axios, { AxiosInstance } from 'axios';
-import { getAuthCookie, setAuthCookie } from './cookieManager';
+import API from './apiConfig';
 import { SignupFormData } from './models';
 
-const auth: AxiosInstance = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE_PATH}auth`,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-auth.interceptors.request.use((config) => {
-  const authToken = getAuthCookie();
-  if (authToken) {
-    config.headers.Authorization = `Bearer ${authToken}`;
-  }
-  return config;
-});
-
 export const fetchUser = async () => {
-  const result = await auth.get(`/current-user`);
+  const result = await API.get(`auth/current-user`);
   return result.data.data;
 };
 export const fetchUserExtended = async () => {
-  const result = await auth.get(`/current-user-extended`);
+  const result = await API.get(`auth/current-user-extended`);
   return result.data.data;
 };
 
 export const logIn = async (email: string, password: string) => {
-  const result = await axios.post(`${import.meta.env.VITE_API_BASE_PATH}auth/login`, {
+  const result = await API.post(`${import.meta.env.VITE_API_BASE_PATH}auth/login`, {
     email,
     password,
   });
@@ -49,16 +32,15 @@ interface UserUpdateDetails {
 }
 
 export const updateUserData = async (data: UserUpdateDetails) => {
-  const result = await auth.put(`/update-details`, data);
+  const result = await API.put(`auth/update-details`, data);
   return result.data.data;
 };
 export const updateUserPassword = async (data: UserUpdateDetails) => {
-  const result = await auth.put(`/update-password`, data);
-  setAuthCookie(result.data.token);
+  const result = await API.put(`auth/update-password`, data);
   return result.data.token;
 };
 
 export const signUp = async (user: SignupFormData) => {
-  const result = await axios.post(`${import.meta.env.VITE_API_BASE_PATH}auth/register`, user);
+  const result = await API.post(`${import.meta.env.VITE_API_BASE_PATH}auth/register`, user);
   return result.data.token;
 };
