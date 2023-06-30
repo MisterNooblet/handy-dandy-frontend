@@ -16,12 +16,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUserData } from 'utils/apiAuth';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import DifficultyBox from 'components/DifficultyBox';
 
 export default function ArticleCard({ article }: { article: ArticleResponse }) {
   const [faved, setFaved] = useState<boolean>(false);
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
   const dispatch = useDispatch();
-
+  console.log(article);
   const handleEngage = async () => {
     if (faved && user) {
       const newFavs = user.favourites.filter((fav) => fav !== article?.id);
@@ -44,46 +45,54 @@ export default function ArticleCard({ article }: { article: ArticleResponse }) {
   }, [user, article]);
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardHeader
-        sx={{ minHeight: '120px' }}
-        avatar={
-          <Avatar
-            alt={article.author ? article.author.fullName : undefined}
-            src={article.author.pfp && article.author.pfp}
-          />
-        }
-        title={
-          <>
-            <Typography variant="body2" color="text.primary">
-              {' '}
-              {article.parentDoc.title}
-            </Typography>
-            <Typography fontSize={12}>{article.title}</Typography>
-          </>
-        }
-        subheader={formatDate(article.createdAt)}
-        subheaderTypographyProps={{ color: '#CF7500' }}
-      />
-      <CardMedia
-        component="img"
-        height="194px"
-        sx={{ maxHeight: '194px !important' }}
-        image={article.image}
-        alt={article.title}
-      />
-      <CardContent sx={{ minHeight: '112px', overflow: 'hidden' }}>
-        <Typography variant="body2" color="text.secondary">
-          {article.summary.length > 150 ? article.summary.substring(0, 150) + '...' : article.summary}
-        </Typography>
-      </CardContent>
+    <Card sx={{ width: 345 }}>
+      <Link to={`/library/articles/c/${article.parentDoc.parentDoc}/items/${article.parentDoc.id}/item/${article.id}`}>
+        <CardHeader
+          sx={{ minHeight: '120px' }}
+          avatar={
+            <Avatar
+              alt={article.author ? article.author.fullName : undefined}
+              src={article.author.pfp && article.author.pfp}
+            />
+          }
+          title={
+            <>
+              <Typography fontSize={16}>{article.title}</Typography>
+              <Typography fontSize={11} color="text.primary">
+                {' '}
+                {article.parentDoc.title}
+              </Typography>
+            </>
+          }
+          subheader={formatDate(article.createdAt)}
+          subheaderTypographyProps={{ color: '#CF7500' }}
+        />
+        <CardMedia
+          component="img"
+          height="194px"
+          sx={{ maxHeight: '194px !important' }}
+          image={article.image}
+          alt={article.title}
+        />
+        <CardContent sx={{ minHeight: '112px', overflow: 'hidden' }}>
+          <Typography variant="body2" color="text.secondary">
+            {article.summary.length > 150 ? article.summary.substring(0, 150) + '...' : article.summary}
+          </Typography>
+        </CardContent>
+      </Link>
       <CardActions disableSpacing sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Link
           to={`/library/articles/c/${article.parentDoc.parentDoc}/items/${article.parentDoc.id}/item/${article.id}`}
         >
           <Button>Read more</Button>
         </Link>
-        <IconButton onClick={handleEngage} sx={{ color: faved ? '#ff9302' : 'gray' }} aria-label="add to favorites">
+        <DifficultyBox difficulty={article.difficulty} />
+        <IconButton
+          title="Add to favorites"
+          onClick={handleEngage}
+          sx={{ color: faved ? '#ff9302' : 'gray' }}
+          aria-label="Add to favorites"
+        >
           <AiFillStar />
         </IconButton>
       </CardActions>

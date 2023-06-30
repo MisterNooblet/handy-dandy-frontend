@@ -133,7 +133,7 @@ const Article = () => {
             opacity: !upvoted ? '0.5' : '1',
             position: 'relative',
             ':after': {
-              content: `"${article?.upvotes.length}"`,
+              content: `"${article?.upvotes.length ? article?.upvotes.length : ''}"`,
               position: 'absolute',
               top: '50%',
               left: '50%',
@@ -168,7 +168,12 @@ const Article = () => {
           }}
         >
           {article && (
-            <ArticleHead category={article.parentDoc.title} title={article.title} summary={article.summary} />
+            <ArticleHead
+              category={article.parentDoc.title}
+              title={article.title}
+              summary={article.summary}
+              difficulty={article.difficulty}
+            />
           )}
 
           <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 4 }}>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import FormInput from 'components/FormInput';
 import React, { useState } from 'react';
 import { ArticleForm as ArticleData, CategorySelect } from 'utils/models';
@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'store/store';
 import { AuthState } from 'store/authSlice';
 import { createArticle } from 'utils/apiData';
+import { difficulties } from 'data/constants';
 
 interface TransferListItem {
   id: string;
@@ -28,15 +29,17 @@ const ArticleForm = ({ target }: { target: CategorySelect }) => {
     const data = new FormData(event.currentTarget);
     const summary = data.get('summary') as string;
     const title = data.get('title') as string;
+    const difficulty = data.get('difficulty') as string;
     const image = file;
     const tools = neededTools.map((tool) => tool.id);
     const materials = neededMaterials.map((material) => material.id);
-    if (title?.length > 0 && image && value.length > 0 && user?.id && summary?.length > 0) {
+    if (title?.length > 0 && image && value.length > 0 && user?.id && summary?.length > 0 && Number(difficulty) > 0) {
       const payload: ArticleData = {
         title: title,
         image: image,
         articleBody: value,
         author: user?.id,
+        difficulty: Number(difficulty),
         toolbox: {
           tools: tools,
           materials: materials,
@@ -48,6 +51,7 @@ const ArticleForm = ({ target }: { target: CategorySelect }) => {
       const response = await createArticle(payload);
       console.log(payload, response);
     }
+    console.log(typeof difficulty);
     // handle form submission here
   };
 
@@ -74,6 +78,28 @@ const ArticleForm = ({ target }: { target: CategorySelect }) => {
           <Box>
             <Typography variant="h6">Article Image</Typography>
             <FileUpload setFileState={setFile} />
+          </Box>
+          <Box>
+            <Typography variant="h6">Select Difficulty</Typography>
+            <Box sx={{ minWidth: 200 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Article Difficulty</InputLabel>
+                <Select
+                  defaultValue={'0'}
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  name="difficulty"
+                  label="Difficulty"
+                >
+                  <MenuItem value={'0'}>Select Difficulty</MenuItem>
+                  {difficulties?.map((difficulty, idx) => (
+                    <MenuItem key={idx} value={idx + 1}>
+                      {difficulty}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
           </Box>
         </Box>
         <HTMLEditor setValue={setValue} />

@@ -77,6 +77,7 @@ export interface ArticleForm {
   articleBody: string;
   summary: string;
   author: string;
+  difficulty: number;
   toolbox: {
     materials: string[];
     tools: string[];
@@ -90,6 +91,7 @@ export interface ArticleResponse {
   articleBody: string;
   summary: string;
   author: UserExtended;
+  difficulty: number;
   toolbox: {
     materials: Item[];
     tools: Item[];
