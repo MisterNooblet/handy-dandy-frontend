@@ -29,7 +29,6 @@ const Toolbox = () => {
     const fetchUser = async () => {
       const response = await fetchUserExtended();
       setUser(response);
-      console.log(response);
     };
     if (authUser) {
       fetchUser();

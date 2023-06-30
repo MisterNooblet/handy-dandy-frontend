@@ -14,7 +14,6 @@ const Home = () => {
       const response = await getTopArticles();
       setTopArticles(response.top);
       setLatestArticles(response.latest);
-      console.log(response);
     };
     fetchArticles();
   }, []);

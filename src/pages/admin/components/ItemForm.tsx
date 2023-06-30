@@ -56,7 +56,6 @@ const ItemForm = ({ target, type }: { target: CategorySelect; type: string }) =>
         properties: properties,
       };
       try {
-        console.log(newItem);
         const response = await createItem(newItem);
         dispatch(
           setMessage({
@@ -92,7 +91,6 @@ const ItemForm = ({ target, type }: { target: CategorySelect; type: string }) =>
       );
     }
   };
-  console.log(target);
   return (
     <Box
       onFocus={() => {

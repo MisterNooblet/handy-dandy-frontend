@@ -41,7 +41,6 @@ export default function Wiki() {
       } else if (params.category && !params.subCategory) {
         try {
           const result = await advancedRequest(`categories/${params.category}`);
-          console.log(result);
           setResults(result);
         } catch (error) {
           setResults(null);

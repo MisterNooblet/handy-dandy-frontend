@@ -17,7 +17,6 @@ const CategorySelector = ({
 }) => {
   const handleSelectChange = (event: { target: { value: React.SetStateAction<string> } }) => {
     setSelectedCategory(event.target.value);
-    console.log(event.target.value);
   };
   return (
     <Box sx={{ display: 'flex', gap: 2 }}>

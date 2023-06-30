@@ -41,7 +41,6 @@ export default function ArticleCard({ article }: { article: ArticleResponse }) {
     } else {
       setFaved(false);
     }
-    console.log(article);
   }, [user, article]);
 
   return (

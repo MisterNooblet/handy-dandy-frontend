@@ -76,7 +76,6 @@ const RequirementManager = ({
   const loadTools = async (subcategory: string) => {
     if (subcategory.length < 10) return;
     const result = await getItems(subcategory);
-    console.log(result);
     setLeft(result);
   };
 

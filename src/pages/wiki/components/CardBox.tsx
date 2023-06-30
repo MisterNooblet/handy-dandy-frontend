@@ -19,7 +19,6 @@ const CardBox = ({ params, array }: { params?: Readonly<Params<string>>; array?:
   const fetchCategories = async (location: string) => {
     const result = await getCategories(location);
     setResults(result);
-    console.log(result);
   };
 
   const getItemSubCategories = async (parentDoc: string) => {
