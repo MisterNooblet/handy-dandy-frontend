@@ -4,7 +4,7 @@ import { validateEmail } from 'utils/emailValidator';
 import { SignupFormData } from 'utils/models';
 import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
-import { FaUserPlus } from 'react-icons/fa';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AutoComplete from 'components/AutoComplete';
 import { COUNTRIES } from 'data/countries';
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
@@ -110,7 +110,7 @@ const SignUpForm = () => {
       }}
     >
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-        <FaUserPlus />
+        <AccountCircleIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
         {message ? message.message : 'Sign up'}

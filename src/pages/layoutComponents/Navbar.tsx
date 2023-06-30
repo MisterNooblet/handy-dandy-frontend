@@ -1,5 +1,5 @@
 import React from 'react';
-import { RxHamburgerMenu } from 'react-icons/rx';
+import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import UserMenu from './UserMenu';
 import { useSelector } from 'react-redux';
@@ -32,7 +32,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link to={'/'}>
+          <Link title="Handy Dandy" to={'/'}>
             <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 1, mr: 2 }}>
               <Logo />
             </Box>
@@ -46,10 +46,10 @@ const Navbar = () => {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <RxHamburgerMenu />
+              <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
+              id="menu-appbar2"
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
@@ -96,7 +96,7 @@ const Navbar = () => {
             </Menu>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' }, flexGrow: 1 }}>
-            <Link to={'/'}>
+            <Link title="Handy Dandy" to={'/'}>
               <Logo />
             </Link>
           </Box>

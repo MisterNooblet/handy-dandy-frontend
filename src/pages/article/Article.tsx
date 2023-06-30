@@ -9,10 +9,11 @@ import { getArticle, setUpvotes } from 'utils/apiData';
 import { ArticleResponse, Item } from 'utils/models';
 import ArticleHead from './components/ArticleHead';
 import ItemPopup from './ItemPopup';
-import { FcLike } from 'react-icons/fc';
-import { AiFillStar } from 'react-icons/ai';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import StarIcon from '@mui/icons-material/Star';
 import { updateUserData } from 'utils/apiAuth';
 import formatDate from 'utils/formatDate';
+import upvoteParser from 'utils/UpvoteParser';
 
 const Article = () => {
   const params = useParams();
@@ -129,11 +130,12 @@ const Article = () => {
           }}
           title="Upvote"
           sx={{
+            fontSize: '15px',
             transition: 'all ease-in-out 0.5s',
             opacity: !upvoted ? '0.5' : '1',
             position: 'relative',
             ':after': {
-              content: `"${article?.upvotes.length ? article?.upvotes.length : ''}"`,
+              content: `"${article?.upvotes.length ? upvoteParser(article.upvotes.length) : ''}"`,
               position: 'absolute',
               top: '50%',
               left: '50%',
@@ -142,14 +144,14 @@ const Article = () => {
             },
           }}
         >
-          <FcLike fontSize={'40px'} cursor="pointer" />
+          <FavoriteIcon sx={{ fontSize: '40px', color: 'red' }} cursor="pointer" />
         </Box>
         <Box
           title="Add to favourites"
           sx={{ transition: 'all ease-in-out 0.5s', color: !faved ? 'grey' : 'secondary.main' }}
         >
-          <AiFillStar
-            fontSize={'40px'}
+          <StarIcon
+            sx={{ fontSize: '40px' }}
             cursor="pointer"
             onClick={() => {
               handleEngage('favourite');
@@ -162,7 +164,7 @@ const Article = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: 'start',
             justifyContent: 'center',
             gap: 4,
           }}
@@ -178,7 +180,13 @@ const Article = () => {
 
           <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 4 }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CardMedia component={'img'} src={article?.author.pfp} sx={{ borderRadius: '50px', width: 50 }} />
+              <CardMedia
+                rel="preload"
+                component={'img'}
+                src={article?.author.pfp}
+                alt={article?.author.fullName}
+                sx={{ borderRadius: '50px', width: 50 }}
+              />
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography>{article?.author.fullName} </Typography>{' '}
                 <Typography sx={{ fontSize: 14, color: '#cf7500' }}>LAST UPDATED: {articleDate} </Typography>{' '}
@@ -201,7 +209,7 @@ const Article = () => {
                   justifyContent: 'start',
                 }}
               >
-                <Box component={'img'} src={article?.image} />
+                <Box rel="preload" alt={article?.image} component={'img'} src={article?.image} />
               </Box>
               <Box
                 sx={{

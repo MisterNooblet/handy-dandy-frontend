@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/store';
 import { setMessage, UiState } from 'store/uiSlice';
 import { CategorySelect } from 'utils/models';
-import { ImCross } from 'react-icons/im';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { createItem } from 'utils/apiData';
 
 interface itemFormProps {
@@ -140,7 +140,7 @@ const ItemForm = ({ target, type }: { target: CategorySelect; type: string }) =>
           <ListItem key={idx} sx={{ display: 'flex', justifyContent: 'space-between' }}>
             {property}{' '}
             <Button type="button" onClick={() => handleRemoveProp(property)}>
-              <ImCross />
+              <DeleteIcon />
             </Button>{' '}
           </ListItem>
         ))}

@@ -7,7 +7,7 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { AiFillStar } from 'react-icons/ai';
+import StarIcon from '@mui/icons-material/Star';
 import { ArticleResponse } from 'utils/models';
 import formatDate from 'utils/formatDate';
 import { AuthState, updateUser } from 'store/authSlice';
@@ -93,7 +93,7 @@ export default function ArticleCard({ article }: { article: ArticleResponse }) {
           sx={{ color: faved ? '#ff9302' : 'gray' }}
           aria-label="Add to favorites"
         >
-          <AiFillStar />
+          <StarIcon sx={{ fontSize: '24px' }} />
         </IconButton>
       </CardActions>
     </Card>

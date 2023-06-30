@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import { BsFillArrowUpCircleFill } from 'react-icons/bs';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 
 const ScrollToTopButton: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -35,7 +35,7 @@ const ScrollToTopButton: React.FC = () => {
       }}
       onClick={handleScrollToTop}
     >
-      <BsFillArrowUpCircleFill />
+      <ArrowCircleLeftIcon sx={{ transform: 'rotate(90deg)', fontSize: '2rem' }} />
     </Box>
   );
 };

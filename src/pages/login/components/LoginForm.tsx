@@ -3,7 +3,7 @@ import { fetchUser, logIn } from 'utils/apiAuth';
 // import { setAuthCookie } from 'utils/cookieManager';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaUserLock } from 'react-icons/fa';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
 import FormInput from 'components/FormInput';
@@ -53,7 +53,7 @@ const LoginForm = () => {
       }}
     >
       <Avatar sx={{ m: 1, bgcolor: '#3f3faf' }}>
-        <FaUserLock />
+        <AccountCircleIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
         {message ? message.message : 'Sign in'}
