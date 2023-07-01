@@ -1,7 +1,7 @@
 import { Typography, Card, Box, CardMedia, List, ListItem, Container } from '@mui/material';
 import React, { useState } from 'react';
 import InfoIcon from '@mui/icons-material/Info';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AuthState } from 'store/authSlice';
 import { RootState } from 'store/store';
 import { ArticlePreview as ArticlePreviewType, Item } from 'utils/models';
@@ -20,7 +20,6 @@ const ArticlePreview = ({
   const [currentItem, setCurrentItem] = useState<Item | null>(null);
   const [currentType, setCurrentType] = useState('');
   const [hasItem, setHasItem] = useState<boolean>(false);
-  const dispatch = useDispatch();
 
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
 

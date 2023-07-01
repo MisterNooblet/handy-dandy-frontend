@@ -1,16 +1,17 @@
 import { login } from 'store/authSlice';
 import { fetchUser, logIn } from 'utils/apiAuth';
+// import { setAuthCookie } from 'utils/cookieManager';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link, useNavigate } from 'react-router-dom';
-import { Avatar, Box, Button, Grid, Typography } from '@mui/material';
+import { Avatar, Box, Button, Grid, InputLabel, Typography } from '@mui/material';
 import FormInput from 'components/FormInput';
-import { loginFormData } from 'data/formFields';
+import { authorFormData } from 'data/formFields';
 import { setMessage, UiState } from 'store/uiSlice';
 import { RootState } from 'store/store';
 
-const LoginForm = () => {
+const AuthorApplication = () => {
   const { message } = useSelector((state: RootState) => state.ui) as UiState;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -58,15 +59,18 @@ const LoginForm = () => {
         {message ? message.message : 'Sign in'}
       </Typography>
       <Box component="form" maxWidth={'400px'} onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
-        {loginFormData.map((field) => (
-          <FormInput
-            label={field.label}
-            name={field.name}
-            title={field.title}
-            fieldIdx={1}
-            key={field.name}
-            type={field.type}
-          />
+        {authorFormData.map((field) => (
+          <>
+            <Typography sx={{ mt: 4 }}>{field.title}</Typography>
+            <FormInput
+              label={field.label}
+              name={field.name}
+              title={field.title}
+              fieldIdx={1}
+              key={field.name}
+              type={field.type}
+            />
+          </>
         ))}
         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
           Sign In
@@ -88,4 +92,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default AuthorApplication;

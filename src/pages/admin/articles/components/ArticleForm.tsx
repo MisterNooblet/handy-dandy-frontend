@@ -13,8 +13,18 @@ import { createArticle } from 'utils/apiData';
 import { difficulties } from 'data/constants';
 import ArticlePreviewModal from 'pages/article/ArticlePreviewModal';
 import img from 'assets/handyDandy.png';
+import { UiState, setAlertOpen, setMessage } from 'store/uiSlice';
+import { useDispatch } from 'react-redux';
 
-const ArticleForm = ({ target }: { target: CategorySelect }) => {
+const ArticleForm = ({
+  target,
+  isApplication,
+  setData,
+}: {
+  target: CategorySelect;
+  isApplication?: boolean;
+  setData?: React.Dispatch<React.SetStateAction<ArticleData | null>>;
+}) => {
   const [value, setValue] = useState(
     'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero veritatis totam temporibus vero molestiae, esse, quibusdam, sapiente aperiam saepe nulla doloremque nihil aspernatur unde maiores quaerat quos illo aut cumque perferendis sequi! Earum adipisci unde quaerat, dolore neque ab nobis distinctio odit sit officia. Excepturi maxime earum, nemo dolorum impedit soluta et est quasi? Magni corporis hic aliquid sed quos, impedit placeat recusandae ducimus ea, fuga sint consequuntur debitis neque dolore necessitatibus dolor veritatis pariatur? Officiis eos nobis soluta itaque, dolor, est eum, tempora culpa optio rerum laudantium perspiciatis maxime temporibus hic? Architecto reiciendis officia excepturi voluptate. Ex porro tempore assumenda hic dicta blanditiis quis placeat pariatur, autem veritatis culpa animi itaque qui repellendus repellat mollitia ipsa, quo, unde sit quam dignissimos! Numquam voluptatibus voluptatem eveniet quod et modi omnis unde culpa cum dolorum odio facere recusandae dolores quia debitis deserunt, blanditiis, assumenda natus minima ducimus. Temporibus nihil asperiores iure sequi aspernatur id molestiae dolorem maxime. Odio ullam quaerat commodi placeat optio ducimus, amet voluptatibus ipsam pariatur nesciunt culpa consequatur beatae eligendi quo maiores error non nostrum nulla natus itaque animi autem. Cum aliquid cupiditate vel facere obcaecati quasi laboriosam commodi laborum perspiciatis magnam nobis, animi, deleniti vero fugit eos unde fuga nemo dignissimos minima. Quos minima cum delectus numquam id ut sapiente neque accusamus reiciendis quo. Ratione quod corporis id culpa dicta labore est modi accusamus repellendus voluptatum nam, tempora vel, recusandae corrupti dignissimos harum nemo minima molestiae sequi aperiam. Vero, ducimus quaerat ex reprehenderit quos architecto cumque iure nobis, cupiditate repellat accusamus voluptatum illo amet exercitationem ipsam? Necessitatibus eaque perspiciatis nisi, suscipit dolore, amet delectus consequuntur doloremque voluptates iure perferendis cumque, veniam quam earum atque minus ab labore sequi! Tempora repellat non modi deserunt, neque quae quos ea dolor eos mollitia illum necessitatibus officiis officia error atque nesciunt.'
   );
@@ -29,6 +39,7 @@ const ArticleForm = ({ target }: { target: CategorySelect }) => {
   const [articleDifficulty, setArticleDifficulty] = useState<number>(0);
 
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
+  const dispatch = useDispatch();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -53,11 +64,26 @@ const ArticleForm = ({ target }: { target: CategorySelect }) => {
         summary: summary,
         parentDoc: target.id,
       };
-
-      const response = await createArticle(payload);
-      console.log(payload, response);
+      if (!isApplication) {
+        await createArticle(payload);
+        dispatch(
+          setMessage({
+            message: user.role === 'admin' ? 'Article saved' : 'Article Saved and pending approval',
+            severity: 'success',
+            code: 400,
+          })
+        );
+        dispatch(setAlertOpen(true));
+      } else if (setData && isApplication) {
+        setData(payload);
+        dispatch(setMessage({ message: 'Article saved succesfully', severity: 'success', code: 400 }));
+        dispatch(setAlertOpen(true));
+      }
+    } else {
+      dispatch(setMessage({ message: 'Please fill out all fields', severity: 'warning', code: 400 }));
+      dispatch(setAlertOpen(true));
     }
-    console.log(typeof difficulty);
+
     // handle form submission here
   };
 
@@ -124,7 +150,7 @@ const ArticleForm = ({ target }: { target: CategorySelect }) => {
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Article Difficulty</InputLabel>
                 <Select
-                  defaultValue={'0'}
+                  value={articleDifficulty}
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   name="difficulty"
@@ -160,12 +186,13 @@ const ArticleForm = ({ target }: { target: CategorySelect }) => {
           placeholder="Provide a short Summary of the Article"
           name="summary"
           onChange={(e) => setArticleSummary(e.target.value)}
+          value={articleSummary}
         />
-        <Button type="submit" variant="contained" onClick={handlePreview}>
+        <Button type="button" variant="contained" onClick={handlePreview}>
           Preview Article
         </Button>
         <Button type="submit" variant="contained">
-          Submit
+          {isApplication ? 'Save Article' : 'Submit Article'}
         </Button>
       </Box>
       {ArticlePreview && <ArticlePreviewModal article={ArticlePreview} open={open} setOpen={setOpen} />}

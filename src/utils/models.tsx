@@ -70,6 +70,9 @@ export interface Item {
 export interface CategorySelect {
   id: string;
   title: string;
+  parentDoc: {
+    title: string;
+  };
 }
 
 export interface ArticleForm {

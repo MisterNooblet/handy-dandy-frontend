@@ -13,6 +13,7 @@ import Profile from './profile/Profile';
 import Article from './article/Article';
 import Favorites from './favorites/Favorites';
 import Author from './author/Author';
+import Application from './application/Application';
 
 export {
   Admin,
@@ -30,4 +31,5 @@ export {
   Article,
   Favorites,
   Author,
+  Application,
 };

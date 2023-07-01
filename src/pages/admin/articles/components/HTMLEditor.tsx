@@ -5,6 +5,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 
 const HTMLEditor = ({ setValue }: { setValue: React.Dispatch<SetStateAction<string>> }) => {
+  const [localData, setLocalData] = React.useState('');
   return (
     <>
       <Box sx={{ border: '1px solid black', borderRadius: '5px 5px 0  0 ', boxShadow: 4 }}>
@@ -22,6 +23,7 @@ const HTMLEditor = ({ setValue }: { setValue: React.Dispatch<SetStateAction<stri
             }
             editor.focus();
           }}
+          data={localData}
           onError={(error, { willEditorRestart }) => {
             // If the editor is restarted, the toolbar element will be created once again.
             // The `onReady` callback will be called again and the new toolbar will be added.
@@ -35,6 +37,7 @@ const HTMLEditor = ({ setValue }: { setValue: React.Dispatch<SetStateAction<stri
           onChange={(event, editor) => {
             const data = editor.getData();
             setValue(data);
+            setLocalData(data);
           }}
           editor={DecoupledEditor}
         />

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 function Copyright({ sx }: { sx: object }) {
   return (
     <Typography variant="body2" component="div" color="#fff" sx={{ display: 'inline' }} {...sx}>
-      {'Copyright © '}
+      {/* {'Copyright © '} */}
       <Link to={'/'}>
         <Typography sx={{ display: 'inline' }} color={'#EDF1D6'}>
           Handy Dandy

@@ -49,7 +49,7 @@ const SubcategorySelector = ({
         {categories.map((category: CategorySelect) => {
           return (
             <MenuItem key={category.title} value={category.id}>
-              {category.title}
+              {`${category.parentDoc.title} > ${category.title}`}
             </MenuItem>
           );
         })}

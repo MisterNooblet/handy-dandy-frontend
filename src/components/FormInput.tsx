@@ -21,7 +21,11 @@ const FormInput = ({
 }) => {
   const dispatch = useDispatch();
   const { message } = useSelector((state: RootState) => state.ui) as UiState;
+  const [value, setValue] = React.useState('');
 
+  useEffect(() => {
+    setValue('');
+  }, [fieldIdx]);
   useEffect(() => {
     dispatch(setMessage(null));
   }, [dispatch]);
@@ -32,6 +36,7 @@ const FormInput = ({
       fullWidth
       label={label}
       title={title}
+      value={value}
       sx={{ backgroundColor: message?.code === fieldIdx ? 'rgba(245, 132, 132, 0.44)' : null }}
       margin="normal"
       onFocus={() => {
@@ -39,6 +44,7 @@ const FormInput = ({
       }}
       onChange={(e) => {
         if (setState) setState(e.target.value);
+        setValue(e.target.value);
       }}
     ></TextField>
   );

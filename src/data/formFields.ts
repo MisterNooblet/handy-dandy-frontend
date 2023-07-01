@@ -13,6 +13,27 @@ export const loginFormData = [
   },
 ];
 
+export const authorFormData = [
+  {
+    title: 'Describe any relevant experience you have with DIY projects or construction.',
+    name: 'diyexperience',
+    label: 'DIY Experience',
+    type: 'text',
+  },
+  {
+    title: 'Describe any relevant experience you have with writing',
+    name: 'writingexperience',
+    label: 'Writing Experience',
+    type: 'text',
+  },
+  {
+    title: 'Explain why you are interested in becoming an author for Handy Dandy',
+    name: 'reason',
+    label: 'Why do you want to be an Author',
+    type: 'text',
+  },
+];
+
 export const signUpFormData = [
   {
     title: 'Please enter your First name',
