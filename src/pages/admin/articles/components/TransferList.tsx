@@ -1,16 +1,12 @@
 import * as React from 'react';
 import { List, Paper, ListItemIcon, ListItemText, Checkbox, ListItem, Grid, Button } from '@mui/material';
+import { Item } from 'utils/models';
 
-interface TransferListItem {
-  id: string;
-  title: string;
-}
-
-function not(a: TransferListItem[], b: TransferListItem[]) {
+function not(a: Item[], b: Item[]) {
   return a.filter((value) => b.indexOf(value) === -1);
 }
 
-function intersection(a: TransferListItem[], b: TransferListItem[]) {
+function intersection(a: Item[], b: Item[]) {
   return a.filter((value) => b.indexOf(value) !== -1);
 }
 
@@ -22,17 +18,17 @@ export default function TransferList({
   left,
   right,
 }: {
-  setChecked: React.Dispatch<React.SetStateAction<TransferListItem[]>>;
-  setLeft: React.Dispatch<React.SetStateAction<TransferListItem[]>>;
-  setRight: React.Dispatch<React.SetStateAction<TransferListItem[]>>;
-  checked: TransferListItem[];
-  left: TransferListItem[];
-  right: TransferListItem[];
+  setChecked: React.Dispatch<React.SetStateAction<Item[]>>;
+  setLeft: React.Dispatch<React.SetStateAction<Item[]>>;
+  setRight: React.Dispatch<React.SetStateAction<Item[]>>;
+  checked: Item[];
+  left: Item[];
+  right: Item[];
 }) {
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
 
-  const handleToggle = (value: TransferListItem) => () => {
+  const handleToggle = (value: Item) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -67,7 +63,7 @@ export default function TransferList({
     setRight([]);
   };
 
-  const customList = (items: TransferListItem[]) => (
+  const customList = (items: Item[]) => (
     <Paper sx={{ width: 200, height: 230, overflow: 'auto' }}>
       <List dense component="div" role="list">
         {items.map((value) => {

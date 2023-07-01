@@ -4,6 +4,7 @@ import { AnyAction } from '@reduxjs/toolkit';
 import React, { useEffect, useReducer, SetStateAction } from 'react';
 import { getCategories, getItems, getSubCategories } from 'utils/apiData';
 import TransferList from './TransferList';
+import { Item } from 'utils/models';
 
 interface TransferListItem {
   id: string;
@@ -47,13 +48,13 @@ const RequirementManager = ({
   setNeededTools,
 }: {
   target: string;
-  setNeededMaterials: React.Dispatch<SetStateAction<TransferListItem[]>>;
-  setNeededTools: React.Dispatch<SetStateAction<TransferListItem[]>>;
+  setNeededMaterials: React.Dispatch<SetStateAction<Item[]>>;
+  setNeededTools: React.Dispatch<SetStateAction<Item[]>>;
 }) => {
   const [categories, toolDispatch] = useReducer(toolReducer, initialState);
-  const [checked, setChecked] = React.useState<TransferListItem[]>([]);
-  const [left, setLeft] = React.useState<TransferListItem[]>([]);
-  const [right, setRight] = React.useState<TransferListItem[]>([]);
+  const [checked, setChecked] = React.useState<Item[]>([]);
+  const [left, setLeft] = React.useState<Item[]>([]);
+  const [right, setRight] = React.useState<Item[]>([]);
 
   useEffect(() => {
     getItemCategories();

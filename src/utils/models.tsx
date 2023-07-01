@@ -102,3 +102,21 @@ export interface ArticleResponse {
   updatedAt: string;
   createdAt: string;
 }
+
+export interface ArticlePreview {
+  id: string;
+  title: string;
+  articleBody: string;
+  summary: string;
+  upvotes: string[];
+  updatedAt: string;
+  createdAt: string;
+  image: string;
+  author: string;
+  difficulty: number;
+  toolbox: {
+    materials: Item[];
+    tools: Item[];
+  };
+  parentDoc: { title: string };
+}

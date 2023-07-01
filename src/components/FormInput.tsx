@@ -10,12 +10,14 @@ const FormInput = ({
   title,
   type,
   fieldIdx,
+  setState,
 }: {
   name: string;
   label: string;
   title: string;
   type: string;
   fieldIdx: number;
+  setState?: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const dispatch = useDispatch();
   const { message } = useSelector((state: RootState) => state.ui) as UiState;
@@ -34,6 +36,9 @@ const FormInput = ({
       margin="normal"
       onFocus={() => {
         dispatch(setMessage(null));
+      }}
+      onChange={(e) => {
+        if (setState) setState(e.target.value);
       }}
     ></TextField>
   );
