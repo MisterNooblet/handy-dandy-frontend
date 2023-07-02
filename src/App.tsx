@@ -18,6 +18,7 @@ import {
   Favorites,
   Author,
   Application,
+  ErrorUserNotLoggedIn,
 } from './pages/';
 import { RootState } from 'store/store';
 import { AuthState } from 'store/authSlice';
@@ -49,7 +50,7 @@ function App() {
         { path: '/library/:type/c/:category', element: <Wiki /> },
         { path: '/library/:type/c/:category/items/:subCategory', element: <Wiki /> },
         { path: '/library/:type/c/:category/items/:subCategory/item/:id', element: <Article /> },
-        { path: '/toolbox', element: <Toolbox /> },
+        { path: '/toolbox', element: user ? <Toolbox /> : <ErrorUserNotLoggedIn /> },
         { path: 'signup', element: <Signup /> },
         { path: 'login', element: <Login /> },
         { path: 'favorites', element: <Favorites /> },
@@ -59,7 +60,7 @@ function App() {
         },
         {
           path: '/apply/:type',
-          element: <Application />,
+          element: user ? <Application /> : <ErrorUserNotLoggedIn />,
         },
         {
           path: 'admin',

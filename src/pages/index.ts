@@ -14,6 +14,7 @@ import Article from './article/Article';
 import Favorites from './favorites/Favorites';
 import Author from './author/Author';
 import Application from './application/Application';
+import ErrorUserNotLoggedIn from './Error404/ErrorUserNotLoggedIn';
 
 export {
   Admin,
@@ -32,4 +33,5 @@ export {
   Favorites,
   Author,
   Application,
+  ErrorUserNotLoggedIn,
 };
