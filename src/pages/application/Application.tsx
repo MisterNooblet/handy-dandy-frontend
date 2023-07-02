@@ -37,7 +37,7 @@ const Application = () => {
     );
   }
   if (type === 'author') {
-    if (user?.role === 'gay' || user?.role === 'author') {
+    if (user?.role === 'admin' || user?.role === 'author') {
       return (
         <Container
           maxWidth="xl"
