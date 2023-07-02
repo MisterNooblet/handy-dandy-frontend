@@ -27,8 +27,8 @@ const ScrollToTopButton: React.FC = () => {
     <Box
       sx={{
         position: 'fixed',
-        bottom: '5rem',
-        right: '1rem',
+        bottom: '140px',
+        right: '2rem',
         display: isVisible ? 'block' : 'none',
         cursor: 'pointer',
         fontSize: 30,

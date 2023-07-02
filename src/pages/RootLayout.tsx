@@ -7,8 +7,13 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../styles/muiTheme';
 import CustomizedSnackbar from 'components/AlertSnackbar';
 import ScrollToTopButton from 'components/ScrollToTopButton';
+import Chat from './layoutComponents/Chat';
+import { AuthState } from 'store/authSlice';
+import { RootState } from 'store/store';
+import { useSelector } from 'react-redux';
 
 export default function RootLayout() {
+  const { user } = useSelector((state: RootState) => state.auth) as AuthState;
   return (
     <StoreAndAuthProvider>
       <ThemeProvider theme={theme}>
@@ -17,6 +22,7 @@ export default function RootLayout() {
         </header>
         <Outlet />
         <ScrollToTopButton />
+        {user?.role === 'admin' && <Chat />}
         <CustomizedSnackbar />
         <Footer />
       </ThemeProvider>
