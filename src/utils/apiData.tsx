@@ -35,6 +35,7 @@ export const createItem = async (item: ItemForm) => {
 };
 
 export const createArticle = async (item: ArticleForm) => {
+  console.log('createArticle', item);
   const result = await API.post(`articles`, item, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -89,5 +90,24 @@ export const getTopArticles = async () => {
 
 export const setUpvotes = async (data: { userId: string; articleId: string }) => {
   const result = await API.put('articles', data);
+  return result.data.data;
+};
+
+interface AuthorApplication {
+  user: string;
+  article: unknown;
+  image: File;
+  diyexperience: string;
+  motivation: string;
+  writingexperience: string;
+}
+
+export const submitAuthorApplication = async (data: AuthorApplication) => {
+  console.log('submitAuthor', data);
+  const result = await API.post('applications/author', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   return result.data.data;
 };

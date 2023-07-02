@@ -30,6 +30,7 @@ import {
   UserManager,
   WarehouseManager,
 } from 'pages/admin';
+import AuthorApplication from 'pages/admin/applications/AuthorApplication';
 function App() {
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
   const router = createBrowserRouter([
@@ -74,6 +75,7 @@ function App() {
 
             { path: 'libraries', element: <LibraryManager /> },
             { path: 'libraries/:id', element: <MasterDocManager target="library" /> },
+            { path: 'authorapplications/:id', element: <AuthorApplication /> },
           ],
         },
         { path: '/profile', element: user ? <Profile /> : <Login /> },

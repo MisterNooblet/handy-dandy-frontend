@@ -15,6 +15,9 @@ const options = [
   { name: 'Tools', value: 'items?type=tool' },
   { name: 'Warehouses', value: 'warehouses' },
   { name: 'Libraries', value: 'libraries' },
+  { name: 'Categories', value: 'categories' },
+  { name: 'Subcategories', value: 'subcategories' },
+  { name: 'AuthorApplications', value: 'applications/author' },
 ];
 
 const Admin = () => {

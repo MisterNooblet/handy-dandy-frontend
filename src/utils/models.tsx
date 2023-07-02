@@ -6,6 +6,7 @@ export interface User {
   role: string;
   pfp: string;
   favourites: string[];
+  country: string;
 }
 export interface UserExtended {
   id: string;

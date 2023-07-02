@@ -5,6 +5,7 @@ import { Avatar, Box, IconButton, Menu, MenuItem, Tooltip, Typography } from '@m
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import API from 'utils/apiConfig';
 
 const settings = [
   { name: 'Profile', path: 'profile' },
@@ -28,6 +29,11 @@ const UserMenu = () => {
     setAnchorElUser(null);
   };
 
+  const handleLogout = async () => {
+    await API.get('/auth/logout');
+    dispatch(logout());
+    handleCloseUserMenu();
+  };
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
@@ -67,9 +73,7 @@ const UserMenu = () => {
                   key={setting.name}
                   onClick={() => {
                     if (setting.name === 'Logout') {
-                      // removeAuthCookie();
-                      dispatch(logout());
-                      handleCloseUserMenu();
+                      handleLogout();
                     } else {
                       handleCloseUserMenu();
                     }

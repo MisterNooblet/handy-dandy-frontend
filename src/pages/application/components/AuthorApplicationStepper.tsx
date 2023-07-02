@@ -6,15 +6,17 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { authorFormData } from 'data/formFields';
-import FormInput from 'components/FormInput';
 import ArticleForm from 'pages/admin/articles/components/ArticleForm';
 import { ArticleForm as ArticleFormType, CategorySelect } from 'utils/models';
 import SubcategorySelector from 'pages/admin/components/SubcategorySelector';
 import { AuthState } from 'store/authSlice';
 import { RootState } from 'store/store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import FormInput from 'components/FormInput';
+import { submitAuthorApplication } from 'utils/apiData';
+import { setAlertOpen, setMessage } from 'store/uiSlice';
 
-const steps = [...authorFormData.map((field) => field.label), 'Your first Article'];
+const steps = ['Personal Information', 'Your first Article'];
 
 export default function AuthorApplicationStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -22,6 +24,8 @@ export default function AuthorApplicationStepper() {
   const [selectedCategory, setSelectedCategory] = React.useState<CategorySelect | string>('');
   const [articleExapmle, setArticleExample] = React.useState<ArticleFormType | null>(null);
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
+
+  const dispatch = useDispatch();
 
   const isStepOptional = (step: number) => {
     return step === 1;
@@ -46,22 +50,35 @@ export default function AuthorApplicationStepper() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const diyexperience = data.get('diyexperience') as string;
     const writingexperience = data.get('writingexperience') as string;
     const motivation = data.get('reason') as string;
-    const article = articleExapmle;
-    if (diyexperience.length && writingexperience.length && motivation.length && article) {
-      console.log(diyexperience, writingexperience, motivation, article);
-      //submit application to db here with all the data above
-      //if successful, show thank you page and tell user to wait for approval email
+    const image = articleExapmle?.image;
+    const article = { ...articleExapmle, image: '' };
+    if (diyexperience.length && writingexperience.length && motivation.length && article && user && image) {
+      const application = {
+        image,
+        diyexperience,
+        writingexperience,
+        motivation,
+        article,
+        user: user.id,
+      };
+      try {
+        await submitAuthorApplication(application);
+        dispatch(setMessage({ type: 'success', message: 'Application submitted successfully', code: 200 }));
+        dispatch(setAlertOpen(true));
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   return (
-    <>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
@@ -81,57 +98,49 @@ export default function AuthorApplicationStepper() {
           );
         })}
       </Stepper>
-      <React.Fragment>
-        <>
-          <Box sx={{ display: activeStep === steps.length - 1 ? 'inline' : 'none' }}>
-            <Typography sx={{ mt: 2, mb: 1 }}>Select Category to write into</Typography>
-            <SubcategorySelector
-              target="subcategories"
-              query="type=articles"
-              setSelectedCategory={setSelectedCategory}
-              selectedCategory={selectedCategory}
-            />
-            {typeof selectedCategory !== 'string' && (
-              <ArticleForm target={selectedCategory} isApplication={true} setData={setArticleExample} />
-            )}
+      <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ display: activeStep === steps.length - 1 ? 'inline' : 'none' }}>
+          <Typography sx={{ mt: 2, mb: 1 }}>Select Category to write into</Typography>
+          <SubcategorySelector
+            target="subcategories"
+            query="type=articles"
+            setSelectedCategory={setSelectedCategory}
+            selectedCategory={selectedCategory}
+          />
+          {typeof selectedCategory !== 'string' && (
+            <ArticleForm target={selectedCategory} isApplication={true} setData={setArticleExample} />
+          )}
+        </Box>
+        <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
+          {authorFormData.map((field, idx) => {
+            return (
+              <Box key={idx} sx={{ display: activeStep < steps.length - 1 ? 'inline' : 'none' }}>
+                <FormInput {...field} fieldIdx={idx} />
+              </Box>
+            );
+          })}
+          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2, justifySelf: 'end' }}>
+            <Button type="button" color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
+              Back
+            </Button>
+            <Box sx={{ flex: '1 1 auto' }} />
+            <Button
+              sx={{ display: activeStep < steps.length - 1 ? 'inline' : 'none' }}
+              type="button"
+              onClick={handleNext}
+            >
+              Next
+            </Button>
+            <Button
+              disabled={!articleExapmle}
+              sx={{ display: activeStep === steps.length - 1 ? 'inline' : 'none' }}
+              type="submit"
+            >
+              Submit Application
+            </Button>
           </Box>
-          <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
-            {authorFormData.map((field, idx) => {
-              return (
-                <Box key={idx} sx={{ display: idx === activeStep ? 'inline' : 'none' }}>
-                  <FormInput
-                    fieldIdx={idx}
-                    label={field.label}
-                    title={field.title}
-                    name={field.name}
-                    type={field.type}
-                  />
-                </Box>
-              );
-            })}
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <Button type="button" color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
-                Back
-              </Button>
-              <Box sx={{ flex: '1 1 auto' }} />
-              <Button
-                sx={{ display: activeStep < steps.length - 1 ? 'inline' : 'none' }}
-                type="button"
-                onClick={handleNext}
-              >
-                Next
-              </Button>
-              <Button
-                disabled={!articleExapmle}
-                sx={{ display: activeStep === steps.length - 1 ? 'inline' : 'none' }}
-                type="submit"
-              >
-                Submit Application
-              </Button>
-            </Box>
-          </Box>
-        </>
-      </React.Fragment>
-    </>
+        </Box>
+      </Box>
+    </Box>
   );
 }
