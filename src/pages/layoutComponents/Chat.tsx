@@ -88,7 +88,11 @@ const Chat: React.FC = () => {
                   </Avatar>
                   <ListItemText
                     sx={{ pt: 1 }}
-                    primary={<ReactMarkdown remarkPlugins={[remarkGfm]}>{chat[i]}</ReactMarkdown>}
+                    primary={
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {chat[i] ? chat[i] : 'Handy is thinking...'}
+                      </ReactMarkdown>
+                    }
                   />
                 </Box>
               </ListItem>
