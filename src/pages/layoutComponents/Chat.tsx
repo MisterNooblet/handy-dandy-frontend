@@ -19,7 +19,7 @@ import { RootState } from 'store/store';
 import { useSelector } from 'react-redux';
 import assistantpfp from 'assets/assistantpfp.png';
 
-const socket = io(import.meta.env.VITE_SOCKET_PATH as string, { transports: ['polling'] });
+const socket = io(import.meta.env.VITE_SOCKET_PATH as string);
 const roomId = 'room-' + Math.random().toString(36).substr(2, 9); // Generate random room ID for each user
 
 const Chat: React.FC = () => {
