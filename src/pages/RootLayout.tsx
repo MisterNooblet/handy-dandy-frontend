@@ -22,7 +22,7 @@ export default function RootLayout() {
         </header>
         <Outlet />
         <ScrollToTopButton />
-        {user?.role === 'admin' && <Chat />}
+        {user && <Chat />}
         <CustomizedSnackbar />
         <Footer />
       </ThemeProvider>
