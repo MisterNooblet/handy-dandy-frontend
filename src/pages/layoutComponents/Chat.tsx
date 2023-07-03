@@ -18,6 +18,8 @@ import { AuthState } from 'store/authSlice';
 import { RootState } from 'store/store';
 import { useSelector } from 'react-redux';
 import assistantpfp from 'assets/assistantpfp.png';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const socket = io(import.meta.env.VITE_SOCKET_PATH as string);
 const roomId = 'room-' + Math.random().toString(36).substr(2, 9); // Generate random room ID for each user
@@ -72,19 +74,22 @@ const Chat: React.FC = () => {
         <DialogTitle id="form-dialog-title">Chat with Handy our virtual assistant</DialogTitle>
         <DialogContent>
           <List>
-            {chat.map((msg, i) => (
+            {clientMessages.map((msg, i) => (
               <ListItem key={i} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
                 <Box sx={{ display: 'flex' }}>
                   <Avatar sx={{ m: 1 }} src={user?.pfp}>
                     {user?.fullName}
                   </Avatar>
-                  <ListItemText sx={{ pt: 1 }} primary={clientMessages[i]} />
+                  <ListItemText sx={{ pt: 1 }} primary={msg} />
                 </Box>
                 <Box sx={{ display: 'flex' }}>
                   <Avatar sx={{ m: 1 }} src={assistantpfp}>
                     {user?.fullName}
                   </Avatar>
-                  <ListItemText sx={{ pt: 1 }} primary={msg} />
+                  <ListItemText
+                    sx={{ pt: 1 }}
+                    primary={<ReactMarkdown remarkPlugins={[remarkGfm]}>{chat[i]}</ReactMarkdown>}
+                  />
                 </Box>
               </ListItem>
             ))}
