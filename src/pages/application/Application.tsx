@@ -22,6 +22,8 @@ const Application = () => {
         !response.data.data.find((app: { status: string }) => app.status === 'pending')
       ) {
         setHasntApplied(true);
+      } else {
+        setHasntApplied(false);
       }
     };
     checkIfUserApplied();
