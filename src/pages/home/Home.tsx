@@ -30,7 +30,7 @@ const Home = () => {
             The information you need is just a click away.
           </Typography>
           <Typography color={'text.secondary'} fontSize={14} fontWeight={700}>
-            Want to write your own?
+            Wish to write your own article?
             <Link to="/apply/author">
               {' '}
               <u>Apply for authorship here.</u>
