@@ -4,11 +4,10 @@ import FormInput from 'components/FormInput';
 import { CategoryForm } from 'utils/models';
 import { useParams } from 'react-router-dom';
 import { createCategory, createSubCategory } from 'utils/apiData';
-import SimpleBackdrop from '../../../components/Backdrop';
 import FileUpload from 'components/FileUpload';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/store';
-import { setMessage, UiState } from 'store/uiSlice';
+import { setLoading, setMessage, UiState } from 'store/uiSlice';
 
 const NewCategory = ({
   categoryTargets,
@@ -23,7 +22,6 @@ const NewCategory = ({
 }) => {
   const [file, setFile] = useState<File | undefined>(undefined);
   const [selectedTarget, setSelectedTarget] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { id } = useParams();
 
   const dispatch = useDispatch();
@@ -45,7 +43,8 @@ const NewCategory = ({
       };
       if (docModel && selectedTarget) {
         try {
-          setIsLoading(true);
+          dispatch(setLoading(true));
+
           const response = await createCategory(newCategory);
           dispatch(
             setMessage({
@@ -56,13 +55,15 @@ const NewCategory = ({
         } catch (error) {
           console.log(error);
         } finally {
-          setIsLoading(false);
+          dispatch(setLoading(false));
+
           setFile(undefined);
           fetchDoc();
         }
       } else if (!docModel) {
         try {
-          setIsLoading(true);
+          dispatch(setLoading(true));
+
           const response = await createSubCategory(newCategory);
           dispatch(
             setMessage({
@@ -73,7 +74,8 @@ const NewCategory = ({
         } catch (error) {
           console.log(error);
         } finally {
-          setIsLoading(false);
+          dispatch(setLoading(false));
+
           setFile(undefined);
           fetchDoc();
         }
@@ -94,7 +96,6 @@ const NewCategory = ({
   };
   return (
     <>
-      <SimpleBackdrop open={isLoading} />
       <Typography mt={2} component="h1" variant="h5">
         {message?.code ? message.message : `${docModel ? 'Create Category to:' : 'Create SubCategory'}`}
       </Typography>
