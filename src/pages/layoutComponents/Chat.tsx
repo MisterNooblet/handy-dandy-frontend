@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import {
   TextField,
@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux';
 import assistantpfp from 'assets/assistantpfp.png';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import greet from 'dtgreeter';
 
 const socket = io(import.meta.env.VITE_SOCKET_PATH as string);
 const roomId = 'room-' + Math.random().toString(36).substr(2, 9); // Generate random room ID for each user
@@ -29,6 +30,7 @@ const Chat: React.FC = () => {
   const [message, setMessage] = useState<string>('');
   const [chat, setChat] = useState<string[]>([]);
   const [clientMessages, setClientMessages] = useState<string[]>([]);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
 
@@ -47,10 +49,19 @@ const Chat: React.FC = () => {
       setChat([...chat, msg]);
     });
 
+    // if (dialogRef.current) {
+    //   dialogRef.current.scrollTop = dialogRef.current.scrollHeight;
+    // }
     return () => {
       socket.off('chat message');
     };
   }, [chat]);
+
+  useEffect(() => {
+    if (dialogRef.current) {
+      dialogRef.current.scrollTop = dialogRef.current.scrollHeight;
+    }
+  }, [clientMessages]);
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,12 +79,20 @@ const Chat: React.FC = () => {
         style={{ position: 'fixed', bottom: '80px', right: '20px' }}
         title="Chat with our virtual assistant!"
       >
-        <ChatIcon /> {/* Delete this if you don't want the chat icon */}
+        <ChatIcon />
       </Fab>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Chat with Handy our virtual assistant</DialogTitle>
-        <DialogContent>
+        <DialogContent ref={dialogRef}>
           <List>
+            <ListItem sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
+              <Box sx={{ display: 'flex' }}>
+                <Avatar sx={{ m: 1 }} src={assistantpfp}>
+                  {'Handy'}
+                </Avatar>
+                <ListItemText sx={{ pt: 1 }} primary={greet(user?.fullName) + '! How can I assist you today?'} />
+              </Box>
+            </ListItem>
             {clientMessages.map((msg, i) => (
               <ListItem key={i} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
                 <Box sx={{ display: 'flex' }}>
@@ -98,22 +117,22 @@ const Chat: React.FC = () => {
               </ListItem>
             ))}
           </List>
-          <form onSubmit={sendMessage}>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="message"
-              label="Your Message"
-              type="text"
-              fullWidth
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-            <Button type="submit" color="primary">
-              Send
-            </Button>
-          </form>
         </DialogContent>
+        <Box component={'form'} onSubmit={sendMessage} sx={{ display: 'flex', p: 4 }}>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="message"
+            label="Your Message"
+            type="text"
+            fullWidth
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <Button type="submit" color="primary">
+            Send
+          </Button>
+        </Box>
       </Dialog>
     </div>
   );
