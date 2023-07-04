@@ -140,7 +140,7 @@ const RequirementManager = ({
       </Box>
       <Box p={3} sx={{ borderRadius: '10px', backgroundColor: 'background.default' }}>
         <Typography mb={2} textAlign={'center'}>
-          Needed {target}
+          Select Needed {target}
         </Typography>
         <TransferList
           setChecked={setChecked}

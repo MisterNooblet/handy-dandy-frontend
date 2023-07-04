@@ -168,6 +168,7 @@ const ArticleForm = ({
             </Box>
           </Box>
         </Box>
+        <Typography variant="h6">Article Body</Typography>
         <HTMLEditor setValue={setValue} />
         <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-around' }}>
           <RequirementManager target="tools" setNeededTools={setNeededTools} setNeededMaterials={setNeededMaterials} />

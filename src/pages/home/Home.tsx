@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { getTopArticles } from 'utils/apiData';
 import { ArticleResponse } from 'utils/models';
 import ArticleCard from './components/ArticleCard';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [topArticles, setTopArticles] = useState<ArticleResponse[]>([]);
@@ -27,6 +28,13 @@ const Home = () => {
           </Typography>
           <Typography color={'#CF7500'} variant="h5" fontWeight={700}>
             The information you need is just a click away.
+          </Typography>
+          <Typography color={'text.secondary'} fontSize={14} fontWeight={700}>
+            Want to write your own?
+            <Link to="/apply/author">
+              {' '}
+              <u>Apply for authorship here.</u>
+            </Link>
           </Typography>
         </Box>
 
