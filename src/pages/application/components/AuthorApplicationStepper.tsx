@@ -14,11 +14,15 @@ import { RootState } from 'store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import FormInput from 'components/FormInput';
 import { submitAuthorApplication } from 'utils/apiData';
-import { setAlertOpen, setMessage } from 'store/uiSlice';
+import { setAlertOpen, setLoading, setMessage } from 'store/uiSlice';
 
 const steps = ['Personal Information', 'Your first Article'];
 
-export default function AuthorApplicationStepper() {
+export default function AuthorApplicationStepper({
+  setThankYou,
+}: {
+  setThankYou: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
   const [selectedCategory, setSelectedCategory] = React.useState<CategorySelect | string>('');
@@ -68,9 +72,12 @@ export default function AuthorApplicationStepper() {
         user: user.id,
       };
       try {
+        dispatch(setLoading(true));
         await submitAuthorApplication(application);
+        dispatch(setLoading(false));
         dispatch(setMessage({ type: 'success', message: 'Application submitted successfully', code: 200 }));
         dispatch(setAlertOpen(true));
+        setThankYou(true);
       } catch (error) {
         console.log(error);
       }

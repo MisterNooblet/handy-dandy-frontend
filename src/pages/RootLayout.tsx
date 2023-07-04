@@ -11,6 +11,7 @@ import Chat from './layoutComponents/Chat';
 import { AuthState } from 'store/authSlice';
 import { RootState } from 'store/store';
 import { useSelector } from 'react-redux';
+import LoadingSpinner from 'components/Backdrop';
 
 export default function RootLayout() {
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
@@ -25,6 +26,7 @@ export default function RootLayout() {
         {user && <Chat />}
         <CustomizedSnackbar />
         <Footer />
+        <LoadingSpinner />
       </ThemeProvider>
     </StoreAndAuthProvider>
   );

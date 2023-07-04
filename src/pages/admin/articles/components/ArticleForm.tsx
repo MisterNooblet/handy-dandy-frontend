@@ -13,7 +13,7 @@ import { createArticle } from 'utils/apiData';
 import { difficulties } from 'data/constants';
 import ArticlePreviewModal from 'pages/article/ArticlePreviewModal';
 import img from 'assets/handyDandy.png';
-import { UiState, setAlertOpen, setMessage } from 'store/uiSlice';
+import { setAlertOpen, setMessage } from 'store/uiSlice';
 import { useDispatch } from 'react-redux';
 
 const ArticleForm = ({
@@ -50,7 +50,7 @@ const ArticleForm = ({
     const image = file;
     const tools = neededTools.map((tool) => tool.id);
     const materials = neededMaterials.map((material) => material.id);
-    if (title?.length > 0 && image && value.length > 0 && user?.id && summary?.length > 0 && Number(difficulty) > 0) {
+    if (title?.length > 0 && image && value.length > 20 && user?.id && summary?.length > 20 && Number(difficulty) > 0) {
       const payload: ArticleData = {
         title: title,
         image: image,

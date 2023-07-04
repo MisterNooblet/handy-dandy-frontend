@@ -13,6 +13,7 @@ const Application = () => {
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
   const { type } = useParams();
   const [hasntApplied, setHasntApplied] = React.useState<number | boolean>(0);
+  const [thankYou, setThankYou] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const checkIfUserApplied = async () => {
@@ -38,6 +39,18 @@ const Application = () => {
       </Container>
     );
   }
+  if (thankYou) {
+    return (
+      <Container
+        maxWidth="xl"
+        sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
+      >
+        <Typography variant="h3">
+          Thank you for applying! We will review your application and you will be notified by email.
+        </Typography>
+      </Container>
+    );
+  }
   if (type === 'author') {
     if (user?.role === 'admin' || user?.role === 'author') {
       return (
@@ -58,14 +71,16 @@ const Application = () => {
           maxWidth="xl"
           sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
         >
-          <Typography variant="h3">Looks like you already applied.</Typography>
+          <Typography variant="h3">
+            Looks like you have already applied. We will review your application and you will get contacted by email.
+          </Typography>
         </Container>
       );
     }
   }
   return (
     <Container maxWidth="xl" sx={{ flexGrow: 1 }}>
-      {user && type === 'author' && hasntApplied === true && <AuthorApplicationStepper />}
+      {user && type === 'author' && hasntApplied === true && <AuthorApplicationStepper setThankYou={setThankYou} />}
     </Container>
   );
 };
