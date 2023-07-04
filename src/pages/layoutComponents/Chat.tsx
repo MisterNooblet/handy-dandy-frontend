@@ -30,7 +30,9 @@ const Chat: React.FC = () => {
   const [message, setMessage] = useState<string>('');
   const [chat, setChat] = useState<string[]>([]);
   const [clientMessages, setClientMessages] = useState<string[]>([]);
+  const [isThinking, setIsThinking] = useState<boolean>(false);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
 
@@ -47,11 +49,9 @@ const Chat: React.FC = () => {
   useEffect(() => {
     socket.on('chat message', (msg: string) => {
       setChat([...chat, msg]);
+      setIsThinking(false);
     });
 
-    // if (dialogRef.current) {
-    //   dialogRef.current.scrollTop = dialogRef.current.scrollHeight;
-    // }
     return () => {
       socket.off('chat message');
     };
@@ -61,12 +61,16 @@ const Chat: React.FC = () => {
     if (dialogRef.current) {
       dialogRef.current.scrollTop = dialogRef.current.scrollHeight;
     }
+    if (inputRef.current) {
+      inputRef.current.focus(); // Set focus on the input field
+    }
   }, [clientMessages]);
 
   const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setClientMessages([...clientMessages, message]);
     socket.emit('chat message', message, roomId);
+    setIsThinking(true);
     setMessage('');
   };
 
@@ -128,8 +132,9 @@ const Chat: React.FC = () => {
             fullWidth
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            inputRef={inputRef} // Assign the ref to the input field
           />
-          <Button type="submit" color="primary">
+          <Button type="submit" color="primary" disabled={isThinking}>
             Send
           </Button>
         </Box>
