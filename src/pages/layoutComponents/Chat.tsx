@@ -1,18 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-import {
-  TextField,
-  Box,
-  Avatar,
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  Fab,
-} from '@mui/material';
+import { TextField, Box, Avatar, Button, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, Fab } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 import { AuthState } from 'store/authSlice';
 import { RootState } from 'store/store';
@@ -21,6 +9,7 @@ import assistantpfp from 'assets/assistantpfp.png';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import greet from 'dtgreeter';
+import RatingBoxComponent from 'components/RatingBox';
 
 const socket = io(import.meta.env.VITE_SOCKET_PATH as string);
 
@@ -74,19 +63,17 @@ const Chat: React.FC = () => {
     setMessage('');
   };
 
+  const sendRating = (rating: number) => {
+    socket.emit('send rating', roomId, rating);
+  };
+
   return (
     <div>
-      <Fab
-        color="primary"
-        aria-label="chat"
-        onClick={handleClickOpen}
-        style={{ position: 'fixed', bottom: '80px', right: '20px' }}
-        title="Chat with our virtual assistant!"
-      >
+      <Fab color='primary' aria-label='chat' onClick={handleClickOpen} style={{ position: 'fixed', bottom: '80px', right: '20px' }} title='Chat with our virtual assistant!'>
         <ChatIcon />
       </Fab>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Chat with Handy our virtual assistant</DialogTitle>
+      <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
+        <DialogTitle id='form-dialog-title'>Chat with Handy our virtual assistant {clientMessages.length > 1 && <RatingBoxComponent onChange={sendRating} />}</DialogTitle>
         <DialogContent ref={dialogRef}>
           <List>
             <ListItem sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
@@ -109,14 +96,7 @@ const Chat: React.FC = () => {
                   <Avatar sx={{ m: 1 }} src={assistantpfp}>
                     {user?.fullName}
                   </Avatar>
-                  <ListItemText
-                    sx={{ pt: 1 }}
-                    primary={
-                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                        {chat[i] ? chat[i] : 'Handy is thinking...'}
-                      </ReactMarkdown>
-                    }
-                  />
+                  <ListItemText sx={{ pt: 1 }} primary={<ReactMarkdown remarkPlugins={[remarkGfm]}>{chat[i] ? chat[i] : 'Handy is thinking...'}</ReactMarkdown>} />
                 </Box>
               </ListItem>
             ))}
@@ -125,16 +105,16 @@ const Chat: React.FC = () => {
         <Box component={'form'} onSubmit={sendMessage} sx={{ display: 'flex', p: 4 }}>
           <TextField
             autoFocus
-            margin="dense"
-            id="message"
-            label="Your Message"
-            type="text"
+            margin='dense'
+            id='message'
+            label='Your Message'
+            type='text'
             fullWidth
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             inputRef={inputRef} // Assign the ref to the input field
           />
-          <Button type="submit" color="primary" disabled={isThinking}>
+          <Button type='submit' color='primary' disabled={isThinking}>
             Send
           </Button>
         </Box>
