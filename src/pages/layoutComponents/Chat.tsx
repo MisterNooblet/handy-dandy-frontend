@@ -81,7 +81,7 @@ const Chat: React.FC = () => {
                 <Avatar sx={{ m: 1 }} src={assistantpfp}>
                   {'Handy'}
                 </Avatar>
-                <ListItemText sx={{ pt: 1 }} primary={greet(user?.fullName) + '! How can I assist you today?'} />
+                <ListItemText sx={{ pt: 1 }} primary={greet(user?.fullName.split(' ')[0]) + '! How can I assist you today?'} />
               </Box>
             </ListItem>
             {clientMessages.map((msg, i) => (
