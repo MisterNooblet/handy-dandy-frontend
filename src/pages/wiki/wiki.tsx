@@ -62,8 +62,6 @@ export default function Wiki() {
       {/* Hero unit */}
       <Box
         sx={{
-          pt: 8,
-          pb: 6,
           flexGrow: 1
         }}
       >
@@ -74,10 +72,6 @@ export default function Wiki() {
           <Typography variant='h5' align='center' color='text.secondary' paragraph>
             {!results ? introString : results.description}
           </Typography>
-          <Stack sx={{ pt: 4 }} direction='row' spacing={2} justifyContent='center'>
-            {/* <Button variant="contained">Main call to action</Button>
-                            <Button variant="outlined">Secondary action</Button> */}
-          </Stack>
         </Container>
       </Box>
       <Container maxWidth='md'>

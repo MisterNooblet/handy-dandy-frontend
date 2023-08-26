@@ -22,7 +22,7 @@ export default function RootLayout() {
         <header>
           <Navbar />
         </header>
-        <Container maxWidth='xl' sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', pt: 8, pb: 8 }}>
+        <Container maxWidth='xl' sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', pt: 3, pb: 3, rowGap: 3 }}>
           <Outlet />
         </Container>
         <ScrollToTopButton />
