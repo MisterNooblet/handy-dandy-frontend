@@ -23,7 +23,6 @@ import remarkGfm from 'remark-gfm';
 import greet from 'dtgreeter';
 
 const socket = io(import.meta.env.VITE_SOCKET_PATH as string);
-const roomId = 'room-' + Math.random().toString(36).substr(2, 9); // Generate random room ID for each user
 
 const Chat: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -35,6 +34,7 @@ const Chat: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
+  const roomId = 'room-' + user?.id; // Generate random room ID for each user
 
   const handleClickOpen = () => {
     setOpen(true);
