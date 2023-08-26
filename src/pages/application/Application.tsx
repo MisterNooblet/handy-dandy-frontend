@@ -1,4 +1,3 @@
-import Container from '@mui/material/Container';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import AuthorApplicationStepper from './components/AuthorApplicationStepper';
@@ -18,10 +17,7 @@ const Application = () => {
   React.useEffect(() => {
     const checkIfUserApplied = async () => {
       const response = await API.get(`applications/author/user/${user?.id}`);
-      if (
-        response.data.data.length === 0 ||
-        !response.data.data.find((app: { status: string }) => app.status === 'pending')
-      ) {
+      if (response.data.data.length === 0 || !response.data.data.find((app: { status: string }) => app.status === 'pending')) {
         setHasntApplied(true);
       } else {
         setHasntApplied(false);
@@ -30,59 +26,23 @@ const Application = () => {
     checkIfUserApplied();
   }, [user?.id]);
   if (type !== 'author' && type !== 'craftsman') {
-    return (
-      <Container
-        maxWidth="xl"
-        sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
-      >
-        <Error404 />
-      </Container>
-    );
+    return <Error404 />;
   }
   if (thankYou) {
-    return (
-      <Container
-        maxWidth="xl"
-        sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
-      >
-        <Typography variant="h3">
-          Thank you for applying! We will review your application and you will be notified by email.
-        </Typography>
-      </Container>
-    );
+    return <Typography variant='h3'>Thank you for applying! We will review your application and you will be notified by email.</Typography>;
   }
   if (type === 'author') {
     if (user?.role === 'admin' || user?.role === 'author') {
-      return (
-        <Container
-          maxWidth="xl"
-          sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
-        >
-          <Typography variant="h3">Looks like you already have the author role.</Typography>
-        </Container>
-      );
+      return <Typography variant='h3'>Looks like you already have the author role.</Typography>;
     }
   }
 
   if (type === 'author') {
     if (hasntApplied === false) {
-      return (
-        <Container
-          maxWidth="xl"
-          sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
-        >
-          <Typography variant="h3">
-            Looks like you have already applied. We will review your application and you will get contacted by email.
-          </Typography>
-        </Container>
-      );
+      return <Typography variant='h3'>Looks like you have already applied. We will review your application and you will get contacted by email.</Typography>;
     }
   }
-  return (
-    <Container maxWidth="xl" sx={{ flexGrow: 1 }}>
-      {user && type === 'author' && hasntApplied === true && <AuthorApplicationStepper setThankYou={setThankYou} />}
-    </Container>
-  );
+  return <>{user && type === 'author' && hasntApplied === true && <AuthorApplicationStepper setThankYou={setThankYou} />}</>;
 };
 
 export default Application;

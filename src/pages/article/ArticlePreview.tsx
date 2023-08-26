@@ -9,13 +9,7 @@ import ArticleHead from './components/ArticleHead';
 import ItemPopup from './ItemPopup';
 import CloseIcon from '@mui/icons-material/Close';
 
-const ArticlePreview = ({
-  article,
-  handleClose,
-}: {
-  article: ArticlePreviewType;
-  handleClose: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const ArticlePreview = ({ article, handleClose }: { article: ArticlePreviewType; handleClose: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [currentItem, setCurrentItem] = useState<Item | null>(null);
   const [currentType, setCurrentType] = useState('');
@@ -53,46 +47,30 @@ const ArticlePreview = ({
           bottom: { lg: '', xs: '0' },
           display: 'flex',
           justifyContent: 'right',
-          zIndex: '5',
+          zIndex: '5'
         }}
       >
-        <Box title="Close Preview" onClick={() => handleClose(false)}>
-          <CloseIcon sx={{ fontSize: '40px' }} cursor="pointer" />
+        <Box title='Close Preview' onClick={() => handleClose(false)}>
+          <CloseIcon sx={{ fontSize: '40px' }} cursor='pointer' />
         </Box>
       </Box>
-      <Container maxWidth="xl" sx={{ flexGrow: 1, pt: 8, pb: 8 }}>
+      <Container maxWidth='xl' sx={{ flexGrow: 1, pt: 8, pb: 8 }}>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'start',
             justifyContent: 'center',
-            gap: 4,
+            gap: 4
           }}
         >
-          {article && (
-            <ArticleHead
-              category={article.parentDoc.title}
-              title={article.title}
-              summary={article.summary}
-              difficulty={article.difficulty}
-            />
-          )}
+          {article && <ArticleHead category={article.parentDoc.title} title={article.title} summary={article.summary} difficulty={article.difficulty} />}
 
           <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 4 }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CardMedia
-                rel="preload"
-                component={'img'}
-                src={user?.pfp}
-                alt={user?.fullName}
-                sx={{ borderRadius: '50px', width: 50 }}
-              />
+              <CardMedia rel='preload' component={'img'} src={user?.pfp} alt={user?.fullName} sx={{ borderRadius: '50px', width: 50 }} />
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Typography>{user?.fullName} </Typography>{' '}
-                <Typography sx={{ fontSize: 14, color: '#cf7500' }}>
-                  LAST UPDATED: {new Date().toDateString()}{' '}
-                </Typography>{' '}
+                <Typography>{user?.fullName} </Typography> <Typography sx={{ fontSize: 14, color: '#cf7500' }}>LAST UPDATED: {new Date().toDateString()} </Typography>{' '}
               </Box>
             </Box>
 
@@ -101,7 +79,7 @@ const ArticlePreview = ({
                 display: 'flex',
                 flexDirection: { md: 'row', xs: 'column' },
                 rowGap: 1,
-                columnGap: 4,
+                columnGap: 4
               }}
             >
               <Box
@@ -109,10 +87,10 @@ const ArticlePreview = ({
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'start',
+                  justifyContent: 'start'
                 }}
               >
-                <Box rel="preload" alt={article?.image} component={'img'} src={article?.image} />
+                <Box rel='preload' alt={article?.image} component={'img'} src={article?.image} />
               </Box>
               <Box
                 sx={{
@@ -122,7 +100,7 @@ const ArticlePreview = ({
                   height: 'fit-content',
                   flexGrow: 1,
                   justifyContent: 'space-evenly',
-                  alignSelf: 'center',
+                  alignSelf: 'center'
                 }}
               >
                 {article?.toolbox.materials.length ? (
@@ -139,7 +117,7 @@ const ArticlePreview = ({
                                 cursor: 'pointer',
                                 display: 'flex',
                                 flexDirection: 'row',
-                                justifyContent: 'space-between',
+                                justifyContent: 'space-between'
                               }
                             }
                             key={item.title}
@@ -166,7 +144,7 @@ const ArticlePreview = ({
                                 cursor: 'pointer',
                                 display: 'flex',
                                 flexDirection: 'row',
-                                justifyContent: 'space-between',
+                                justifyContent: 'space-between'
                               }
                             }
                             key={item.title}
@@ -192,21 +170,10 @@ const ArticlePreview = ({
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },
           justifyContent: 'space-around',
-          flexWrap: 'wrap',
+          flexWrap: 'wrap'
         }}
       >
-        <Card sx={{ bgcolor: 'background.default' }}>
-          {currentItem && (
-            <ItemPopup
-              open={open}
-              setOpen={setOpen}
-              item={currentItem}
-              type={currentType}
-              hasItem={hasItem}
-              setHasItem={setHasItem}
-            />
-          )}
-        </Card>
+        <Card sx={{ bgcolor: 'background.default' }}>{currentItem && <ItemPopup open={open} setOpen={setOpen} item={currentItem} type={currentType} hasItem={hasItem} setHasItem={setHasItem} />}</Card>
       </Box>
     </>
   );

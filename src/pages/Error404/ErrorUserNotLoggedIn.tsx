@@ -5,16 +5,14 @@ import ReportIcon from '@mui/icons-material/Report';
 
 const ErrorUserNotLoggedIn = () => {
   return (
-    <Container
-      sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
-    >
+    <>
       <Typography sx={{ display: 'flex', alignItems: 'center' }}>
         You need to be logged in to use this feature <ReportIcon sx={{ color: 'red' }} />
       </Typography>
       <Link to={'/login'}>
         <Button>Login?</Button>
       </Link>
-    </Container>
+    </>
   );
 };
 

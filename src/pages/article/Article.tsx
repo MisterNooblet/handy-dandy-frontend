@@ -118,17 +118,18 @@ const Article = () => {
         sx={{
           position: 'sticky',
           top: '0',
+          right: '0',
           bottom: { lg: '', xs: '0' },
           display: 'flex',
           justifyContent: 'right',
-          zIndex: '5',
+          zIndex: '5'
         }}
       >
         <Box
           onClick={() => {
             handleEngage('upvote');
           }}
-          title="Upvote"
+          title='Upvote'
           sx={{
             fontSize: '15px',
             transition: 'all ease-in-out 0.5s',
@@ -140,148 +141,129 @@ const Article = () => {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              cursor: 'pointer',
-            },
+              cursor: 'pointer'
+            }
           }}
         >
-          <FavoriteIcon sx={{ fontSize: '40px', color: 'red' }} cursor="pointer" />
+          <FavoriteIcon sx={{ fontSize: '40px', color: 'red' }} cursor='pointer' />
         </Box>
-        <Box
-          title="Add to favourites"
-          sx={{ transition: 'all ease-in-out 0.5s', color: !faved ? 'grey' : 'secondary.main' }}
-        >
+        <Box title='Add to favourites' sx={{ transition: 'all ease-in-out 0.5s', color: !faved ? 'grey' : 'secondary.main' }}>
           <StarIcon
             sx={{ fontSize: '40px' }}
-            cursor="pointer"
+            cursor='pointer'
             onClick={() => {
               handleEngage('favourite');
             }}
           />
         </Box>
       </Box>
-      <Container maxWidth="xl" sx={{ flexGrow: 1, pt: 8, pb: 8 }}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'start',
-            justifyContent: 'center',
-            gap: 4,
-          }}
-        >
-          {article && (
-            <ArticleHead
-              category={article.parentDoc.title}
-              title={article.title}
-              summary={article.summary}
-              difficulty={article.difficulty}
-            />
-          )}
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'start',
+          justifyContent: 'center',
+          gap: 4
+        }}
+      >
+        {article && <ArticleHead category={article.parentDoc.title} title={article.title} summary={article.summary} difficulty={article.difficulty} />}
 
-          <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 4 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CardMedia
-                rel="preload"
-                component={'img'}
-                src={article?.author.pfp}
-                alt={article?.author.fullName}
-                sx={{ borderRadius: '50px', width: 50 }}
-              />
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <Typography>{article?.author.fullName} </Typography>{' '}
-                <Typography sx={{ fontSize: 14, color: '#cf7500' }}>LAST UPDATED: {articleDate} </Typography>{' '}
-              </Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 4 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <CardMedia rel='preload' component={'img'} src={article?.author.pfp} alt={article?.author.fullName} sx={{ borderRadius: '50px', width: 50 }} />
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Typography>{article?.author.fullName} </Typography> <Typography sx={{ fontSize: 14, color: '#cf7500' }}>LAST UPDATED: {articleDate} </Typography>{' '}
             </Box>
+          </Box>
 
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { md: 'row', xs: 'column' },
+              rowGap: 1,
+              columnGap: 4
+            }}
+          >
+            <Box
+              component={'div'}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'start'
+              }}
+            >
+              <Box rel='preload' alt={article?.image} component={'img'} src={article?.image} />
+            </Box>
             <Box
               sx={{
                 display: 'flex',
-                flexDirection: { md: 'row', xs: 'column' },
-                rowGap: 1,
-                columnGap: 4,
+                flexDirection: { xs: 'column', lg: 'row' },
+                width: { xs: '100%', md: 'auto' },
+                height: 'fit-content',
+                flexGrow: 1,
+                justifyContent: 'space-evenly',
+                alignSelf: 'center'
               }}
             >
-              <Box
-                component={'div'}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'start',
-                }}
-              >
-                <Box rel="preload" alt={article?.image} component={'img'} src={article?.image} />
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: { xs: 'column', lg: 'row' },
-                  width: { xs: '100%', md: 'auto' },
-                  height: 'fit-content',
-                  flexGrow: 1,
-                  justifyContent: 'space-evenly',
-                  alignSelf: 'center',
-                }}
-              >
-                {article?.toolbox.materials.length ? (
-                  <Card sx={{ background: '#fff', mb: 4 }}>
-                    <Typography>Materials Required:</Typography>
-                    <List>
-                      {article?.toolbox.materials.map((item) => {
-                        return (
-                          <ListItem
-                            onClick={() => handleOpenPopup(item, 'material', userHasTool(item))}
-                            sx={
-                              user && {
-                                color: userHasTool(item) ? 'green' : 'red',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                              }
+              {article?.toolbox.materials.length ? (
+                <Card sx={{ background: '#fff', mb: 4 }}>
+                  <Typography>Materials Required:</Typography>
+                  <List>
+                    {article?.toolbox.materials.map((item) => {
+                      return (
+                        <ListItem
+                          onClick={() => handleOpenPopup(item, 'material', userHasTool(item))}
+                          sx={
+                            user && {
+                              color: userHasTool(item) ? 'green' : 'red',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              flexDirection: 'row',
+                              justifyContent: 'space-between'
                             }
-                            key={item.title}
-                          >
-                            {item.title}
-                            <InfoIcon />
-                          </ListItem>
-                        );
-                      })}
-                    </List>
-                  </Card>
-                ) : null}
-                {article?.toolbox.tools.length ? (
-                  <Card sx={{ background: '#fff', mb: 4 }}>
-                    <Typography>Tools Required:</Typography>
-                    <List>
-                      {article?.toolbox.tools.map((item) => {
-                        return (
-                          <ListItem
-                            onClick={() => handleOpenPopup(item, 'tool', userHasTool(item))}
-                            sx={
-                              user && {
-                                color: userHasTool(item) ? 'green' : 'red',
-                                cursor: 'pointer',
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                              }
+                          }
+                          key={item.title}
+                        >
+                          {item.title}
+                          <InfoIcon />
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                </Card>
+              ) : null}
+              {article?.toolbox.tools.length ? (
+                <Card sx={{ background: '#fff', mb: 4 }}>
+                  <Typography>Tools Required:</Typography>
+                  <List>
+                    {article?.toolbox.tools.map((item) => {
+                      return (
+                        <ListItem
+                          onClick={() => handleOpenPopup(item, 'tool', userHasTool(item))}
+                          sx={
+                            user && {
+                              color: userHasTool(item) ? 'green' : 'red',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              flexDirection: 'row',
+                              justifyContent: 'space-between'
                             }
-                            key={item.title}
-                          >
-                            {item.title}
-                            <InfoIcon />
-                          </ListItem>
-                        );
-                      })}
-                    </List>
-                  </Card>
-                ) : null}
-              </Box>
+                          }
+                          key={item.title}
+                        >
+                          {item.title}
+                          <InfoIcon />
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                </Card>
+              ) : null}
             </Box>
           </Box>
-          {article && <Box component={'div'} dangerouslySetInnerHTML={{ __html: article.articleBody }} />}
         </Box>
-      </Container>
+        {article && <Box component={'div'} dangerouslySetInnerHTML={{ __html: article.articleBody }} />}
+      </Box>
 
       <Box
         sx={{
@@ -289,21 +271,10 @@ const Article = () => {
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },
           justifyContent: 'space-around',
-          flexWrap: 'wrap',
+          flexWrap: 'wrap'
         }}
       >
-        <Card sx={{ bgcolor: 'background.default' }}>
-          {currentItem && (
-            <ItemPopup
-              open={open}
-              setOpen={setOpen}
-              item={currentItem}
-              type={currentType}
-              hasItem={hasItem}
-              setHasItem={setHasItem}
-            />
-          )}
-        </Card>
+        <Card sx={{ bgcolor: 'background.default' }}>{currentItem && <ItemPopup open={open} setOpen={setOpen} item={currentItem} type={currentType} hasItem={hasItem} setHasItem={setHasItem} />}</Card>
       </Box>
     </>
   );

@@ -10,17 +10,16 @@ const cards = [
   {
     title: 'Tools',
     description: 'All the tools you need to get started with your project.',
-    image: 'https://www.letsbuild.com/wp-content/uploads/2017/06/tools-864983_1280.jpg',
+    image: 'https://www.letsbuild.com/wp-content/uploads/2017/06/tools-864983_1280.jpg'
   },
   {
     title: 'Materials',
     description: 'All the materials you need to get started with your project.',
-    image: 'https://www.structuralguide.com/wp-content/uploads/2022/01/Construction-Materials.jpg',
-  },
+    image: 'https://www.structuralguide.com/wp-content/uploads/2022/01/Construction-Materials.jpg'
+  }
 ];
 
-const introString =
-  'Here you will find information about diffrent tools and materials mentioned around in our application and articles. So go ahead and select a category below , to start exploring.';
+const introString = 'Here you will find information about diffrent tools and materials mentioned around in our application and articles. So go ahead and select a category below , to start exploring.';
 
 interface PageTitleProps {
   title: string;
@@ -65,23 +64,23 @@ export default function Wiki() {
         sx={{
           pt: 8,
           pb: 6,
-          flexGrow: 1,
+          flexGrow: 1
         }}
       >
-        <Container maxWidth="sm">
-          <Typography component="h1" variant="h2" align="center" color="text.primary" gutterBottom>
+        <Container maxWidth='sm'>
+          <Typography component='h1' variant='h2' align='center' color='text.primary' gutterBottom>
             {!results ? 'Our Tool-O-Pedia' : results.title}
           </Typography>
-          <Typography variant="h5" align="center" color="text.secondary" paragraph>
+          <Typography variant='h5' align='center' color='text.secondary' paragraph>
             {!results ? introString : results.description}
           </Typography>
-          <Stack sx={{ pt: 4 }} direction="row" spacing={2} justifyContent="center">
+          <Stack sx={{ pt: 4 }} direction='row' spacing={2} justifyContent='center'>
             {/* <Button variant="contained">Main call to action</Button>
                             <Button variant="outlined">Secondary action</Button> */}
           </Stack>
         </Container>
       </Box>
-      <Container sx={{ py: 8 }} maxWidth="md">
+      <Container maxWidth='md'>
         {/* End hero unit */}
         <Grid container sx={{ display: 'flex', justifyContent: 'space-around' }}>
           {!params.type && <CardBox array={cards} />}

@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import MiniNavbar from '../layoutComponents/MiniNavbar';
 import { Container } from '@mui/material';
@@ -7,37 +6,34 @@ import { Outlet } from 'react-router-dom';
 const links = [
   {
     name: 'Articles',
-    path: 'articles',
+    path: 'articles'
   },
   {
     name: 'Users',
-    path: 'users',
+    path: 'users'
   },
   {
     name: 'Materials',
-    path: 'materials',
+    path: 'materials'
   },
   {
     name: 'Tools',
-    path: 'tools',
+    path: 'tools'
   },
   {
     name: 'Warehouse',
-    path: 'warehouses',
+    path: 'warehouses'
   },
   {
     name: 'Library',
-    path: 'libraries',
-  },
+    path: 'libraries'
+  }
 ];
 
 const AdminLayout = () => {
   return (
     <>
-      <MiniNavbar links={links} />
-      <Container maxWidth="xl" sx={{ flexGrow: 1, pt: 2 }}>
-        <Outlet />
-      </Container>
+      <Outlet />
     </>
   );
 };

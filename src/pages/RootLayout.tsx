@@ -12,6 +12,7 @@ import { AuthState } from 'store/authSlice';
 import { RootState } from 'store/store';
 import { useSelector } from 'react-redux';
 import LoadingSpinner from 'components/Backdrop';
+import { Container } from '@mui/material';
 
 export default function RootLayout() {
   const { user } = useSelector((state: RootState) => state.auth) as AuthState;
@@ -21,7 +22,9 @@ export default function RootLayout() {
         <header>
           <Navbar />
         </header>
-        <Outlet />
+        <Container maxWidth='xl' sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', pt: 8, pb: 8 }}>
+          <Outlet />
+        </Container>
         <ScrollToTopButton />
         {user && <Chat />}
         <CustomizedSnackbar />

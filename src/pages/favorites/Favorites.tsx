@@ -24,15 +24,8 @@ const Favorites = () => {
     }
   }, [user]);
   return (
-    <Container maxWidth="xl" sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-      <Typography
-        sx={{ textUnderlinePosition: 'under', textDecoration: 'underline' }}
-        color={'text.secondary'}
-        mt={10}
-        textAlign={'center'}
-        variant="h4"
-        fontWeight={700}
-      >
+    <>
+      <Typography sx={{ textUnderlinePosition: 'under', textDecoration: 'underline' }} color={'text.secondary'} mt={10} textAlign={'center'} variant='h4' fontWeight={700}>
         Your favorites
       </Typography>
       <Box
@@ -44,7 +37,7 @@ const Favorites = () => {
           flexDirection: { xs: 'column', md: 'row' },
           rowGap: 4,
           columnGap: 10,
-          mt: 10,
+          mt: 10
         }}
       >
         {articles.length > 0 &&
@@ -52,7 +45,7 @@ const Favorites = () => {
             return <ArticleCard key={article.title} article={article} />;
           })}
       </Box>
-    </Container>
+    </>
   );
 };
 

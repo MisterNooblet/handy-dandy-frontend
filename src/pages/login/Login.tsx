@@ -6,9 +6,7 @@ import { Container } from '@mui/material';
 const Login = () => {
   return (
     <>
-      <Container maxWidth="xl" sx={{ flexGrow: 1 }}>
-        <LoginForm />
-      </Container>
+      <LoginForm />
     </>
   );
 };
