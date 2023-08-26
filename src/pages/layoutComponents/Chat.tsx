@@ -10,6 +10,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import greet from 'dtgreeter';
 import RatingBoxComponent from 'components/RatingBox';
+import styles from './Chat.module.css';
 
 const socket = io(import.meta.env.VITE_SOCKET_PATH as string);
 
@@ -96,7 +97,7 @@ const Chat: React.FC = () => {
                   <Avatar sx={{ m: 1 }} src={assistantpfp}>
                     {user?.fullName}
                   </Avatar>
-                  <ListItemText sx={{ pt: 1 }} primary={<ReactMarkdown remarkPlugins={[remarkGfm]}>{chat[i] ? chat[i] : 'Handy is thinking...'}</ReactMarkdown>} />
+                  <ListItemText className={styles.handyResponseMessage} sx={{ pt: 1 }} primary={<ReactMarkdown remarkPlugins={[remarkGfm]}>{chat[i] ? chat[i] : 'Handy is thinking...'}</ReactMarkdown>} />
                 </Box>
               </ListItem>
             ))}
