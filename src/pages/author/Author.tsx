@@ -1,4 +1,3 @@
-import Container from '@mui/material/Container';
 import { ArticleManager } from 'pages/admin';
 import React from 'react';
 

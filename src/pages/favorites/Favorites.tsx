@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Box } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { advancedRequest } from 'utils/apiData';
 import { ArticleResponse } from 'utils/models';
 import { AuthState } from 'store/authSlice';

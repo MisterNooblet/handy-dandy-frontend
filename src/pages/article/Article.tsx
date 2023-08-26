@@ -1,4 +1,4 @@
-import { Typography, Card, Box, CardMedia, List, ListItem, Container } from '@mui/material';
+import { Typography, Card, Box, CardMedia, List, ListItem } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import InfoIcon from '@mui/icons-material/Info';
 import { useDispatch, useSelector } from 'react-redux';

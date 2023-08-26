@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import React, { useState, useEffect } from 'react';
 import { getTopArticles } from 'utils/apiData';
